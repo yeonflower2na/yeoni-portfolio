@@ -198,7 +198,10 @@ function updateBackground() {
   }
 }
 
-// wheel 이벤트 - 슬라이드 이동 및 배경색 전환
+// wheel
+let footerScrollThreshold = 80;  // 푸터 등장 스크롤 임계치
+let footerScrollProgress = 0;    // 현재 푸터 스크롤 진행 상태
+
 window.addEventListener('wheel', (e) => {
   if (e.deltaY > 0) {
     // 아래로 스크롤
@@ -208,53 +211,69 @@ window.addEventListener('wheel', (e) => {
         prologue.style.left = currentLocation * -5 + '%';
       }
 
+      // 3페이지에서 4페이지로 넘어가는 로직
       if (currentLocation === 40) {
-        if (!slide3Hold) {
-          slide3Hold = true;
-        } else {
-          slide3Locked = true;
-          slide3Progress += textMoveSpeed;
-          leftText.style.transform = `translateX(-${80 + slide3Progress}%)`;
-          rightText.style.transform = `translateX(${80 + slide3Progress}%)`;
+        slide3Hold = true;
+        slide3Locked = true;
+        
+        slide3Progress += textMoveSpeed;
+        leftText.style.transform = `translateX(-${80 + slide3Progress}%)`;
+        rightText.style.transform = `translateX(${80 + slide3Progress}%)`;
 
-          if (slide3Progress >= maxTextDistance) {
-            slide3Locked = false;
-            slide3Hold = false;
+        if (slide3Progress >= maxTextDistance) {
+          slide3Locked = false;
+          slide3Hold = false;
 
-            if (!slide4Animated) {
-              slide4.style.opacity = '1';
-              slide4Animated = true;
+          if (!slide4Animated) {
+            slide4.style.opacity = '1';
+            slide4Animated = true;
 
-              setTimeout(() => {
-                currentLocation = 60;
-                prologue.style.left = currentLocation * -5 + '%';
-              }, 1000);
-            }
+            setTimeout(() => {
+              currentLocation = 60;
+              prologue.style.left = currentLocation * -5 + '%';
+            }, 1000);
           }
         }
       }
 
+      // 4페이지에서 푸터 등장 지연
       if (currentLocation === 60 && slide4Animated) {
-        atFooter = true;
-        footer.style.transform = 'translateY(0)';
+        footerScrollProgress += 10;  // 스크롤할 때마다 증가
+        
+        if (footerScrollProgress >= footerScrollThreshold) {
+          atFooter = true;
+          footer.style.transform = 'translateY(0)';
+        }
       }
     }
   } else {
     // 위로 스크롤
     if (atFooter) {
+      // 푸터에서 위로 스크롤하면 4페이지로 복귀
       atFooter = false;
       footer.style.transform = 'translateY(100vh)';
       currentLocation = 60;
       prologue.style.left = currentLocation * -5 + '%';
+      
+      // 푸터 스크롤 초기화
+      footerScrollProgress = 0;
     } else if (currentLocation === 60 && !footerLock) {
+      // 4페이지에서 3페이지로 돌아가기
       currentLocation = 40;
       prologue.style.left = currentLocation * -5 + '%';
+      
+      // 4페이지 숨기기
+      slide4.style.opacity = '0';
+      slide4Animated = false;
+      footerScrollProgress = 0;  // 초기화
     } 
     else if (currentLocation === 40) {
+      // 3페이지에서 텍스트 애니메이션 되돌리기
       slide3Progress -= textReturnSpeed;
       leftText.style.transform = `translateX(-${80 + slide3Progress}%)`;
       rightText.style.transform = `translateX(${80 + slide3Progress}%)`;
 
+      // 3페이지에서 2페이지로 자연스럽게 이동
       if (slide3Progress <= 0) {
         slide3Progress = 0;
         slide3Locked = false;
@@ -262,25 +281,24 @@ window.addEventListener('wheel', (e) => {
         currentLocation = 39;
         prologue.style.left = currentLocation * -5 + '%';
       }
-    }
-    if (currentLocation === 39) {
-      slide3Progress = 0;
-      slide3Hold = false;
-      slide3Locked = false;
-    }
-    if (currentLocation > 0 && currentLocation < 40 && !slide3Locked) {
+    } 
+    else if (currentLocation > 0 && currentLocation < 40 && !slide3Locked) {
+      // 2페이지에서 1페이지로 이동
       currentLocation--;
       prologue.style.left = currentLocation * -5 + '%';
     }
     if (currentLocation === 0) {
+      // 1페이지에서 초기 상태로 복귀
       slide3Progress = 0;
       slide3Locked = false;
       slide3Hold = false;
       slide4Animated = false;
+      footerScrollProgress = 0;
     }
   }
   updateBackground();
 });
+
 
 
 
