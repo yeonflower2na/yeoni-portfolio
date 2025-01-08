@@ -353,13 +353,13 @@ body.default-background {
   background-image: url('../assets/images/project1.jpg');
 }
 .preview-card:nth-child(2):hover a::before {
-  background-image: url('../assets/images/project2-2.jpg');
+  background-image: url('../assets/images/project2-2.JPG');
 }
 .preview-card:nth-child(3):hover a::before {
   background-image: url('../assets/images/project3.jpg');
 }
 .preview-card:nth-child(4):hover a::before {
-  background-image: url('../assets/images/project4-1.jpg');
+  background-image: url('../assets/images/project4-1.JPG');
 }
 .preview-card:nth-child(5):hover a::before {
   background-image: url('../assets/images/project5.jpg');

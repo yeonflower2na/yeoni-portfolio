@@ -74,7 +74,7 @@ header{
   border: 1px solid var(--black);
 }
 .holo-container {
-  position: absolute;
+  position: fixed;
   left: 50%;
   bottom: 8%;
   transform: translateX(-50%);
