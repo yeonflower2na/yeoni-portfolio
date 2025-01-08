@@ -324,7 +324,7 @@ const slide1Observer = new IntersectionObserver((entries) => {
         slide1Content.forEach(p => {
           p.classList.add('fade-in');
         });
-      }, 2000);  
+      }, 2200);  
     }
   });
 }, slide1ObserverOptions);
