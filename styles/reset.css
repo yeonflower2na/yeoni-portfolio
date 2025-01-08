@@ -1,0 +1,216 @@
+/* font */
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
+@font-face {
+  font-family: 'Supply-Regular';
+  src: url('../assets/font/Supply-Regular.woff') format('woff');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'HelveticaNeue';
+  src: url('../assets/font/HelveticaNeueThin.woff') format('woff');
+  font-weight: 200;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'HelveticaNeue';
+  src: url('../assets/font/HelveticaNeueRoman.woff') format('woff');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'HelveticaNeue';
+  src: url('../assets/font/HelveticaNeueBold.woff') format('woff');
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Authentic-Signature';
+  src: url('../assets/font/Authentic-Signature.woff') format('woff');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Motterdam';
+  src: url('../assets/font/Motterdam.woff') format('woff');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'neodgm';
+  src: url('../assets/font/neodgm.woff') format('woff');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'TesseractDisplay';
+  src: url('../assets/font/TesseractDisplayWeb-Regular-Trial.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'TesseractDisplay';
+  src: url('../assets/font/TesseractDisplayWeb-Italic-Trial.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'TesseractDisplay';
+  src: url('../assets/font/TesseractDisplayWeb-Light-Trial.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'TesseractDisplay';
+  src: url('../assets/font/TesseractDisplayWeb-LightItalic-Trial.woff2') format('woff2');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'TesseractDisplay';
+  src: url('../assets/font/TesseractDisplayWeb-ExtraLight-Trial.woff2') format('woff2');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'TesseractDisplay';
+  src: url('../assets/font/TesseractDisplayWeb-ExtraLightItalic-Trial.woff2') format('woff2');
+  font-weight: 200;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'TesseractDisplay';
+  src: url('../assets/font/TesseractDisplayWeb-Bold-Trial.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'TesseractDisplay';
+  src: url('../assets/font/TesseractDisplayWeb-BoldItalic-Trial.woff2') format('woff2');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'TesseractDisplay';
+  src: url('../assets/font/TesseractDisplayWeb-Black-Trial.woff2') format('woff2');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'TesseractDisplay';
+  src: url('../assets/font/TesseractDisplayWeb-BlackItalic-Trial.woff2') format('woff2');
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* root */
+:root {
+  --white: #fff;
+  --black: #010000;
+  --dimblack: #1D1D1D;
+  --gray: #D9D9D9;
+  --red: #fe4534;
+  --background: #F1F1F1;
+  --about: #E3E4E9;
+  --card: #E9E9E8;
+}
+
+/* common */
+html {
+  scroll-behavior: smooth;
+}
+body {
+  font-family: 'HelveticaNeue', 'Pretendard-Regular', sans-serif;
+  color: var(--black);
+  /* cursor: none; */
+  background-color: var(--background);
+  /* overflow: hidden; */
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.inner{
+  margin: 0 40px;
+}
+/* drag 색상변경 */
+::selection {
+  background-color: var(--dimblack);
+  color: var(--white);
+}
+
+/* font-style */
+h1 {
+  font-size: 36px;
+  font-weight: 800;
+}
+h2 {
+  font-size: 32px;
+  font-weight: 700;
+}
+h3 {
+  font-size: 28px;
+  font-weight: 700;
+}
+h4 {
+  font-size: 24px;
+  font-weight: 700;
+}
+h5 {
+  font-size: 20px;
+  font-weight: 700;
+}
+h6 {
+  font-size: 18px;
+  font-weight: 700;
+}
+.body-text {
+  font-size: 16px;
+  font-weight: 800;
+}
+.header-text{
+  font-family: 'Supply-Regular';
+}
+.serif-text{
+  font-family: 'TesseractDisplay';
+}
+.motterdam-text{
+  font-family: 'Motterdam';
+}
+.light-text{
+  font-weight: 300;
+}
+.neodgm-text{
+  font-family: 'neodgm';
+}
+
+/* element */
+input {
+  border: none;
+  outline: none;
+}
+img {
+  display: block;
+  width: 100%;
+  object-fit: cover;
+}
+a {
+  text-decoration: none;
+  color: var(--black);
+}
+li {
+  list-style: none;
+}
+button {
+  cursor: pointer;
+  outline: none;
+  border: none;
+}

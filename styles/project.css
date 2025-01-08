@@ -1,0 +1,209 @@
+/* drag 색상변경 */
+::selection {
+  background-color: var(--red);
+  color: var(--white);
+}
+
+.project{
+  width: 100%;
+  height: 100vh;
+  background-color: var(--background);
+  overflow: hidden;
+}
+.container {
+  position: relative;
+}
+.project_frames {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 150px;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+.project_frame {
+  height: 75vh;
+  width: 65%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f0f0;
+  border-bottom: 1px solid #ccc;
+  font-size: 2rem;
+  box-shadow: 0 0px 15px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  overflow: hidden;
+  position: relative;
+}
+.project_frame a{
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+/* .project_frame a::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(1px);
+  filter: brightness(90%);
+  background-color: #ffffff38;
+  z-index: 1;
+  pointer-events: none;
+} */
+.project_frame a img{
+  width: 100%;
+  height: auto;
+  position: relative;
+  object-fit: cover;
+  display: block;
+}
+.scroll-wrapper {
+  position: fixed;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  transform: translateY(-50%);
+  /* overflow: hidden; */
+  z-index: 10;
+}
+.project_texts {
+  display: flex;
+  flex-wrap: nowrap;
+}
+.project_text {
+  flex: 0 0 23%;
+  text-align: center;
+  font-size: 3rem;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+  font-size: 3.5vw;
+  line-height: 2.8vw;
+  text-transform: uppercase;
+  position: relative;
+  -webkit-text-stroke: 1.5px #010000;
+  color: transparent;
+}
+.project_text:nth-child(1){
+  flex: 0 0 35%;
+  text-wrap: nowrap;
+}
+/* .project_text:not(:nth-child(1)){
+  flex: 0 0 28%;
+} */
+.project_text.active {
+  opacity: 1;
+  font-weight: bold;
+  color: var(--red);
+  -webkit-text-stroke: 0;
+}
+.project_text .shoutcut a{
+  backdrop-filter: blur(20px);
+  background-color: #ffffff38;
+  padding: 10px 40px;
+  color: var(--red);
+  border: 1px solid var(--red);
+  font-size: 1.3rem;
+  font-weight: 400;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: transform .6s ease-in, opacity 0.3s ease, visibility 0s .6s ease-in;
+  position: relative;
+  overflow: hidden;
+}
+.project_text .shoutcut a::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 0; 
+  background-color: var(--red); 
+  transition: height 0.5s ease;
+  z-index: -1;
+}
+.project_text.active .shoutcut a{
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+}
+.project_text.active .shoutcut a:hover::before {
+  height: 100%;
+}
+.project_text.active .shoutcut a:hover {
+  background-color: transparent;
+  color: white;
+  border-color: var(--red);
+  transform: translateY(-2px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.project_text.active .num{
+  color: var(--red);
+}
+.project_text .num{
+  display: inline-block;
+  font-family: 'Supply-Regular';
+  letter-spacing: 0;
+  -webkit-text-stroke: 0;
+  position: absolute;
+  top: -50px;
+  font-size: 1.3rem;
+  font-weight: 200;
+  color: var(--black);
+}
+/* other-project */
+.other_project {
+  flex: 0 0 33%;
+  text-align: center;
+  font-size: 4vw;
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+  line-height: 4vw;
+  text-transform: uppercase;
+  -webkit-text-stroke: 1px #010000;
+}
+.other_project.active {
+  opacity: 1;
+  -webkit-text-stroke: 0;
+}
+.project_text.hidden {
+  display: none;
+}
+/* dynamic-description */
+#dynamicDescription {
+  position: fixed;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #333;
+  text-align: center;
+  width: 80%;
+  white-space: nowrap;
+  overflow: hidden;
+  animation: blinkCursor 0.8s step-end infinite;
+  z-index: 20;
+  font-size: 1.2rem;
+}
+@keyframes blinkCursor {
+  50% { border-color: transparent; }
+}
+
+/* footer */
+.footer-include {
+  transform: translateY(100%);
+  transition: transform 0.8s ease;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+}
+
+.footer-include.visible {
+  transform: translateY(0);
+}
