@@ -8,9 +8,10 @@
 "From Designer to Developer"라는 주제를 기반으로,  
 창의성과 기술적 구현이 하나의 프로젝트 안에서 어떻게 조화를 이루는지 표현했습니다.  
 교육과 디자인의 배경을 가진 제가, 기술적 사고를 더해  
-사용자에게 유익한 경험을 제공하는 프론트엔드 개발자로 나아가는 모습을 확인할 수 있습니다.  
+사용자에게 유익한 경험을 제공하는 프론트엔드 개발자가 되겠습니다.
 
 ---
+
 
 ## 📂 프로젝트 폴더 구조
 
@@ -119,9 +120,6 @@ GSAP를 활용해 포물선을 그리며 앞으로 등장합니다.
 "Where the designer’s ideas meet the developer’s ability to realize them, I craft intuitive and practical experiences with care."
 디자이너의 아이디어와 개발자의 실현 가능성이 만나,
 창의와 세심함으로 직관적이고 실용적인 경험을 만들어갑니다.
-
-
-
 
 
 
