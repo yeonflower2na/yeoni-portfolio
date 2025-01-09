@@ -183,7 +183,7 @@ slide4.style.transition = 'opacity 1s ease';
 footer.style.transform = 'translateY(100vh)';
 footer.style.transition = 'transform 0.8s ease';
 
-const textMoveSpeed = 40;
+const textMoveSpeed = 45;
 const textReturnSpeed = 35;
 const maxTextDistance = 500;
 
@@ -201,9 +201,17 @@ function updateBackground() {
 // wheel
 let footerScrollThreshold = 80;
 let footerScrollProgress = 0;
+let scrollCounter = 0; 
+let isTransitioning = false;
+let hasSlide4Appeared = false;
 
 window.addEventListener('wheel', (e) => {
-  if (e.deltaY > 0) {
+  const isScrollingDown = e.deltaY > 0; 
+  // true: 아래로 스크롤, false: 위로 스크롤
+
+  if (isTransitioning) return;
+
+  if (isScrollingDown) {
     // 아래로 스크롤
     if (!atFooter) {
       if (currentLocation < 40 && !slide3Locked) {
@@ -211,11 +219,11 @@ window.addEventListener('wheel', (e) => {
         prologue.style.left = currentLocation * -5 + '%';
       }
 
-      // 3페이지에서 4페이지로 넘어가는 로직
+      // 3페이지에서 4페이지로 넘어가기
       if (currentLocation === 40) {
         slide3Hold = true;
         slide3Locked = true;
-        
+
         slide3Progress += textMoveSpeed;
         leftText.style.transform = `translateX(-${80 + slide3Progress}%)`;
         rightText.style.transform = `translateX(${80 + slide3Progress}%)`;
@@ -227,6 +235,7 @@ window.addEventListener('wheel', (e) => {
           if (!slide4Animated) {
             slide4.style.opacity = '1';
             slide4Animated = true;
+            hasSlide4Appeared = true;
 
             setTimeout(() => {
               currentLocation = 60;
@@ -239,7 +248,7 @@ window.addEventListener('wheel', (e) => {
       // 4페이지에서 푸터 등장 지연
       if (currentLocation === 60 && slide4Animated) {
         footerScrollProgress += 10;
-        
+
         if (footerScrollProgress >= footerScrollThreshold) {
           atFooter = true;
           footer.style.transform = 'translateY(0)';
@@ -249,53 +258,74 @@ window.addEventListener('wheel', (e) => {
   } else {
     // 위로 스크롤
     if (atFooter) {
+      // 푸터 -> 4페이지
       atFooter = false;
       footer.style.transform = 'translateY(100vh)';
       currentLocation = 60;
       prologue.style.left = currentLocation * -5 + '%';
-      
-      footerScrollProgress = 0;
-    } else if (currentLocation === 60 && !footerLock) {
-      // page4 -> page3
-      currentLocation = 40;
-      prologue.style.left = currentLocation * -5 + '%';
-      
-      // page4
-      slide4.style.opacity = '0';
-      slide4Animated = false;
-      footerScrollProgress = 0;  // 초기화
-    } 
-    else if (currentLocation === 40) {
-      // page3
-      slide3Progress -= textReturnSpeed;
-      leftText.style.transform = `translateX(-${80 + slide3Progress}%)`;
-      rightText.style.transform = `translateX(${80 + slide3Progress}%)`;
 
-      // page3 -> page2
-      if (slide3Progress <= 0) {
-        slide3Progress = 0;
-        slide3Locked = false;
-        slide3Hold = false;
-        currentLocation = 39;
-        prologue.style.left = currentLocation * -5 + '%';
+      footerScrollProgress = 0;
+    } else if (currentLocation === 60) {
+      // 4페이지 -> 3페이지
+      scrollCounter++;
+      if (scrollCounter === 1) {
+        slide4.style.opacity = '0.8';
+      } else if (scrollCounter === 2) {
+        slide4.style.opacity = '0.5';
+      } else if (scrollCounter >= 3) {
+        isTransitioning = true;
+        slide4.style.opacity = '0';
+        currentLocation = 40;
+
+        setTimeout(() => {
+          prologue.style.left = currentLocation * -5 + '%';
+          isTransitioning = false;
+          hasSlide4Appeared = false;
+        }, 500);
+
+        scrollCounter = 0;
       }
-    } 
-    else if (currentLocation > 0 && currentLocation < 40 && !slide3Locked) {
-      // page2 -> page1
+    } else if (currentLocation === 40) {
+      // 3페이지
+      if (!hasSlide4Appeared) {
+        slide3Progress -= textReturnSpeed;
+        leftText.style.transform = `translateX(-${80 + slide3Progress}%)`;
+        rightText.style.transform = `translateX(${80 + slide3Progress}%)`;
+
+        // 3페이지 -> 2페이지
+        if (slide3Progress <= 0) {
+          slide3Progress = 0;
+          slide3Locked = false;
+          slide3Hold = false;
+          currentLocation = 39;
+          prologue.style.left = currentLocation * -5 + '%';
+        }
+      } else {
+        // 4페이지
+        slide4.style.opacity = '0';
+        hasSlide4Appeared = false;
+        slide4Animated = false;
+      }
+    } else if (currentLocation > 0 && currentLocation < 40 && !slide3Locked) {
+      // 2페이지 -> 1페이지
       currentLocation--;
       prologue.style.left = currentLocation * -5 + '%';
     }
+
     if (currentLocation === 0) {
-      // page1
+      // 1페이지 초기화
       slide3Progress = 0;
       slide3Locked = false;
       slide3Hold = false;
       slide4Animated = false;
       footerScrollProgress = 0;
+      hasSlide4Appeared = false;
     }
   }
+
   updateBackground();
 });
+
 
 
 

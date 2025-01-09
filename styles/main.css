@@ -240,13 +240,13 @@ body.default-background {
   position: absolute;
   left: 45%;
   transform: translateX(-50%);
-  transition: transform 0.8s ease;
+  transition: transform 0.7s ease;
 }
 #slide3 span.right{
   position: absolute;
   right: 45%;
   transform: translateX(50%);
-  transition: transform 0.8s ease;
+  transition: transform 0.7s ease;
 }
 
 /* #slide4 */
