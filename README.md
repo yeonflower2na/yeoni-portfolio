@@ -211,7 +211,9 @@ Project 섹션에서는 제가 진행한 주요 프로젝트를 소개하며, �
 </div>
 <br/>
 
-**한국소비자원 홈페이지 리뉴얼**<br/>
+**한국소비자원 리뉴얼**<br/>
+[한국소비자원 리뉴얼](https://github.com/yeonflower2na/Korea-Consumer-Agency-Renual) 
+<br/>
 목적:<br/>
 기존 사이트의 복잡한 메뉴 구조를 간소화하고, 정보 접근성을 개선하는 데 초점을 맞췄습니다.<br/>
 주요 사용층을 분석해 다크 테마를 적용해 가독성을 강화했습니다.<br/><br/>
@@ -222,6 +224,7 @@ Project 섹션에서는 제가 진행한 주요 프로젝트를 소개하며, �
 데스크톱과 모바일 환경 모두에서 일관된 사용자 경험을 제공하도록 제작했습니다.
 <br/><br/>
 **인터파크 티켓 리뉴얼**
+[인터파크 티켓 리뉴얼](http://github.com/yeonflower2na) 
 목적:<br/>
 사용자가 예매를 더 쉽게 할 수 있도록 레이아웃과 기능을 재구성했습니다.<br/><br/>
 구성 요소:<br/>
@@ -237,7 +240,10 @@ Other Project를 클릭하면 제 디자인 작품을 보여주는 Design Page�
 <br/><br/>
 ## Design Page
 Design 섹션에서는 이전에 작업했던 디자인 결과물을 정리했습니다.<br/>
-
+<div align="left">
+  <img src="https://github.com/yeonflower2na/yeoni-portfolio/blob/main/readmeImg/design.gif?raw=true" width="800"/>
+</div>
+<br/>
 **카테고리별 구성:** <br/>
 편집디자인, 포스터 디자인, 신문 그래픽디자인 등으로 분류해 작업물을 나누었습니다.<br/>
 'All' 탭에서는 모든 작업물을 한눈에 확인할 수 있습니다.<br/>
