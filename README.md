@@ -2,7 +2,7 @@
 
 ## 🖋️ From Designer to Developer
 
-<div align="center">
+<div align="left">
   <img src="https://github.com/user-attachments/assets/c68f349e-2262-44b7-ae8f-9ff4623c6802" width="800"/>
 </div>
 
@@ -48,7 +48,7 @@ yeoni-portfolio/
 
 ## 🏗️ 전체적인 구조
 ### Header
-<div align="center">
+<div align="left">
   <img src="https://github.com/user-attachments/assets/4e84cf38-f5c2-43a9-8279-acbe55925b0a" width="800"/>
 </div>
 <br/>
@@ -69,7 +69,7 @@ Header는 화면 상단에 고정되어 있으며, 포트폴리오의 첫인상�
 ### Footer
 Footer는 페이지 하단에 위치하며, 포트폴리오를 마무리하고 중요한 정보를 전달합니다.<br/>
 스크롤을 끝까지 내리면 등장하며, 사이트의 철학과 주요 연락 정보를 명확히 전달합니다.
-<div align="center">
+<div align="left">
   <img src="https://github.com/user-attachments/assets/72c0d8b4-35a6-4f29-9525-8daeeedb10a2" width="800"/>
 </div>
 <br/>
@@ -84,8 +84,8 @@ Footer는 깔끔하고 직관적인 디자인으로 사용자 경험을 보완�
 
 <br/><br/>
 ### Contact
-<div align="center">
-  <img src="https://github.com/user-attachments/assets/b9c9c66f-89ba-4e56-bd74-5319cd4ae296" width="800"/>
+<div align="left">
+  <img src="https://github.com/user-attachments/assets/b9c9c66f-89ba-4e56-bd74-5319cd4ae296" width="200"/>
 </div>
 <br/>
 Contact는 화면 하단 중앙에 고정되어 있어 어디서든 빠르게 접근할 수 있습니다.
@@ -104,7 +104,7 @@ Contact는 직관적인 인터페이스로 사용자 편의를 극대화한 기�
 <br/><br/><br/>
 ## Intro
 인트로는 "From Designer to Developer"라는 핵심 주제를 텍스트 애니메이션으로 표현한 화면으로 시작됩니다.<br/>
-<div align="center">
+<div align="left">
   <img src="https://github.com/user-attachments/assets/d97aaf6a-21ac-41e6-8914-7d6301f51644" width="800"/>
 </div>
 <br/>
@@ -119,12 +119,14 @@ From: Idea To: Interaction →
 ## Main Page
 1페이지는 포트폴리오의 메인 메시지를 전달하며,
 시각적 효과와 인터랙티브 요소를 통해 강렬한 인상을 남기는 섹션입니다.
-
+<div align="left">
+  <img src="https://github.com/user-attachments/assets/f4b05a25-5455-48a6-a06d-a942e37b3d5f" width="800"/>
+</div>
 <br/>
-"From Designer to Developer"
-중앙에 배치된 핵심 텍스트는 차례로 등장하며,
-움직이는 그라데이션 애니메이션 효과를 통해 시각적으로 강조됩니다.
-이 텍스트는 디자이너에서 개발자로 전환한 저의 여정을 상징적으로 표현합니다.
+"From Designer to Developer"<br/>
+중앙에 배치된 핵심 텍스트는 차례로 등장하며,<br/>
+움직이는 그라데이션 애니메이션 효과를 통해 시각적으로 강조됩니다.<br/>
+이 텍스트는 디자이너에서 개발자로 전환한 저의 여정을 상징적으로 <br/>
 <br/>
 Three.js와 GSAP를 활용한 **3D 알파벳 D**<br/>
 **D**esigner와 **D**eveloper를 모두 아우르는 알파벳 D는<br/>
@@ -137,6 +139,11 @@ GSAP를 활용해 포물선을 그리며 앞으로 등장합니다.<br/>
 이 움직임은 D가 화면 중심에 안정적으로 배치될 때까지 부드럽게 이어지며<br/>
 사용자의 시선을 자연스럽게 끌어옵니다.<br/>
 <br/><br/>
+<div align="left">
+  <img src="https://github.com/user-attachments/assets/25452536-4f98-4b88-a689-17c11d4608d1" width="300"/>
+</div>
+<br/>
+
 **호버 및 드래그 기능**<br/>
 알파벳 D 위에 마우스를 올리면 **"move Freely"**라는 안내 텍스트가 나타납니다.<br/>
 드래그를 통해 D를 자유롭게 회전시키거나 움직일 수 있어,<br/>
@@ -153,12 +160,20 @@ GSAP를 활용해 포물선을 그리며 앞으로 등장합니다.<br/>
 디자인과 개발의 융합이라는 주제를 구체적으로 전달합니다.<br/>
 텍스트는 아래와 같이 구성되어 있습니다.
 <br/><br/>
+<div align="left">
+  <img src="https://github.com/user-attachments/assets/a9bb9519-971c-4483-ac40-ca8cbdb57383" width="800"/>
+</div>
+<br/>
 "Where the designer’s ideas meet the developer’s ability to realize them,<br/>
 I craft intuitive and practical experiences with care."<br/>
 디자이너의 아이디어와 개발자의 실현 가능성이 만나,<br/>
 창의와 세심함으로 직관적이고 실용적인 경험을 만들어갑니다.<br/><br/>
 스크롤하면 "From Designer"와 "To Developer"라는 두 단어가 분리되며 Preview 섹션으로 전환됩니다.
 <br/><br/>
+<div align="left">
+  <img src="https://github.com/user-attachments/assets/a9bb9519-971c-4483-ac40-ca8cbdb57383" width="800"/>
+</div>
+<br/>
 **Preview Section**<br/>
 Preview 섹션은 작업물의 미리보기를 제공하며, 프로젝트와 디자인 섹션으로 이동할 수 있습니다.<br/>
 각 카드에 호버하면 작업물의 대표 이미지가 나타나고, 클릭하면 상세 페이지로 이동합니다.
