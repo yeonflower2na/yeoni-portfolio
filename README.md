@@ -3,7 +3,7 @@
 ## 🖋️ From Designer to Developer
 
 <div align="left">
-  <img src="https://github.com/user-attachments/assets/c68f349e-2262-44b7-ae8f-9ff4623c6802" width="800"/>
+  <img src="https://github.com/user-attachments/assets/c68f349e-2262-44b7-ae8f-9ff4623c6802" width="700"/>
 </div>
 
 안녕하세요, 저는 편집디자이너에서 프론트엔드 개발자로 전환한 **정연희**입니다.  
@@ -49,7 +49,7 @@ yeoni-portfolio/
 ## 🏗️ 전체적인 구조
 ### Header
 <div align="left">
-  <img src="https://github.com/user-attachments/assets/4e84cf38-f5c2-43a9-8279-acbe55925b0a" width="800"/>
+  <img src="https://github.com/user-attachments/assets/4e84cf38-f5c2-43a9-8279-acbe55925b0a" width="700"/>
 </div>
 <br/>
 Header는 화면 상단에 고정되어 있으며, 포트폴리오의 첫인상을 결정짓는 중요한 역할을 합니다.
@@ -71,7 +71,7 @@ Header는 화면 상단에 고정되어 있으며, 포트폴리오의 첫인상�
 Footer는 페이지 하단에 위치하며, 포트폴리오를 마무리하고 중요한 정보를 전달합니다.<br/>
 스크롤을 끝까지 내리면 등장하며, 사이트의 철학과 주요 연락 정보를 명확히 전달합니다.
 <div align="left">
-  <img src="https://github.com/user-attachments/assets/72c0d8b4-35a6-4f29-9525-8daeeedb10a2" width="800"/>
+  <img src="https://github.com/user-attachments/assets/72c0d8b4-35a6-4f29-9525-8daeeedb10a2" width="700"/>
 </div>
 <br/>
 구성 요소
@@ -104,7 +104,7 @@ Contact는 직관적인 인터페이스로 사용자 편의를 극대화한 기�
 ## Intro
 인트로는 "From Designer to Developer"라는 핵심 주제를 텍스트 애니메이션으로 표현한 화면으로 시작됩니다.<br/>
 <div align="left">
-  <img src="https://github.com/user-attachments/assets/d97aaf6a-21ac-41e6-8914-7d6301f51644" width="800"/>
+  <img src="https://github.com/user-attachments/assets/d97aaf6a-21ac-41e6-8914-7d6301f51644" width="700"/>
 </div>
 <br/>
 중앙에 배치된 문구가 차례로 등장하며, 세 가지 메시지를 순차적으로 보여줍니다.<br/>
@@ -119,7 +119,7 @@ From: Idea To: Interaction →
 1페이지는 포트폴리오의 메인 메시지를 전달하며,
 시각적 효과와 인터랙티브 요소를 통해 강렬한 인상을 남기는 섹션입니다.
 <div align="left">
-  <img src="https://github.com/user-attachments/assets/f4b05a25-5455-48a6-a06d-a942e37b3d5f" width="800"/>
+  <img src="https://github.com/user-attachments/assets/f4b05a25-5455-48a6-a06d-a942e37b3d5f" width="700"/>
 </div>
 <br/>
 
@@ -164,7 +164,7 @@ GSAP를 활용해 포물선을 그리며 앞으로 등장합니다.<br/>
 텍스트는 아래와 같이 구성되어 있습니다.
 <br/><br/>
 <div align="left">
-  <img src="https://github.com/user-attachments/assets/a9bb9519-971c-4483-ac40-ca8cbdb57383" width="800"/>
+  <img src="https://github.com/user-attachments/assets/a9bb9519-971c-4483-ac40-ca8cbdb57383" width="700"/>
 </div>
 <br/>
 "Where the designer’s ideas meet the developer’s ability to realize them,<br/>
@@ -174,11 +174,11 @@ I craft intuitive and practical experiences with care."<br/>
 스크롤하면 "From Designer"와 "To Developer"라는 두 단어가 분리되며 Preview 섹션으로 전환됩니다.
 <br/><br/>
 <div align="left">
-  <img src="https://github.com/user-attachments/assets/a9bb9519-971c-4483-ac40-ca8cbdb57383" width="800"/>
+  <img src="https://github.com/user-attachments/assets/a9bb9519-971c-4483-ac40-ca8cbdb57383" width="700"/>
 </div>
 <br/>
 <div align="left">
-  <img src="https://github.com/yeonflower2na/yeoni-portfolio/blob/main/readmeImg/preview.gif?raw=true" width="800"/>
+  <img src="https://github.com/yeonflower2na/yeoni-portfolio/blob/main/readmeImg/preview.gif?raw=true" width="700"/>
 </div>
 **Preview Section**<br/>
 Preview 섹션은 작업물의 미리보기를 제공하며, 프로젝트와 디자인 섹션으로 이동할 수 있습니다.<br/>
@@ -188,7 +188,7 @@ Preview 섹션은 작업물의 미리보기를 제공하며, 프로젝트와 디
 ## About Page
 About 섹션에서는 저의 성장 과정과 경력을 간략히 정리하고, 추가적으로 상세 정보를 확인할 수 있도록 구성했습니다.
 <div align="left">
-  <img src="https://github.com/yeonflower2na/yeoni-portfolio/blob/main/readmeImg/about.gif?raw=true" width="800"/>
+  <img src="https://github.com/yeonflower2na/yeoni-portfolio/blob/main/readmeImg/about.gif?raw=true" width="700"/>
 </div>
 <br/>
 
@@ -211,7 +211,7 @@ Skill 섹션에서는 제가 익힌 기술들을 시각적으로 정리해 보�
 ## Project Page
 Project 섹션에서는 제가 진행한 주요 프로젝트를 소개하며, 인터랙티브한 요소를 통해 작업물의 세부 내용을 효과적으로 전달합니다.
 <div align="left">
-  <img src="https://github.com/yeonflower2na/yeoni-portfolio/blob/main/readmeImg/project.gif?raw=true" width="800"/>
+  <img src="https://github.com/yeonflower2na/yeoni-portfolio/blob/main/readmeImg/project.gif?raw=true" width="700"/>
 </div>
 <br/>
 
@@ -247,7 +247,7 @@ Other Project를 클릭하면 제 디자인 작품을 보여주는 Design Page�
 ## Design Page
 Design 섹션에서는 이전에 작업했던 디자인 결과물을 정리했습니다.<br/>
 <div align="left">
-  <img src="https://github.com/yeonflower2na/yeoni-portfolio/blob/main/readmeImg/design.gif?raw=true" width="800"/>
+  <img src="https://github.com/yeonflower2na/yeoni-portfolio/blob/main/readmeImg/design.gif?raw=true" width="700"/>
 </div>
 <br/>
 
