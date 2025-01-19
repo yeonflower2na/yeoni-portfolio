@@ -174,6 +174,9 @@ I craft intuitive and practical experiences with care."<br/>
   <img src="https://github.com/user-attachments/assets/a9bb9519-971c-4483-ac40-ca8cbdb57383" width="800"/>
 </div>
 <br/>
+<div align="left">
+  <img src="https://github.com/yeonflower2na/yeoni-portfolio/blob/main/readmeImg/preview.gif?raw=true" width="800"/>
+</div>
 **Preview Section**<br/>
 Preview 섹션은 작업물의 미리보기를 제공하며, 프로젝트와 디자인 섹션으로 이동할 수 있습니다.<br/>
 각 카드에 호버하면 작업물의 대표 이미지가 나타나고, 클릭하면 상세 페이지로 이동합니다.
