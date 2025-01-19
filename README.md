@@ -184,7 +184,10 @@ Preview 섹션은 작업물의 미리보기를 제공하며, 프로젝트와 디
 
 ## About Page
 About 섹션에서는 저의 성장 과정과 경력을 간략히 정리하고, 추가적으로 상세 정보를 확인할 수 있도록 구성했습니다.
-<br/><br/>
+<div align="left">
+  <img src="https://github.com/yeonflower2na/yeoni-portfolio/blob/main/readmeImg/about.gif?raw=true" width="800"/>
+</div>
+<br/>
 **구성:** 교육, 경력, 자격증 순서로 나열되어 있으며, 각 항목은 간결하고 명확하게 표현했습니다.<br/>
 **'About Me' 모달창:** <br/>
 'About Me' 버튼을 누르면 간단한 자기소개와 성장 배경을 담은 모달창이 나타납니다.<br/>
@@ -202,6 +205,12 @@ Skill 섹션에서는 제가 익힌 기술들을 시각적으로 정리해 보�
 
 
 ## Project Page
+Project 섹션에서는 제가 진행한 주요 프로젝트를 소개하며, 인터랙티브한 요소를 통해 작업물의 세부 내용을 효과적으로 전달합니다.
+<div align="left">
+  <img src="https://github.com/yeonflower2na/yeoni-portfolio/blob/main/readmeImg/project.gif?raw=true" width="800"/>
+</div>
+<br/>
+
 **한국소비자원 홈페이지 리뉴얼**<br/>
 목적:<br/>
 기존 사이트의 복잡한 메뉴 구조를 간소화하고, 정보 접근성을 개선하는 데 초점을 맞췄습니다.<br/>
