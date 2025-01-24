@@ -19,6 +19,7 @@
 | 이름                          | 링크                                                                                               |
 |-------------------------------|----------------------------------------------------------------------------------------------------|
 | 피그마 디자인 파일             | [피그마 Link](https://www.figma.com/design/52Z1kXW8xBte1H076f8MOL/portfolio?m=auto&t=samqyMTR5XNp228U-6)          |
+| 포트폴리오사이트            | [포트폴리오 Link](https://yeonflower2na.github.io/yeoni-portfolio/)          |
 
 <br/><br/>
 
