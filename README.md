@@ -1,16 +1,16 @@
 # Yeoni's Portfolio
 
-## 🖋️ From Designer to Developer
+## 🖋️ From Designer to Deblisher
 
 <div align="left">
   <img src="https://github.com/user-attachments/assets/c68f349e-2262-44b7-ae8f-9ff4623c6802" width="700"/>
 </div>
 
-안녕하세요, 저는 편집디자이너에서 프론트엔드 개발자로 전환한 **정연희**입니다.  
+안녕하세요, 저는 편집디자이너에서 UXUI 디자이너 & 퍼블리셔로 전환한 **정연희**입니다.  
 제 포트폴리오는 제가 걸어온 여정을 담은 공간으로,  <br/>
 디자이너로서의 창의성과 개발자로서의 기술을 조화롭게 결합하여<br/>
 사용자 경험을 중심으로 한 프로젝트와 작업물들을 담고 있습니다.<br/> 
-**"From Designer to Developer"** 라는 주제를 통해 전환의 여정을 시각적이고 상호작용적으로 표현했습니다.  
+**"From Designer to Deblisher"** 라는 주제를 통해 전환의 여정을 시각적이고 상호작용적으로 표현했습니다.  
 
 <br/><br/>
 
@@ -103,13 +103,13 @@ Contact는 직관적인 인터페이스로 사용자 편의를 극대화한 기�
 
 <br/><br/>
 ## Intro
-인트로는 "From Designer to Developer"라는 핵심 주제를 텍스트 애니메이션으로 표현한 화면으로 시작됩니다.<br/>
+인트로는 "From Designer to Deblisher"라는 핵심 주제를 텍스트 애니메이션으로 표현한 화면으로 시작됩니다.<br/>
 <div align="left">
   <img src="https://github.com/user-attachments/assets/d97aaf6a-21ac-41e6-8914-7d6301f51644" width="700"/>
 </div>
 <br/>
 중앙에 배치된 문구가 차례로 등장하며, 세 가지 메시지를 순차적으로 보여줍니다.<br/>
-From: Designer To: Developer →
+From: Designer To: Deblisher →
 From: Sketch To: Screen →
 From: Idea To: Interaction →
 각 문구는 움직이는 그라데이션 애니메이션으로 강조되며, 화면의 주제를 전달합니다.<br/>
@@ -124,7 +124,7 @@ From: Idea To: Interaction →
 </div>
 <br/>
 
-"From Designer to Developer" <br/>
+"From Designer to Deblisher" <br/>
 중앙에 배치된 핵심 텍스트는 차례로 등장하며, <br/>
 움직이는 그라데이션 애니메이션 효과를 통해 시각적으로 강조됩니다. <br/>
 이 텍스트는 디자이너에서 개발자로 전환한 저의 여정을 상징적으로 <br/>
@@ -168,11 +168,11 @@ GSAP를 활용해 포물선을 그리며 앞으로 등장합니다.<br/>
   <img src="https://github.com/user-attachments/assets/a9bb9519-971c-4483-ac40-ca8cbdb57383" width="700"/>
 </div>
 <br/>
-"Where the designer’s ideas meet the developer’s ability to realize them,<br/>
+"Where the designer’s ideas meet the Deblisher’s ability to realize them,<br/>
 I craft intuitive and practical experiences with care."<br/>
 디자이너의 아이디어와 개발자의 실현 가능성이 만나,<br/>
 창의와 세심함으로 직관적이고 실용적인 경험을 만들어갑니다.<br/><br/>
-스크롤하면 "From Designer"와 "To Developer"라는 두 단어가 분리되며 Preview 섹션으로 전환됩니다.
+스크롤하면 "From Designer"와 "To Deblisher"라는 두 단어가 분리되며 Preview 섹션으로 전환됩니다.
 <br/><br/>
 <div align="left">
   <img src="https://github.com/user-attachments/assets/a9bb9519-971c-4483-ac40-ca8cbdb57383" width="700"/>
