@@ -7,13 +7,12 @@
   min-width: 1200px;
   margin: 0 auto;
   padding: 4rem 1rem 0;
-  overflow: hidden;
 }
 
 .detail-container {
   display: flex;
   width: 100%;
-  height: 80vh; /* 원하는 높이로 조정 가능 */
+  height: 85vh;
   overflow: hidden;
 }
 
@@ -47,7 +46,7 @@
 .detail-video video {
   width: 100%;
   height: auto;
-  max-height: 70vh;
+  max-height: 80vh;
   display: block;
 }
 
@@ -58,9 +57,8 @@
 }
 
 .detail-box {
-  background-color: #fff;
   border-radius: 8px;
-  padding: 1.5rem;
+  padding: 2rem;
   box-shadow: 0 0 10px rgba(0,0,0,0.05);
 }
 
@@ -77,6 +75,10 @@
   color: #444;
 }
 
+.detail-text strong, .detail-list strong{
+  font-weight: 600;
+}
+
 .detail-list {
   list-style: disc;
   padding-left: 1.5rem;
@@ -86,6 +88,64 @@
 
 .detail-list li {
   margin-bottom: 0.4rem;
+  color: var(--dimblack)
+}
+
+.list-tab span{
+  display: inline-block;
+  margin-right: .25rem;
+  border: 1px solid var(--dimblack);
+  border-radius: 50rem;
+  width: 5rem;
+  text-align: center;
+  font-weight: 500;
+}
+
+.detail-link li{
+  margin-bottom: .5rem;
+  padding: .5rem .5rem .5rem 1.2rem;
+  border: 1px solid var(--red);
+  width: 17rem;
+  height: 2.75rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.detail-link li a{
+  color: var(--red);
+}
+
+.detail-link li:hover{
+  background-color: var(--red);
+}
+
+.detail-link li:hover a{
+  color: var(--white);
+}
+
+.detail-list li a, .detail-link li a{
+  width: 100%;
+  height: 100%;
+}
+
+.detail-feature .detail-article-title{
+  font-size: 1.25rem;
+  color: var(--black);
+}
+
+.detail-list .main-desc{
+  margin-bottom: 1.25rem;
+}
+
+.detail-list .main-desc span{
+  display: block;
+  width: max-content;
+  padding: .25rem .5rem;
+  background-color: var(--gray);
+  color: var(--dimblack);
+  text-align: center;
+  font-weight: 600;
 }
 
 .detail-pre {
@@ -110,7 +170,7 @@
   }
 }
 
-/* 반응형: 모바일에서는 세로로 쌓이게 */
+/* media Query */
 @media (max-width: 900px) {
   .detail-container {
     flex-direction: column;
