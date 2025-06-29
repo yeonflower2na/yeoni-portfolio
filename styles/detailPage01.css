@@ -1,0 +1,125 @@
+::selection {
+  background-color: var(--dimblack);
+  color: var(--white);
+}
+
+.detail-main {
+  min-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 1rem 0;
+  overflow: hidden;
+}
+
+.detail-container {
+  display: flex;
+  width: 100%;
+  height: 80vh; /* 원하는 높이로 조정 가능 */
+  overflow: hidden;
+}
+
+.detail-left,
+.detail-right {
+  width: 50%;
+  height: 100%;
+  overflow: auto;
+  box-sizing: border-box;
+}
+
+.detail-right{
+  margin-top: 2rem;
+}
+
+.detail-left {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.detail-video {
+  width: 100%;
+  aspect-ratio: 16/9;
+  background-color: #000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.detail-video video {
+  width: 100%;
+  height: auto;
+  max-height: 70vh;
+  display: block;
+}
+
+.detail-video iframe {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.detail-box {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+}
+
+.detail-subtitle {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  color: #2c3e50;
+}
+
+.detail-text {
+  line-height: 1.8;
+  font-size: 1rem;
+  color: #444;
+}
+
+.detail-list {
+  list-style: disc;
+  padding-left: 1.5rem;
+  margin-top: 0.5rem;
+  color: #555;
+}
+
+.detail-list li {
+  margin-bottom: 0.4rem;
+}
+
+.detail-pre {
+  background-color: #f8f9fa;
+  padding: 1rem;
+  border-radius: 6px;
+  font-family: 'Courier New', monospace;
+  white-space: pre-line;
+  font-size: 0.9rem;
+  color: #444;
+  overflow-x: auto;
+}
+
+@media screen and (max-width: 768px) {
+  .detail-container {
+    flex-direction: column;
+  }
+  .detail-left,
+  .detail-right {
+    width: 100%;
+    min-width: 0;
+  }
+}
+
+/* 반응형: 모바일에서는 세로로 쌓이게 */
+@media (max-width: 900px) {
+  .detail-container {
+    flex-direction: column;
+    height: auto;
+  }
+  .detail-left,
+  .detail-right {
+    width: 100%;
+    height: auto;
+    max-height: none;
+  }
+}
