@@ -163,7 +163,7 @@
   background-color: var(--gray);
   color: var(--dimblack);
   text-align: center;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .detail-list .sub-desc span{

@@ -140,14 +140,18 @@
 }
 .slide1-content{
   position: absolute;
-  top: 58%;
-  left: 52%;
+  top: 60%;
+  left: 54%;
   transform: translate(-50%, -50%);
 }
 .slide1-content p{
   font-size: 1.15rem;
-  line-height: 1.3;
+  line-height: 1.5;
   margin: 10px 0;
+  font-weight: 300;
+}
+.slide1-content .slide1-title{
+  font-weight: 500;
 }
 .slide1-content:nth-child(1){
   font-weight: 600;
@@ -162,7 +166,7 @@
   left: -35%;
   top: 150%;
   font-family: 'neodgm';
-  color: #D3D3D3;
+  color: var(--gray);
   font-size: 1.5rem;
   padding-left: 35px;
   word-spacing: -10px;
@@ -170,7 +174,7 @@
 .slide1-content .drag::before {
   content: '';
   position: absolute;
-  background: url('../assets/images/drag-icon-gray.svg') no-repeat center;
+  background: url('../assets/images/drag-icon-gray2.svg') no-repeat center;
   width: 26px;
   height: 30px;
   top: 35%;
@@ -180,13 +184,71 @@
   transition: background 0.3s ease;
 }
 .drag.hidden {
-  opacity: 0;
+  opacity: 100;
   transform: translateY(20px);
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
 #model-container:hover + .slide1-content .drag {
   opacity: 1;
   transform: translateY(0);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.circle-button {
+  position: absolute;
+  bottom: 10%;
+  right: 5%;
+  width: 125px;
+  height: 125px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10;
+}
+.circle-button .scroll-btn{
+  position: absolute;
+  top: -50%;
+  right: -15%;
+  text-align: center;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
+}
+.circle-button:hover .scroll-btn {
+  opacity: 1;
+  visibility: visible;
+}
+.circle-button img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.circle {
+  animation: rotate-circle 10s linear infinite;
+}
+.circle-arrow {
+  z-index: 10;
+  width: 80%;
+  height: auto;
+  transform: scale(0.4);
+}
+.circle-button:hover .circle{
+  animation: rotate-circle 8s linear infinite;
+}
+.circle-button:hover .circle-arrow {
+  transform: scale(0.45);
+  transition: transform 0.3s ease;
+}
+@keyframes rotate-circle {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* slide2 */

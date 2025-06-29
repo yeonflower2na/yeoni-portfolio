@@ -247,3 +247,16 @@ function updateTextVisibility(index) {
     }
   });
 }
+
+// detailPage
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.project_frame').forEach(frame => {
+    frame.addEventListener('click', () => {
+      const idx = frame.getAttribute('data-index');
+      if (idx === "0") window.location.href = "detailPage01.html";
+      else if (idx === "1") window.location.href = "detailPage02.html";
+      else if (idx === "2") window.location.href = "detailPage03.html";
+      else if (idx === "3") window.location.href = "detailPage04.html";
+    });
+  });
+});

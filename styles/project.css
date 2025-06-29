@@ -106,9 +106,9 @@
   background-color: #ffffff38;
   padding: 10px 40px;
   color: var(--red);
-  border: 1px solid var(--red);
+  border: 1.5px solid var(--red);
   font-size: 1.3rem;
-  font-weight: 400;
+  font-weight: bold;
   opacity: 0;
   visibility: hidden;
   transform: translateY(20px);

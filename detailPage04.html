@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>portfolio 자세히보기</title>
+  <meta name="description" content="Jeong Yeon Hui Portfolio - 한국소비자원 리뉴얼 상세페이지">
+  <meta name="author" content="Jeong Yeon Hui" />
+
+  <!-- favicon -->
+  <link rel="icon" href="assets/images/intro-D2.png" />
+
+  <!-- font-awesome CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- common CSS -->
+  <link rel="stylesheet" href="styles/reset.css" />
+  <link rel="stylesheet" href="styles/header.css" />
+  <link rel="stylesheet" href="styles/footer.css" />
+  <link rel="stylesheet" href="styles/project.css" />
+
+  <!-- style CSS -->
+  <link rel="stylesheet" href="styles/detailPage.css" />
+</head>
+<body>
+  <!-- header -->
+  <div class="header-include"></div>
+  <div class="contact-include"></div>
+
+  <!-- detailPage01 -->
+  <main class="detail-main">
+    <div class="detail-container">
+      
+      <!-- left -->
+      <div class="detail-left">
+        <div class="detail-video">
+          <video src="assets/videos/kca-demo.mp4" controls></video>
+        </div>
+      </div>
+
+      <!-- right -->
+      <div class="detail-right">
+      
+        <!-- 프로젝트 설명 -->
+        <div class="detail-box">
+          <button class="detail-button"><i class="fa-solid fa-arrow-left"></i> 프로젝트 목록으로</button>
+          <h1 class="detail-subtitle">Journee - 국내 여행 추천 웹앱</h1>
+          <p class="detail-text">
+            본 프로젝트는 <strong>기획, UX/UI 설계, 디자인, 퍼블리싱까지 팀이 전 과정을 함께 수행한</strong> 협업 프로젝트입니다.<br />
+            사용자 중심의 흐름을 기반으로 여행지 추천부터 일정 저장까지의 전체 경험을 직접 설계하고 구현했습니다.
+          </p>
+          <li class="list-tab"><span>Shift Left</span> <em>팀장</em> 김재승, 정연희, 전채아, 정소연, 최시환, 최정민</li>
+          <br>
+          <br>
+          <p class="detail-text">
+            <strong>Journee</strong>는 사용자가 간편하게 여행지를 추천받고, 일정을 계획 및 저장할 수 있도록 돕는 웹 애플리케이션입니다.<br />
+            UI/UX 디자이너로서 사용자 여정을 설계하고, 디자인 시스템 기반의 일관된 인터페이스와 반응형 구조를 구현하는 데 집중했습니다.
+          </p>
+          <p class="detail-text">
+            프로젝트는 다음의 목표를 중심으로 진행되었습니다.
+          </p>
+          <ul class="detail-list">
+            <li>- 사용자 경험 기반 정보 설계</li>
+            <li>- 디자인 시스템 기반 UI 구성</li>
+            <li>- 반응형 웹 및 접근성 대응</li>
+          </ul>
+        </div>
+      
+        <!-- 프로젝트 링크 통합 -->
+        <div class="detail-box">
+          <h1 class="detail-subtitle">프로젝트 바로가기</h1>
+          <ul class="detail-link">
+            <li>
+              <a href="https://github.com/yeonflower2na/journee" target="_blank">
+                💻 프로젝트 코드 [GitHub]
+              </a>
+            </li>
+            <li>
+              <a href="https://www.figma.com/file/xxxxxxxxxx/Journee_UIUX" target="_blank">
+                🎨 UX/UI 디자인 [Figma]
+              </a>
+            </li>
+          </ul>
+        </div>
+      
+        <!-- 제작 일정 -->
+        <div class="detail-box">
+          <h1 class="detail-subtitle">제작 일정</h1>
+          <div class="detail-list">
+            <li class="list-tab"><span>기획</span> 2025.03.01 ~ 03.15 : 사용자 플로우 및 기능 정의</li>
+            <li class="list-tab"><span>디자인</span> 2025.03.16 ~ 04.10 : 와이어프레임, UI 컴포넌트 및 프로토타입 제작</li>
+            <li class="list-tab"><span>개발</span> 2025.04.11 ~ 06.30 : 기능 구현 및 퍼블리싱</li>
+          </div>
+        </div>
+      
+        <!-- 주요 기능 -->
+        <div class="detail-box">
+          <h1 class="detail-subtitle">주요 기능</h1>
+          <div class="detail-feature">
+          
+            <h3 class="detail-article-title">📌 핵심 기능</h3>
+            <ul class="detail-list">
+              <li class="main-desc">
+                <span>로그인 / 회원가입</span>
+                JWT 기반 인증과 사용자 피드백 중심의 입력 UI 퍼블리싱
+              </li>
+              <li class="main-desc">
+                <span>여행지 룰렛 추천</span>
+                랜덤 추천 인터랙션 설계 및 시각적 몰입을 위한 구성
+              </li>
+              <li class="main-desc">
+                <span>여행 일정 저장</span>
+                선택한 여행지를 기반으로 개인 일정을 저장하고 조회하는 기능
+              </li>
+              <li class="main-desc">
+                <span>KakaoMap 장소 검색</span>
+                사용자 위치 기반 장소 검색과 지도 결과 연동 UI 설계
+              </li>
+              <li class="main-desc">
+                <span>반응형 설계</span>
+                모바일, 태블릿, 데스크톱 환경에서 동일한 사용성 제공
+              </li>
+            </ul>
+          
+            <br />
+          
+            <h2 class="detail-article-title">📌 디자인 및 퍼블리싱 요소</h2>
+            <ul class="detail-list">
+              <li class="main-desc">
+                <span>디자인 시스템 구축</span>
+                컬러, 폰트, 버튼 등 UI 컴포넌트의 기준을 정의하고 일관성 있게 적용
+              </li>
+              <li class="main-desc">
+                <span>UX 플로우 기반 설계</span>
+                사용자 행동 흐름을 기반으로 한 인터페이스 구조 및 시각 구성
+              </li>
+            </ul>
+          </div>
+        </div>
+      
+        <!-- 디자인 방향성 -->
+        <div class="detail-box">
+          <h1 class="detail-subtitle">디자인 방향성</h1>
+          <ul class="detail-list">
+            <li><strong>사용자 중심 정보 흐름:</strong> 여행 추천 → 일정 구성 → 저장으로 이어지는 구조 설계</li>
+            <li><strong>디자인 시스템 구축:</strong> 시각적 통일성과 재사용성을 고려한 UI 컴포넌트 정의</li>
+            <li><strong>접근성 대응:</strong> 명도 대비, 폰트 크기, 터치 영역 등 WCAG 기준 반영</li>
+            <li><strong>반응형 UI:</strong> 다양한 기기에서 동일한 시각 경험 제공</li>
+            <li><strong>감성 UI 구현:</strong> 여행의 설렘을 전달하는 색상과 일러스트 사용</li>
+          </ul>
+        </div>
+      
+        <!-- 폴더 구조 -->
+        <div class="detail-box">
+          <h1 class="detail-subtitle">폴더 구조</h1>
+          <pre class="detail-pre">
+      📦 journee
+       ┣ 📂 components
+       ┣ 📂 pages
+       ┣ 📂 styles
+       ┣ 📂 assets
+       ┣ 📂 utils
+       ┗ 📂 api
+          </pre>
+        </div>
+      
+        <!-- 사용 기술 -->
+        <div class="detail-box">
+          <h1 class="detail-subtitle">사용 기술 및 도구</h1>
+          <ul class="detail-list">
+            <li class="list-tab"><span>개발</span> React, module.css, JavaScript, KakaoMap API</li>
+            <li class="list-tab"><span>디자인</span> Figma, Photoshop</li>
+            <li class="list-tab"><span>개발 환경</span> VS Code, GitHub</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- script -->
+  <script src="scripts/detailPage.js"></script>
+</body>
+</html>
