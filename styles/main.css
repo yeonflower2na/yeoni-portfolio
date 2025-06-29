@@ -148,10 +148,10 @@
   font-size: 1.15rem;
   line-height: 1.5;
   margin: 10px 0;
-  font-weight: 300;
+  font-weight: 400;
 }
 .slide1-content .slide1-title{
-  font-weight: 500;
+  font-weight: 600;
 }
 .slide1-content:nth-child(1){
   font-weight: 600;
