@@ -3,6 +3,17 @@
   color: var(--white);
 }
 
+.detail-button{
+  color: #6d7074;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+  font-size: .85rem;
+}
+
+.detail-button i{
+  margin-right: .25rem;
+}
+
 .detail-main {
   min-width: 1200px;
   margin: 0 auto;
@@ -101,6 +112,13 @@
   font-weight: 500;
 }
 
+.list-tab em{
+  font-style: normal;
+  color: var(--red);
+  font-weight: 600;
+  font-size: .75rem;
+}
+
 .detail-link li{
   margin-bottom: .5rem;
   padding: .5rem .5rem .5rem 1.2rem;
@@ -134,7 +152,7 @@
   color: var(--black);
 }
 
-.detail-list .main-desc{
+.detail-list .main-desc, .detail-list .sub-desc {
   margin-bottom: 1.25rem;
 }
 
@@ -145,6 +163,13 @@
   background-color: var(--gray);
   color: var(--dimblack);
   text-align: center;
+  font-weight: 600;
+}
+
+.detail-list .sub-desc span{
+  display: block;
+  width: max-content;
+  color: var(--dimblack);
   font-weight: 600;
 }
 
