@@ -344,7 +344,21 @@ body{
   border-radius: 50%;
   cursor: pointer;
   z-index: 10;
-  overflow: hidden;
+}
+.circle-button .scroll-btn{
+  position: absolute;
+  top: -50%;
+  right: -18%;
+  text-align: center;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  font-size: 1rem;
+  transition: opacity 0.3s, visibility 0.3s;
+}
+.circle-button:hover .scroll-btn {
+  opacity: 1;
+  visibility: visible;
 }
 .hidden{
   opacity: 0;

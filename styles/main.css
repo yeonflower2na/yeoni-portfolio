@@ -148,7 +148,7 @@
   font-size: 1.15rem;
   line-height: 1.5;
   margin: 10px 0;
-  font-weight: 500;
+  font-weight: 400;
 }
 .slide1-content .slide1-title{
   font-weight: 600;
@@ -289,10 +289,10 @@
 .myself-desc{
   font-size: 1.2rem;
   font-family: 'Pretendard-Regular';
-  font-weight: 300;
+  font-weight: 400;
 }
 .myself-desc em{
-  font-weight: 400;
+  font-weight: 600;
   font-style: normal;
 }
 #slide2 .myself,

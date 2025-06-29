@@ -195,18 +195,7 @@ let currentPage = 0;
 let atFooter = false;
 
 let scrollCount = 0;
-const scrollThreshold = 3;
-
-// 스크롤 이벤트
-window.addEventListener('wheel', (e) => {
-  if (isScrolling) return;
-
-  if (e.deltaY > 0) {
-    handleScrollDown();
-  } else {
-    handleScrollUp();
-  }
-});
+const scrollThreshold = 5;
 
 // 아래로 스크롤
 function handleScrollDown() {
@@ -217,15 +206,13 @@ function handleScrollDown() {
     });
   } else if (currentPage === 1) {
     scrollCount++;
-
     if (scrollCount >= scrollThreshold) {
-      moveToPage3(); // page3로 이동
+      moveToPage3(); // skills-section(3페이지)로 이동
       scrollCount = 0;
     }
   } else if (currentPage === 2 && !atFooter) {
     scrollCount++;
-
-    if (scrollCount >= scrollThreshold) {
+    if (scrollCount >= 3) { // footer로 이동 조건은 기존대로
       footer.classList.add('visible');
       atFooter = true;
       scrollCount = 0;
@@ -238,8 +225,7 @@ function handleScrollDown() {
 function handleScrollUp() {
   if (atFooter) {
     scrollCount++;
-
-    if (scrollCount >= scrollThreshold) {
+    if (scrollCount >= 3) {
       footer.classList.remove('visible');
       atFooter = false;
       horizontalScroll.style.transform = 'translateX(-100vw)';
@@ -250,8 +236,11 @@ function handleScrollUp() {
   }
 
   if (currentPage === 2) {
-    moveToPage2(); // page2로 이동
-    scrollCount = 0;
+    scrollCount++;
+    if (scrollCount >= scrollThreshold) {
+      moveToPage2(); // skills-section에서 about page(2페이지)로 이동
+      scrollCount = 0;
+    }
   } else if (currentPage === 1) {
     if (scrollCount > 0) {
       scrollCount--;
@@ -589,7 +578,6 @@ function animateProgressBar(progressBar, progressText, targetPercentage) {
   }
   requestAnimationFrame(step);
 }
-
 
 // progressbar
 function updateProgressBar(skillCard, percentage) {
