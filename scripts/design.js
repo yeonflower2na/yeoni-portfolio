@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     .catch(error => console.error('JSON Load Error:', error));
 
-    // tab
+  // tab
   tabButtons.forEach(btn => {
     btn.addEventListener('click', (e) => {
       tabButtons.forEach(t => t.classList.remove('active'));
@@ -103,161 +103,16 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
   }
-
-  // header
-  fetch("header.html")
-    .then((res) => res.text())
-    .then((data) => {
-      document.querySelectorAll(".header-include").forEach((a) => {
-        a.innerHTML = data;
-
-        const navItems = document.querySelectorAll('.nav-item');
-        const navLeft2 = document.getElementById('nav-left2');
-        const navRight = document.getElementById('nav-right');
-
-        const designNav = document.querySelector('.nav-item[href="design.html"]');
-        if (designNav) {
-          navItems.forEach(nav => nav.classList.remove('active'));
-          designNav.classList.add('active');
-
-          navLeft2.textContent = designNav.dataset.left;
-          navRight.textContent = designNav.dataset.right;
-
-          sessionStorage.setItem('activeNav', designNav.getAttribute('href'));
-        }
-
-        navItems.forEach(item => {
-          item.addEventListener('click', (e) => {
-            const href = item.getAttribute('href');
-            sessionStorage.setItem('activeNav', href);
-
-            navItems.forEach(nav => nav.classList.remove('active'));
-            item.classList.add('active');
-
-            navLeft2.textContent = item.dataset.left;
-            navRight.textContent = item.dataset.right;
-
-            if (href === '#none' || href === '#') {
-              e.preventDefault();
-            } else {
-              window.location.href = href;
-            }
-          });
-        });
-      });
-    })
-    .catch((err) => console.log("Header load error:", err));
-
-  // footer
-  fetch("footer.html")
-    .then((res) => res.text())
-    .then((data) => {
-      document.querySelectorAll(".footer-include").forEach((a) => {
-        a.innerHTML = data;
-      });
-    })
-    .catch((err) => console.log("Footer load error:", err));
-
-// contact-include
-fetch("contact.html")
-  .then((res) => res.text())
-  .then((contactData) => {
-    document.querySelectorAll(".contact-include").forEach((contactInclude) => {
-      contactInclude.innerHTML = contactData;
-
-      const contactButton = contactInclude.querySelector('.contact');
-      const holoContainer = contactInclude.querySelector('.holo-container');
-      const holoClose = contactInclude.querySelector('.holo-close');
-
-      contactButton.addEventListener('click', () => {
-        holoContainer.classList.toggle('active');
-      });
-
-      holoClose.addEventListener('click', () => {
-        holoContainer.classList.remove('active');
-      });
-
-      fetch("footer.html")
-        .then((res) => res.text())
-        .then((footerData) => {
-          document.querySelectorAll(".footer-include").forEach((footerInclude) => {
-            footerInclude.innerHTML = footerData;
-
-            const footer = footerInclude;
-
-            if (footer) {
-              footer.addEventListener('mouseenter', () => {
-                footer.classList.add('footer-hover');
-                contactButton.classList.add('footer-hover');
-                holoContainer.classList.add('footer-hover');
-              });
-
-              footer.addEventListener('mouseleave', () => {
-                contactButton.classList.remove('footer-hover');
-                holoContainer.classList.remove('footer-hover');
-
-                if (!holoContainer.classList.contains('active')) {
-                  holoContainer.classList.remove('active');
-                }
-              });
-
-              contactButton.addEventListener('mouseenter', () => {
-                footer.classList.add('footer-hover');
-                holoContainer.classList.add('footer-hover');
-              });
-
-              contactButton.addEventListener('mouseleave', () => {
-                footer.classList.add('footer-hover');
-                holoContainer.classList.add('footer-hover');
-              });
-
-              footer.addEventListener('click', (event) => {
-                if (event.target.closest('.contact')) {
-                  holoContainer.classList.add('active');
-                }
-              });
-            }
-          });
-        })
-        .catch((err) => console.log("Footer load error:", err));
-    });
-  })
-  .catch((err) => console.log("Contact load error:", err));
-
-
-  // cursor
-  let cursor = document.querySelector('.cursor');
-  if (!cursor) {
-    cursor = document.createElement('div');
-    cursor.classList.add('cursor');
-    document.body.appendChild(cursor);
-  }
-
-  let mouseX = 0;
-  let mouseY = 0;
-  let cursorX = 0;
-  let cursorY = 0;
-
-  document.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-    cursor.style.opacity = '1';
-  });
-
-  function animateCursor() {
-    cursorX += (mouseX - cursorX) * 0.1;
-    cursorY += (mouseY - cursorY) * 0.1;
-    cursor.style.left = `${cursorX}px`;
-    cursor.style.top = `${cursorY}px`;
-    requestAnimationFrame(animateCursor);
-  }
-  animateCursor();
 });
 
-// footer 등장
+// footer ?깆옣
 window.addEventListener('scroll', () => {
   const designSection = document.querySelector('.design-section');
   const footer = document.querySelector('.footer-include');
+
+  if (!designSection || !footer) {
+    return;
+  }
 
   const sectionBottom = designSection.getBoundingClientRect().bottom;
 

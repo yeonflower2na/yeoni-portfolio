@@ -82,7 +82,9 @@
     const navItems = root.querySelectorAll(".nav-item");
     const navLeft2 = root.querySelector("#nav-left2");
     const navRight = root.querySelector("#nav-right");
-    const activeItem = root.querySelector(`.nav-item[href='${activeHref}']`) || root.querySelector(".nav-item.active");
+    const activeItem =
+      root.querySelector(`.nav-item[href='${activeHref}']`) ||
+      root.querySelector(".nav-item.active");
 
     if (activeItem) {
       navItems.forEach((item) => item.classList.remove("active"));

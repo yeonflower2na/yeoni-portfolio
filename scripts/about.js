@@ -1,189 +1,3 @@
-document.addEventListener('DOMContentLoaded', () => {
-  let cursor = document.querySelector('.cursor');
-  if (!cursor) {
-    cursor = document.createElement('div');
-    cursor.classList.add('cursor');
-    document.body.appendChild(cursor);
-  }
-
-  let mouseX = 0;
-  let mouseY = 0;
-  let cursorX = 0;
-  let cursorY = 0;
-  
-  cursor.style.opacity = '0';
-  let isMouseMoved = false;
-
-  document.addEventListener('mousemove', (e) => {
-      if (!isMouseMoved) {
-          cursorX = e.clientX;
-          cursorY = e.clientY;
-          cursor.style.left = `${cursorX}px`;
-          cursor.style.top = `${cursorY}px`;
-          isMouseMoved = true;
-      }
-      
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-      cursor.style.opacity = '1';
-  });
-
-  function animateCursor() {
-      cursorX += (mouseX - cursorX) * 0.1; 
-      cursorY += (mouseY - cursorY) * 0.1;
-      cursor.style.left = `${cursorX}px`;
-      cursor.style.top = `${cursorY}px`;
-      requestAnimationFrame(animateCursor);
-  }
-  animateCursor();
-
-  const hoverTargets = document.querySelectorAll('span, button, h1, h2, h3, h4, h5, h6, p, img');
-  hoverTargets.forEach((target) => {
-      target.addEventListener('mouseenter', () => {
-          cursor.classList.add('cursor-hover');
-      });
-      target.addEventListener('mouseleave', () => {
-          cursor.classList.remove('cursor-hover');
-      });
-  });
-
-  const footer = document.querySelector('.footer-include');
-  if (footer) {
-      footer.addEventListener('mouseenter', () => {
-          cursor.classList.add('cursor-footer');
-      });
-      footer.addEventListener('mouseleave', () => {
-          cursor.classList.remove('cursor-footer');
-      });
-  }
-});
-
-
-// header-include
-fetch("header.html")
-  .then((res) => res.text())
-  .then((data) => {
-    document.querySelectorAll(".header-include").forEach((a) => {
-      a.innerHTML = data;
-      
-      const navItems = document.querySelectorAll('.nav-item');
-      const navLeft2 = document.getElementById('nav-left2');
-      const navRight = document.getElementById('nav-right');
-
-      // about 탭 active 설정
-      const aboutNav = document.querySelector('.nav-item[href="about.html"]');
-      if (aboutNav) {
-        navItems.forEach(nav => nav.classList.remove('active'));
-        aboutNav.classList.add('active');
-
-        navLeft2.textContent = aboutNav.dataset.left;
-        navRight.textContent = aboutNav.dataset.right;
-
-        sessionStorage.setItem('activeNav', aboutNav.getAttribute('href'));
-      }
-
-      navItems.forEach(item => {
-        item.addEventListener('click', (e) => {
-          const href = item.getAttribute('href');
-
-          sessionStorage.setItem('activeNav', href);
-          
-          navItems.forEach(nav => nav.classList.remove('active'));
-          item.classList.add('active');
-          
-          navLeft2.textContent = item.dataset.left;
-          navRight.textContent = item.dataset.right;
-
-          if (href === '#none' || href === '#') {
-            e.preventDefault();
-          } else {
-            window.location.href = href;
-          }
-        });
-      });
-    });
-  })
-  .catch((err) => console.log("Header load error:", err));
-  
-// contact-include
-fetch("contact.html")
-  .then((res) => res.text())
-  .then((contactData) => {
-    document.querySelectorAll(".contact-include").forEach((contactInclude) => {
-      contactInclude.innerHTML = contactData;
-
-      const contactButton = contactInclude.querySelector('.contact');
-      const holoContainer = contactInclude.querySelector('.holo-container');
-      const holoClose = contactInclude.querySelector('.holo-close');
-
-      contactButton.addEventListener('click', () => {
-        holoContainer.classList.toggle('active');
-      });
-
-      holoClose.addEventListener('click', () => {
-        holoContainer.classList.remove('active');
-      });
-
-      fetch("footer.html")
-        .then((res) => res.text())
-        .then((footerData) => {
-          document.querySelectorAll(".footer-include").forEach((footerInclude) => {
-            footerInclude.innerHTML = footerData;
-
-            const footer = footerInclude;
-
-            if (footer) {
-              footer.addEventListener('mouseenter', () => {
-                footer.classList.add('footer-hover');
-                contactButton.classList.add('footer-hover');
-                holoContainer.classList.add('footer-hover');
-              });
-
-              footer.addEventListener('mouseleave', () => {
-                contactButton.classList.remove('footer-hover');
-                holoContainer.classList.remove('footer-hover');
-
-                if (!holoContainer.classList.contains('active')) {
-                  holoContainer.classList.remove('active');
-                }
-              });
-
-              contactButton.addEventListener('mouseenter', () => {
-                footer.classList.add('footer-hover');
-                holoContainer.classList.add('footer-hover');
-              });
-
-              contactButton.addEventListener('mouseleave', () => {
-                footer.classList.add('footer-hover');
-                holoContainer.classList.add('footer-hover');
-              });
-
-              footer.addEventListener('click', (event) => {
-                if (event.target.closest('.contact')) {
-                  holoContainer.classList.add('active');
-                }
-              });
-            }
-          });
-        })
-        .catch((err) => console.log("Footer load error:", err));
-    });
-  })
-  .catch((err) => console.log("Contact load error:", err));
-
-
-// footer-include
-fetch("footer.html")
-  .then((res) => res.text())
-  .then((data) => {
-    document.querySelectorAll(".footer-include").forEach((a) => {
-      a.innerHTML = data;
-    });
-  })
-.catch((err) => console.log("footer load error:", err));
-
-
-
 // about
 const rightScroll = document.querySelector('.right-scroll');
 const horizontalScroll = document.querySelector('.horizontal-scroll');
@@ -334,8 +148,6 @@ function easeInOutQuad(t) {
   return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
 }
 
-
-
 // about01
 document.addEventListener('DOMContentLoaded', () => {
   const about01 = document.querySelector('.about01');
@@ -343,13 +155,11 @@ document.addEventListener('DOMContentLoaded', () => {
   about01.addEventListener('mouseenter', () => {
     about01.classList.add('hover');
   });
-  
+
   about01.addEventListener('mouseleave', () => {
     about01.classList.remove('hover');
   });
 });
-
-
 
 // page2
 const modal = document.querySelector('.modal');
@@ -408,15 +218,11 @@ function moveToPage2() {
   currentPage = 1;
 
   const circleButton = document.getElementById('circleButton');
-  circleButton.classList.remove('hidden'); 
+  circleButton.classList.remove('hidden');
   setTimeout(() => {
     isScrolling = false;
   }, 800);
 }
-
-
-
-
 
 // page3
 const skillsWrapper = document.querySelector('.skills-wrapper');
@@ -428,9 +234,9 @@ const positions = [
   { class: 'skills-card-left-3' },
   { class: 'skills-card-left-2' },
   { class: 'skills-card-left-1' },
-  { class: 'skills-card-left' }, 
+  { class: 'skills-card-left' },
   { class: 'skills-card-center' },
-  { class: 'skills-card-right' }, 
+  { class: 'skills-card-right' },
   { class: 'skills-card-right-1' },
   { class: 'skills-card-right-2' },
   { class: 'skills-card-right-3' },
@@ -454,7 +260,7 @@ function updateCarousel() {
       'skills-card-right-4'
     );
 
-    const positionIndex = 
+    const positionIndex =
       (index - currentIndex + skillsCards.length) % skillsCards.length;
 
     if (positions[positionIndex]) {
@@ -466,7 +272,6 @@ function updateCarousel() {
     updateProgressBar(card, percentage);
   });
 }
-
 
 function moveNext() {
   currentIndex = (currentIndex + 1) % skillsCards.length;
@@ -538,7 +343,6 @@ skillsWrapper.addEventListener('mouseleave', () => {
 });
 
 window.addEventListener('resize', updateCarousel);
-
 
 // skills
 const skillLevels = {
@@ -612,7 +416,7 @@ function updateCarousel() {
       'skills-card-right-4'
     );
 
-    const positionIndex = 
+    const positionIndex =
       (index - currentIndex + skillsCards.length) % skillsCards.length;
 
     if (positions[positionIndex]) {

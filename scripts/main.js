@@ -1,195 +1,3 @@
-// cursor
-document.addEventListener('DOMContentLoaded', () => {
-  let cursor = document.querySelector('.cursor');
-  if (!cursor) {
-    cursor = document.createElement('div');
-    cursor.classList.add('cursor');
-    document.body.appendChild(cursor);
-  }
-
-  let mouseX = 0;
-  let mouseY = 0;
-  let cursorX = 0;
-  let cursorY = 0;
-  
-  cursor.style.opacity = '0';
-  let isMouseMoved = false;
-
-  document.addEventListener('mousemove', (e) => {
-      if (!isMouseMoved) {
-          cursorX = e.clientX;
-          cursorY = e.clientY;
-          cursor.style.left = `${cursorX}px`;
-          cursor.style.top = `${cursorY}px`;
-          isMouseMoved = true;
-      }
-      
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-      cursor.style.opacity = '1';
-  });
-
-  function animateCursor() {
-      cursorX += (mouseX - cursorX) * 0.1; 
-      cursorY += (mouseY - cursorY) * 0.1;
-      cursor.style.left = `${cursorX}px`;
-      cursor.style.top = `${cursorY}px`;
-      requestAnimationFrame(animateCursor);
-  }
-  animateCursor();
-
-  const hoverTargets = document.querySelectorAll('span, button, h1, h2, h3, h4, h5, h6, p');
-  hoverTargets.forEach((target) => {
-      target.addEventListener('mouseenter', () => {
-          cursor.classList.add('cursor-hover');
-      });
-      target.addEventListener('mouseleave', () => {
-          cursor.classList.remove('cursor-hover');
-      });
-  });
-
-  const footer = document.querySelector('.footer-include');
-  if (footer) {
-      footer.addEventListener('mouseenter', () => {
-          cursor.classList.add('cursor-footer');
-      });
-      footer.addEventListener('mouseleave', () => {
-          cursor.classList.remove('cursor-footer');
-      });
-  }
-});
-
-// header-include
-fetch("header.html")
-  .then((res) => res.text())
-  .then((data) => {
-    document.querySelectorAll(".header-include").forEach((a) => {
-      a.innerHTML = data;
-      
-      const navItems = document.querySelectorAll('.nav-item');
-      const navLeft2 = document.getElementById('nav-left2');
-      const navRight = document.getElementById('nav-right');
-
-      // main 탭 active 설정
-      const mainNav = document.querySelector('.nav-item[href="main.html"]');
-      if (mainNav) {
-        navItems.forEach(nav => nav.classList.remove('active'));
-        mainNav.classList.add('active');
-
-        // 좌우 텍스트 업데이트
-        navLeft2.textContent = mainNav.dataset.left;
-        navRight.textContent = mainNav.dataset.right;
-
-        // sessionStorage에 active 상태 저장
-        sessionStorage.setItem('activeNav', mainNav.getAttribute('href'));
-      }
-
-      // nav-item 클릭 이벤트 설정
-      navItems.forEach(item => {
-        item.addEventListener('click', (e) => {
-          const href = item.getAttribute('href');
-
-          // 현재 active 상태 저장
-          sessionStorage.setItem('activeNav', href);
-          
-          // 클릭된 메뉴에 active 추가
-          navItems.forEach(nav => nav.classList.remove('active'));
-          item.classList.add('active');
-          
-          // 좌우 텍스트 업데이트
-          navLeft2.textContent = item.dataset.left;
-          navRight.textContent = item.dataset.right;
-
-          // 페이지 이동 방지 조건
-          if (href === '#none' || href === '#') {
-            e.preventDefault();
-          } else {
-            window.location.href = href;
-          }
-        });
-      });
-    });
-  })
-  .catch((err) => console.log("Header load error:", err));
-
-// contact-include
-fetch("contact.html")
-  .then((res) => res.text())
-  .then((contactData) => {
-    document.querySelectorAll(".contact-include").forEach((contactInclude) => {
-      contactInclude.innerHTML = contactData;
-
-      const contactButton = contactInclude.querySelector('.contact');
-      const holoContainer = contactInclude.querySelector('.holo-container');
-      const holoClose = contactInclude.querySelector('.holo-close');
-
-      contactButton.addEventListener('click', () => {
-        holoContainer.classList.toggle('active');
-      });
-
-      holoClose.addEventListener('click', () => {
-        holoContainer.classList.remove('active');
-      });
-
-      fetch("footer.html")
-        .then((res) => res.text())
-        .then((footerData) => {
-          document.querySelectorAll(".footer-include").forEach((footerInclude) => {
-            footerInclude.innerHTML = footerData;
-
-            const footer = footerInclude;
-
-            if (footer) {
-              footer.addEventListener('mouseenter', () => {
-                footer.classList.add('footer-hover');
-                contactButton.classList.add('footer-hover');
-                holoContainer.classList.add('footer-hover');
-              });
-
-              footer.addEventListener('mouseleave', () => {
-                contactButton.classList.remove('footer-hover');
-                holoContainer.classList.remove('footer-hover');
-
-                if (!holoContainer.classList.contains('active')) {
-                  holoContainer.classList.remove('active');
-                }
-              });
-
-              contactButton.addEventListener('mouseenter', () => {
-                footer.classList.add('footer-hover');
-                holoContainer.classList.add('footer-hover');
-              });
-
-              contactButton.addEventListener('mouseleave', () => {
-                footer.classList.add('footer-hover');
-                holoContainer.classList.add('footer-hover');
-              });
-
-              footer.addEventListener('click', (event) => {
-                if (event.target.closest('.contact')) {
-                  holoContainer.classList.add('active');
-                }
-              });
-            }
-          });
-        })
-        .catch((err) => console.log("Footer load error:", err));
-    });
-  })
-  .catch((err) => console.log("Contact load error:", err));
-
-// footer-include
-fetch("footer.html")
-  .then((res) => res.text())
-  .then((data) => {
-    document.querySelectorAll(".footer-include").forEach((a) => {
-      a.innerHTML = data;
-    });
-  })
-.catch((err) => console.log("footer load error:", err));
-
-
-
 // main
 let prologue = document.getElementById('prologue');
 let footer = document.getElementById('slide-footer');
@@ -356,9 +164,6 @@ window.addEventListener('wheel', (e) => {
   updateBackground();
 });
 
-
-
-
 //slide1
 const slide1From = document.querySelector('.slide-from');
 const slide1To = document.querySelector('.slide-to');
@@ -368,14 +173,14 @@ const slide1DragText = document.querySelector('.drag');
 prologue.classList.remove('show');
 
 const slide1ObserverOptions = {
-  threshold: 0.1, 
+  threshold: 0.1,
 };
 
 const slide1Observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       prologue.classList.add('show');
-      
+
       setTimeout(() => slide1From.classList.add('show'), 400);
       setTimeout(() => slide1To.classList.add('show'), 1000);
       setTimeout(() => {
@@ -383,14 +188,12 @@ const slide1Observer = new IntersectionObserver((entries) => {
         slide1Content.forEach(p => {
           p.classList.add('fade-in');
         });
-      }, 1500);  
+      }, 1500);
     }
   });
 }, slide1ObserverOptions);
 
 slide1Observer.observe(prologue);
-
-
 slide1Observer.observe(prologue);
 
 slide1ModelContainer.addEventListener('mouseenter', () => {
@@ -400,8 +203,6 @@ slide1ModelContainer.addEventListener('mouseenter', () => {
 slide1ModelContainer.addEventListener('mouseleave', () => {
   slide1DragText.classList.add('hidden');
 });
-
-
 
 // slide1 drag
 const modelContainer = document.getElementById('model-container');
@@ -450,7 +251,7 @@ const observer = new IntersectionObserver((entries) => {
       slide2Text.forEach((text, index) => {
         setTimeout(() => {
           text.classList.add('animate');
-        }, index * 300); 
+        }, index * 300);
       });
       slide2Animated = true;
     }
