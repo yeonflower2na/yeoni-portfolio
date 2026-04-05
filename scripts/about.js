@@ -13,6 +13,8 @@ const scrollThreshold = 5;
 
 // 아래로 스크롤
 function handleScrollDown() {
+  if (!rightScroll || !footer) return;
+
   if (currentPage === 0) {
     smoothScrollTo(rightScroll, rightScroll.scrollTop + window.innerHeight, 700, () => {
       currentPage = 1;
@@ -32,11 +34,14 @@ function handleScrollDown() {
       scrollCount = 0;
     }
   }
+
   updateCircleButtonVisibility();
 }
 
 // 위로 스크롤
 function handleScrollUp() {
+  if (!rightScroll || !footer || !horizontalScroll) return;
+
   if (atFooter) {
     scrollCount++;
     if (scrollCount >= 3) {
@@ -66,12 +71,14 @@ function handleScrollUp() {
       });
     }
   }
+
   updateCircleButtonVisibility();
 }
 
 // page3로 이동
 function moveToPage3() {
-  if (isScrolling) return;
+  if (isScrolling || !horizontalScroll) return;
+
   isScrolling = true;
 
   // page3로 이동
@@ -87,7 +94,8 @@ function moveToPage3() {
 
 // page2로 이동
 function moveToPage2() {
-  if (isScrolling) return;
+  if (isScrolling || !horizontalScroll) return;
+
   isScrolling = true;
 
   // page2로 이동
@@ -102,6 +110,8 @@ function moveToPage2() {
 }
 
 function updateCircleButtonVisibility() {
+  if (!circleButton) return;
+
   if (currentPage === 2) {
     // 3페이지에서는 버튼 숨김
     circleButton.classList.add('hidden');
@@ -120,9 +130,10 @@ function updateCircleButtonVisibility() {
   }
 }
 
-
 // smoothScroll
 function smoothScrollTo(element, target, duration, callback) {
+  if (!element) return;
+
   const start = element.scrollTop;
   const distance = target - start;
   const startTime = performance.now();
@@ -139,6 +150,7 @@ function smoothScrollTo(element, target, duration, callback) {
       if (callback) callback();
     }
   }
+
   isScrolling = true;
   requestAnimationFrame(scrollAnimation);
 }
@@ -151,6 +163,8 @@ function easeInOutQuad(t) {
 // about01
 document.addEventListener('DOMContentLoaded', () => {
   const about01 = document.querySelector('.about01');
+
+  if (!about01) return;
 
   about01.addEventListener('mouseenter', () => {
     about01.classList.add('hover');
@@ -166,23 +180,30 @@ const modal = document.querySelector('.modal');
 const modalButton = document.querySelector('.aboutme-text');
 const closeButton = document.querySelector('.modal-close');
 
-modalButton.addEventListener('click', () => {
-  modal.classList.add('show');
-  showModalSpans();
-});
+if (modal && modalButton) {
+  modalButton.addEventListener('click', () => {
+    modal.classList.add('show');
+    showModalSpans();
+  });
 
-closeButton.addEventListener('click', () => {
-  closeModal();
-});
+  window.addEventListener('click', (e) => {
+    if (!modal.contains(e.target) && !modalButton.contains(e.target)) {
+      closeModal();
+    }
+  });
+}
 
-window.addEventListener('click', (e) => {
-  if (!modal.contains(e.target) && !modalButton.contains(e.target)) {
+if (closeButton) {
+  closeButton.addEventListener('click', () => {
     closeModal();
-  }
-});
+  });
+}
+
 function closeModal() {
+  if (!modal) return;
   modal.classList.remove('show');
 }
+
 function showModalSpans() {
   const spans = document.querySelectorAll('.modal-content h4 span');
   spans.forEach((span, index) => {
@@ -193,40 +214,16 @@ function showModalSpans() {
 }
 
 // circleButton
-document.getElementById('circleButton').addEventListener('click', function () {
-  this.classList.add('hidden');
-  moveToPage3();
-});
-
-function moveToPage3() {
-  if (isScrolling) return;
-  isScrolling = true;
-
-  horizontalScroll.style.transform = 'translateX(-100vw)';
-  currentPage = 2;
-
-  setTimeout(() => {
-    isScrolling = false;
-  }, 800);
-}
-
-function moveToPage2() {
-  if (isScrolling) return;
-  isScrolling = true;
-
-  horizontalScroll.style.transform = 'translateX(0vw)';
-  currentPage = 1;
-
-  const circleButton = document.getElementById('circleButton');
-  circleButton.classList.remove('hidden');
-  setTimeout(() => {
-    isScrolling = false;
-  }, 800);
+if (circleButton) {
+  circleButton.addEventListener('click', function () {
+    this.classList.add('hidden');
+    moveToPage3();
+  });
 }
 
 // page3
 const skillsWrapper = document.querySelector('.skills-wrapper');
-const skillsCards = Array.from(skillsWrapper.children);
+const skillsCards = skillsWrapper ? Array.from(skillsWrapper.children) : [];
 let currentIndex = 0;
 
 const positions = [
@@ -243,8 +240,25 @@ const positions = [
   { class: 'skills-card-right-4' }
 ];
 
+// skills
+const skillLevels = {
+  VScode: 85,
+  Figma: 90,
+  HTML: 85,
+  CSS: 88,
+  JavaScript: 75,
+  React: 70,
+  Sass: 75,
+  Photoshop: 90,
+  Illustrator: 95,
+  Indesign: 88,
+  Github: 60
+};
+
 // 캐러셀 업데이트
 function updateCarousel() {
+  if (skillsCards.length === 0) return;
+
   skillsCards.forEach((card, index) => {
     card.classList.remove(
       'skills-card-left-4',
@@ -267,17 +281,21 @@ function updateCarousel() {
       card.classList.add(positions[positionIndex].class);
     }
 
-    const skillName = card.querySelector('h2').textContent.trim();
+    const skillNameElement = card.querySelector('h2');
+    const skillName = skillNameElement ? skillNameElement.textContent.trim() : '';
     const percentage = skillLevels[skillName] || 50;
     updateProgressBar(card, percentage);
   });
 }
 
 function moveNext() {
+  if (skillsCards.length === 0) return;
   currentIndex = (currentIndex + 1) % skillsCards.length;
   updateCarousel();
 }
+
 function movePrev() {
+  if (skillsCards.length === 0) return;
   currentIndex = (currentIndex - 1 + skillsCards.length) % skillsCards.length;
   updateCarousel();
 }
@@ -285,15 +303,31 @@ function movePrev() {
 // Drag
 let startX = 0;
 let isDragging = false;
-let dragThreshold = 80;
+const dragThreshold = 80;
 
-skillsWrapper.addEventListener('mousedown', (e) => {
-  isDragging = true;
-  startX = e.clientX;
-});
+if (skillsWrapper) {
+  skillsWrapper.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    startX = e.clientX;
+  });
+
+  skillsWrapper.addEventListener('touchstart', (e) => {
+    isDragging = true;
+    startX = e.touches[0].clientX;
+  });
+
+  skillsWrapper.addEventListener('mouseenter', () => {
+    clearInterval(interval);
+  });
+
+  skillsWrapper.addEventListener('mouseleave', () => {
+    interval = setInterval(moveNext, 5000);
+  });
+}
 
 document.addEventListener('mousemove', (e) => {
   if (!isDragging) return;
+
   const diff = e.clientX - startX;
 
   if (diff > dragThreshold) {
@@ -309,13 +343,9 @@ document.addEventListener('mouseup', () => {
   isDragging = false;
 });
 
-skillsWrapper.addEventListener('touchstart', (e) => {
-  isDragging = true;
-  startX = e.touches[0].clientX;
-});
-
 document.addEventListener('touchmove', (e) => {
   if (!isDragging) return;
+
   const diff = e.touches[0].clientX - startX;
 
   if (diff > dragThreshold) {
@@ -334,32 +364,11 @@ document.addEventListener('touchend', () => {
 // autoplay
 let interval = setInterval(moveNext, 5000);
 
-skillsWrapper.addEventListener('mouseenter', () => {
-  clearInterval(interval);
-});
-
-skillsWrapper.addEventListener('mouseleave', () => {
-  interval = setInterval(moveNext, 5000);
-});
-
 window.addEventListener('resize', updateCarousel);
 
-// skills
-const skillLevels = {
-  VScode: 85,
-  Figma: 90,
-  HTML: 85,
-  CSS: 88,
-  JavaScript: 75,
-  React: 70,
-  Sass: 75,
-  Photoshop: 90,
-  Illustrator: 95,
-  Indesign: 88,
-  Github: 60
-};
-
 function animateProgressBar(progressBar, progressText, targetPercentage) {
+  if (!progressBar || !progressText) return;
+
   let currentPercentage = 0;
 
   function step() {
@@ -380,6 +389,7 @@ function animateProgressBar(progressBar, progressText, targetPercentage) {
       progressText.textContent = `${targetPercentage}%`;
     }
   }
+
   requestAnimationFrame(step);
 }
 
@@ -388,6 +398,8 @@ function updateProgressBar(skillCard, percentage) {
   const progressBar = skillCard.querySelector('.skills-progress-bar');
   const progressText = skillCard.querySelector('.skills-progress-percent');
   const progressContainer = skillCard.querySelector('.skills-progress');
+
+  if (!progressBar || !progressText || !progressContainer) return;
 
   if (skillCard.classList.contains('skills-card-center')) {
     progressContainer.style.display = 'block';
@@ -400,32 +412,5 @@ function updateProgressBar(skillCard, percentage) {
   }
 }
 
-function updateCarousel() {
-  skillsCards.forEach((card, index) => {
-    card.classList.remove(
-      'skills-card-left-4',
-      'skills-card-left-3',
-      'skills-card-left-2',
-      'skills-card-left-1',
-      'skills-card-left',
-      'skills-card-center',
-      'skills-card-right',
-      'skills-card-right-1',
-      'skills-card-right-2',
-      'skills-card-right-3',
-      'skills-card-right-4'
-    );
-
-    const positionIndex =
-      (index - currentIndex + skillsCards.length) % skillsCards.length;
-
-    if (positions[positionIndex]) {
-      card.classList.add(positions[positionIndex].class);
-    }
-
-    const skillName = card.querySelector('h2').textContent.trim();
-    const percentage = skillLevels[skillName] || 50;
-    updateProgressBar(card, percentage);
-  });
-}
+updateCircleButtonVisibility();
 updateCarousel();
