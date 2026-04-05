@@ -1,128 +1,3 @@
-// header-include
-fetch("header.html")
-  .then((res) => res.text())
-  .then((data) => {
-    document.querySelectorAll(".header-include").forEach((a) => {
-      a.innerHTML = data;
-      
-      const navItems = document.querySelectorAll('.nav-item');
-      const navLeft2 = document.getElementById('nav-left2');
-      const navRight = document.getElementById('nav-right');
-
-      // project 탭 active 설정
-      const projectNav = document.querySelector('.nav-item[href="project.html"]');
-      if (projectNav) {
-        navItems.forEach(nav => nav.classList.remove('active'));
-        projectNav.classList.add('active');
-
-        navLeft2.textContent = projectNav.dataset.left;
-        navRight.textContent = projectNav.dataset.right;
-
-        sessionStorage.setItem('activeNav', projectNav.getAttribute('href'));
-      }
-
-      navItems.forEach(item => {
-        item.addEventListener('click', (e) => {
-          const href = item.getAttribute('href');
-
-          sessionStorage.setItem('activeNav', href);
-
-          navItems.forEach(nav => nav.classList.remove('active'));
-          item.classList.add('active');
-          
-          navLeft2.textContent = item.dataset.left;
-          navRight.textContent = item.dataset.right;
-
-          if (href === '#none' || href === '#') {
-            e.preventDefault();
-          } else {
-            window.location.href = href;
-          }
-        });
-      });
-    });
-  })
-  .catch((err) => console.log("Header load error:", err));
-
-// contact-include
-fetch("contact.html")
-  .then((res) => res.text())
-  .then((contactData) => {
-    document.querySelectorAll(".contact-include").forEach((contactInclude) => {
-      contactInclude.innerHTML = contactData;
-
-      const contactButton = contactInclude.querySelector('.contact');
-      const holoContainer = contactInclude.querySelector('.holo-container');
-      const holoClose = contactInclude.querySelector('.holo-close');
-
-      contactButton.addEventListener('click', () => {
-        holoContainer.classList.toggle('active');
-      });
-
-      holoClose.addEventListener('click', () => {
-        holoContainer.classList.remove('active');
-      });
-
-      fetch("footer.html")
-        .then((res) => res.text())
-        .then((footerData) => {
-          document.querySelectorAll(".footer-include").forEach((footerInclude) => {
-            footerInclude.innerHTML = footerData;
-
-            const footer = footerInclude;
-
-            if (footer) {
-              footer.addEventListener('mouseenter', () => {
-                footer.classList.add('footer-hover');
-                contactButton.classList.add('footer-hover');
-                holoContainer.classList.add('footer-hover');
-              });
-
-              footer.addEventListener('mouseleave', () => {
-                contactButton.classList.remove('footer-hover');
-                holoContainer.classList.remove('footer-hover');
-
-                if (!holoContainer.classList.contains('active')) {
-                  holoContainer.classList.remove('active');
-                }
-              });
-
-              contactButton.addEventListener('mouseenter', () => {
-                footer.classList.add('footer-hover');
-                holoContainer.classList.add('footer-hover');
-              });
-
-              contactButton.addEventListener('mouseleave', () => {
-                footer.classList.add('footer-hover');
-                holoContainer.classList.add('footer-hover');
-              });
-
-              footer.addEventListener('click', (event) => {
-                if (event.target.closest('.contact')) {
-                  holoContainer.classList.add('active');
-                }
-              });
-            }
-          });
-        })
-        .catch((err) => console.log("Footer load error:", err));
-    });
-  })
-  .catch((err) => console.log("Contact load error:", err));
-
-
-// footer-include
-fetch("footer.html")
-  .then((res) => res.text())
-  .then((data) => {
-    document.querySelectorAll(".footer-include").forEach((a) => {
-      a.innerHTML = data;
-    });
-  })
-.catch((err) => console.log("footer load error:", err));
-
-
-
 // project
 gsap.registerPlugin(ScrollTrigger);
 
@@ -152,7 +27,7 @@ document.querySelector('.container').style.height = `${
 window.addEventListener('load', () => {
   const firstText = texts[0];
   const firstFrame = frames[0];
-  
+
   gsap.to(firstFrame, {
     y: (window.innerHeight / 2 - frameHeight / 2) - window.innerHeight * 0.05,
     opacity: 1,
@@ -169,7 +44,7 @@ window.addEventListener('load', () => {
 
   typeDescription(firstFrame.dataset.desc);
   updateTextVisibility(0);
-  
+
   window.addEventListener('wheel', handleWheelScroll);
 });
 
@@ -184,14 +59,14 @@ function handleWheelScroll(e) {
   syncScroll();
 }
 
-// frame과 text 동시 이동
+// frame怨?text ?숈떆 ?대룞
 function syncScroll() {
   const index = Math.round(scrollAmount / (frameHeight + frameGap));
   const targetText = texts[Math.min(index, texts.length - 1)];
   const offset = -targetText.offsetLeft + (window.innerWidth / 2) - (targetText.offsetWidth / 2);
   const targetFrame = frames[Math.min(index, frames.length - 1)];
 
-  // frame 세로 스크롤
+  // frame ?몃줈 ?ㅽ겕濡?
   gsap.to(frames, {
     y: -scrollAmount + (window.innerHeight / 2 - frameHeight / 2) - window.innerHeight * 0.025,
     opacity: 1,
@@ -199,7 +74,7 @@ function syncScroll() {
     ease: "power2.out"
   });
 
-  // text 가로 스크롤
+  // text 媛濡??ㅽ겕濡?
   gsap.to(track, {
     x: offset,
     duration: 1,
@@ -210,7 +85,7 @@ function syncScroll() {
   typeDescription(targetFrame.dataset.desc);
   updateTextVisibility(index);
 
-  // other project 등장 시 dynamicDescription 숨기기
+  // other project ?깆옣 ??dynamicDescription ?④린湲?
   if (targetText.dataset.index === "5") {
     description.style.display = 'none';
   } else {
@@ -218,7 +93,7 @@ function syncScroll() {
   }
 }
 
-// dynamicDescription 타이핑 중복 제거
+// dynamicDescription ??댄븨 以묐났 ?쒓굅
 function typeDescription(text) {
   let i = 0;
   const speed = 50;
@@ -236,7 +111,7 @@ function typeDescription(text) {
   typeWriter();
 }
 
-// text active 추가
+// text active 異붽?
 function updateTextVisibility(index) {
   texts.forEach((text, i) => {
     if (text.dataset.index !== "5") {
