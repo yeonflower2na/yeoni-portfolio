@@ -173,6 +173,30 @@ header{
   cursor: pointer;
   color: var(--black);
 }
+.copy-btn {
+  width: 22px;
+  height: 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  flex-shrink: 0;
+  opacity: 0.7;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.copy-btn::before {
+  content: '';
+  width: 9px;
+  height: 9px;
+  border: 1.5px solid currentColor;
+  border-radius: 2px;
+  transform: translate(2px, -2px);
+  box-shadow: -4px 4px 0 -1px var(--white), -4px 4px 0 0 currentColor;
+}
+.copy-btn:hover {
+  opacity: 1;
+  transform: translateY(-1px);
+}
 .holo-container h5 {
   font-size: 16px;
   text-align: center;
