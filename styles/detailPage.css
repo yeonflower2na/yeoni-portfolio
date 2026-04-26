@@ -48,8 +48,7 @@
 
 .detail-video {
   width: 100%;
-  aspect-ratio: 16/9;
-  background-color: #000;
+  max-width: 100%;
   border-radius: 8px;
   overflow: hidden;
 }
@@ -57,8 +56,16 @@
 .detail-video video {
   width: 100%;
   height: auto;
-  max-height: 80vh;
+  max-height: calc(85vh - 4rem);
   display: block;
+}
+
+.detail-video img {
+  width: 100%;
+  height: auto;
+  max-height: calc(85vh - 4rem);
+  display: block;
+  object-fit: contain;
 }
 
 .detail-video iframe {
