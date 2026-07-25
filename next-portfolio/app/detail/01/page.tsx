@@ -1,0 +1,214 @@
+'use client';
+
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import Header from '@/components/Header';
+import Contact from '@/components/Contact';
+
+export default function Detail01() {
+  const router = useRouter();
+
+  useEffect(() => {
+    document.body.style.backgroundColor = 'var(--white)';
+    return () => {
+      document.body.style.backgroundColor = '';
+    };
+  }, []);
+
+  return (
+    <>
+      <Header />
+      <Contact />
+      <main className="detail-main">
+        <div className="detail-container">
+          {/* LEFT */}
+          <div className="detail-left">
+            <div className="detail-video">
+              <video src="/assets/videos/kca-demo.mp4" controls />
+            </div>
+          </div>
+
+          {/* RIGHT */}
+          <div className="detail-right">
+            <div className="detail-box">
+              <button
+                className="detail-button"
+                onClick={() => router.push('/project')}
+              >
+                <i className="fa-solid fa-arrow-left"></i> 프로젝트 목록으로
+              </button>
+              <h1 className="detail-subtitle">한국소비자원 리뉴얼 프로젝트</h1>
+              <p className="detail-text">
+                본 프로젝트는{' '}
+                <strong>UX/UI 디자인과 퍼블리싱을 처음 학습한 후 진행한 첫 결과물</strong>로,
+                <br />
+                기획부터 디자인, 퍼블리싱까지 <strong>전 과정을 단독으로 수행</strong>했습니다.
+              </p>
+              <br />
+              <br />
+              <p className="detail-text">
+                대상 기관인 <strong>한국소비자원(Korea Consumer Agency)</strong>은
+                <br />
+                소비자 권익 보호와 공정한 거래 환경 조성을 목표로 하는 공공기관입니다.
+              </p>
+              <p className="detail-text">웹사이트 리뉴얼은 다음의 목표를 중점으로 설계되었습니다</p>
+              <ul className="detail-list">
+                <li>- 웹 접근성 및 정보 구조 개선</li>
+                <li>- 디자인 시스템 기반의 시각적 일관성</li>
+                <li>- 모바일 대응 반응형 UI 구현</li>
+              </ul>
+            </div>
+
+            <div className="detail-box">
+              <h1 className="detail-subtitle">프로젝트 바로가기</h1>
+              <ul className="detail-link">
+                <li>
+                  <a
+                    href="https://yeonflower2na.github.io/Korea-Consumer-Agency-Renual/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    🔗 리뉴얼 결과물 [라이브 사이트]
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://github.com/yeonflower2na/Korea-Consumer-Agency-Renual"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    💻 프로젝트 코드 [GitHub]
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.figma.com/design/Zl2r28X9vZZIhVNa89r46O/공공기관-리뉴얼_정연희"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    🎨 UX/UI 디자인 [Figma]
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <div className="detail-box">
+              <h1 className="detail-subtitle">제작 일정</h1>
+              <div className="detail-list">
+                <li className="list-tab">
+                  <span>기획</span> 2024.08.05 ~ 08.08 : 사용자 요구 분석 및 전략 수립
+                </li>
+                <li className="list-tab">
+                  <span>디자인</span> 2024.08.19 ~ 09.30 : UX 기반 설계 및 프로토타입 제작
+                </li>
+                <li className="list-tab">
+                  <span>개발</span> 2024.10.01 ~ 10.25 : 반응형 구현 및 접근성 고려 개발
+                </li>
+              </div>
+            </div>
+
+            <div className="detail-box">
+              <h1 className="detail-subtitle">주요 기능</h1>
+              <div className="detail-feature">
+                <h3 className="detail-article-title">📌 메인 페이지</h3>
+                <ul className="detail-list">
+                  <li className="main-desc">
+                    <span>Section 1 – 메인 비주얼</span>
+                    로고 배경과 핵심 메시지, 4개의 주요 메뉴를 중심으로 직관적인 첫 화면 구성
+                  </li>
+                  <li className="main-desc">
+                    <span>Section 2 – 기관 소개 및 뉴스</span>
+                    기관 소개와 최신 소식을 통합 배치하여 브랜드 정보 전달 강화
+                  </li>
+                  <li className="main-desc">
+                    <span>Section 3 – 공지사항 및 카드뉴스</span>
+                    다양한 정보를 슬라이더로 구성해 콘텐츠 전달 흐름 최적화
+                  </li>
+                  <li className="main-desc">
+                    <span>Section 4 – 상담 및 이벤트</span>
+                    사용자의 빠른 접근을 위한 버튼과 배너 중심의 시각적 안내 제공
+                  </li>
+                  <li className="main-desc">
+                    <span>푸터</span>
+                    사용자 유형에 따른 주요 메뉴 및 필수 정보 링크 구성
+                  </li>
+                  <li className="main-desc">
+                    <span>다크 테마</span>
+                    시각 피로 감소와 명확한 정보 전달을 위한 컬러 대비 적용
+                  </li>
+                  <li className="main-desc">
+                    <span>반응형 설계</span>
+                    다양한 기기 환경에서도 콘텐츠 구조 유지 및 접근성 확보
+                  </li>
+                </ul>
+                <br />
+                <h2 className="detail-article-title">📌 서브 페이지</h2>
+                <ul className="detail-list">
+                  <li className="main-desc">
+                    <span>전체 구조</span>
+                    정보 위계와 가독성을 고려해 콘텐츠를 정리하고, 탑버튼과 사용자별 메뉴로 접근성 향상
+                  </li>
+                  <li className="main-desc">
+                    <span>서브페이지1 - 피해 구제</span>
+                    절차별 버튼 구성과 신청 가능 여부를 직관적으로 안내, 인포그래픽으로 시각적 이해도 강화
+                  </li>
+                  <li className="main-desc">
+                    <span>서브페이지2 - 공지사항</span>
+                    명확한 리스트형 게시판 구성으로 공공정보 전달의 시인성 확보
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="detail-box">
+              <h1 className="detail-subtitle">디자인 방향성</h1>
+              <ul className="detail-list">
+                <li>
+                  <strong>정보 구조 단순화:</strong> 사용자가 필요한 정보를 빠르게 찾을 수 있도록
+                  콘텐츠를 카테고리별로 정리
+                </li>
+                <li>
+                  <strong>디자인 시스템 적용:</strong> 컬러, 폰트, 컴포넌트의 일관된 기준을 정의하고 적용
+                </li>
+                <li>
+                  <strong>웹 접근성 강화:</strong> 고대비 색상과 명확한 텍스트 구조로 시각적 가독성 향상
+                </li>
+                <li>
+                  <strong>반응형 UI 설계:</strong> PC, 태블릿, 모바일 환경에서 동일한 사용성 유지
+                </li>
+                <li>
+                  <strong>공공기관에 적합한 신뢰감:</strong> 안정적이고 명료한 레이아웃과 컬러 사용
+                </li>
+                <li>
+                  <strong>다크모드 적용:</strong> 시각 피로 감소 및 접근성 개선을 위한 색상 대응 설계
+                </li>
+              </ul>
+            </div>
+
+            <div className="detail-box">
+              <h1 className="detail-subtitle">폴더 구조</h1>
+              <pre className="detail-pre">
+                {`📦 한국소비자원\n ┣ 📂 styles\n ┣ 📂 script\n ┣ 📂 header\n ┣ 📂 section1 ~ section4\n ┣ 📂 footer\n ┣ 📂 mobile\n ┗ 📂 notice`}
+              </pre>
+            </div>
+
+            <div className="detail-box">
+              <h1 className="detail-subtitle">사용 기술 및 도구</h1>
+              <ul className="detail-list">
+                <li className="list-tab">
+                  <span>개발</span> HTML5, CSS3, JavaScript, Swiper, 반응형 미디어쿼리
+                </li>
+                <li className="list-tab">
+                  <span>디자인</span> Figma, Photoshop
+                </li>
+                <li className="list-tab">
+                  <span>개발 환경</span> VS Code
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </main>
+    </>
+  );
+}
