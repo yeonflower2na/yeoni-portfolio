@@ -25,7 +25,7 @@ export default function MainPage() {
   const slide4Ref = useRef<HTMLDivElement>(null);
   const myselfContainerRef = useRef<HTMLDivElement>(null);
   const floatingImageRef = useRef<HTMLImageElement>(null);
-  const [hoverProject, setHoverProject] = useState<number | null>(null);
+  const [hoverProject, setHoverProject] = useState<number>(0);
 
   // Remove fade-out class left by intro page (Next.js preserves body across SPA navigations)
   useEffect(() => {
@@ -401,7 +401,6 @@ export default function MainPage() {
                         key={p.name}
                         className={`preview-list-item${hoverProject === i ? ' active' : ''}`}
                         onMouseEnter={() => setHoverProject(i)}
-                        onMouseLeave={() => setHoverProject(null)}
                       >
                         <a href={p.href}>
                           <span className="preview-num">{p.num}</span>
@@ -425,11 +424,6 @@ export default function MainPage() {
                       <img src={p.image} alt={p.name} />
                     </div>
                   ))}
-                  {hoverProject === null && (
-                    <div className="preview-image-placeholder">
-                      <span className="serif-text">WORK</span>
-                    </div>
-                  )}
                 </div>
               </div>
             </section>

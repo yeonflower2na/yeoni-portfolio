@@ -1040,9 +1040,9 @@ body.default-background {
 .preview-editorial {
   display: flex;
   gap: 60px;
-  align-items: flex-start;
+  align-items: stretch;
   width: 100%;
-  max-width: 1200px;
+  max-width: 1400px;
   padding: 0 80px;
   margin: 0 auto;
 }
@@ -1107,13 +1107,11 @@ body.default-background {
 }
 /* Right image panel */
 .preview-image-panel {
-  width: 360px;
-  height: 300px;
+  width: 620px;
   flex-shrink: 0;
   position: relative;
   border-radius: 12px;
   overflow: hidden;
-  align-self: center;
 }
 .preview-image-item {
   position: absolute;
