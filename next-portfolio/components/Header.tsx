@@ -32,17 +32,24 @@ const NAV_ITEMS: NavItem[] = [
   },
   {
     href: '/project',
-    label: 'PROJECT',
-    navLabel: '웹디자인 & 웹퍼블리싱',
+    label: 'UI/UX',
+    navLabel: 'UI/UX 디자인',
     dataLeft: 'Create',
-    dataRight: 'Projects',
+    dataRight: 'UI/UX',
   },
   {
     href: '/design',
-    label: 'DESIGN',
-    navLabel: '편집디자인 & 인포그래픽',
+    label: 'GRAPHIC',
+    navLabel: '편집디자인 & 시각디자인',
     dataLeft: 'Inspire',
-    dataRight: 'Design',
+    dataRight: 'Graphic',
+  },
+  {
+    href: '/ax',
+    label: 'AX',
+    navLabel: 'AI Transformation',
+    dataLeft: 'Innovate',
+    dataRight: 'AX',
   },
 ];
 

@@ -14,7 +14,7 @@ const PREVIEW_PROJECTS = [
   { num: '03', type: 'WEB', name: '포트폴리오', year: '2025', href: '/', image: '/assets/images/project3.jpg' },
   { num: '04', type: 'APP', name: 'Journee', year: '2024', href: '/project', image: '/assets/images/project3-1.png' },
   { num: '05', type: 'UX/UI', name: '클래스101', year: '2024', href: '/project', image: '/assets/images/project6.JPG' },
-  { num: '06', type: 'DESIGN', name: '디자인 작품', year: '2019-', href: '/design', image: '/assets/images/design/2024/202403.jpg' },
+  { num: '06', type: 'GRAPHIC', name: '디자인 작품', year: '2019-', href: '/design', image: '/assets/images/design/2024/202403.jpg' },
 ];
 
 export default function MainPage() {

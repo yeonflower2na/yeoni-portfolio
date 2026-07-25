@@ -333,6 +333,11 @@ header{
 .navigation li:nth-child(1) a{
   padding: 10px 10px;
 }
+.navigation li:nth-child(1) a img{
+  width: 17px;
+  height: 17px;
+  object-fit: contain;
+}
 .navigation a:nth-child(1).active img{
   filter: invert();
 }
@@ -1718,8 +1723,8 @@ body.default-background {
   z-index: 1;
 }
 .project_frame {
-  height: 75vh;
   width: 65%;
+  max-height: 80vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1734,14 +1739,12 @@ body.default-background {
 .project_frame a{
   display: block;
   width: 100%;
-  height: 100%;
   position: relative;
 }
 .project_frame a img{
   width: 100%;
   height: auto;
   position: relative;
-  object-fit: cover;
   display: block;
 }
 .scroll-wrapper {
