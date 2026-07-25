@@ -6,7 +6,6 @@ import gsap from 'gsap'
 import Header from '@/components/Header'
 import Contact from '@/components/Contact'
 
-// ── Project data ──────────────────────────────────────────────────────────────
 interface ProjectItem {
   index: number
   image: string
@@ -71,26 +70,16 @@ const PROJECTS: ProjectItem[] = [
   },
 ]
 
-// ── Component ─────────────────────────────────────────────────────────────────
 export default function ProjectPage() {
   const router = useRouter()
-
-  // DOM refs
   const containerRef = useRef<HTMLDivElement>(null)
   const framesRef = useRef<(HTMLDivElement | null)[]>([])
   const textsRef = useRef<(HTMLDivElement | null)[]>([])
   const trackRef = useRef<HTMLDivElement>(null)
   const descriptionRef = useRef<HTMLParagraphElement>(null)
-
-  // Scroll state
   const scrollAmountRef = useRef(0)
-  const frameHeightRef = useRef(0)
-  const frameGapRef = useRef(150)
-  const currentIndexRef = useRef(0)
   const typeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
-  const isAnimatingRef = useRef(false)
 
-  // ── Typing effect ──────────────────────────────────────────────────────────
   const typeDescription = useCallback((text: string) => {
     if (typeTimerRef.current) clearTimeout(typeTimerRef.current)
     const el = descriptionRef.current
@@ -107,130 +96,100 @@ export default function ProjectPage() {
     type()
   }, [])
 
-  // ── Update text visibility ─────────────────────────────────────────────────
-  const updateTextVisibility = useCallback((activeIndex: number) => {
+  const updateTextVisibility = useCallback((index: number) => {
     textsRef.current.forEach((text, i) => {
-      if (!text) return
-      const isActive = i === activeIndex
-      text.classList.toggle('active', isActive)
-      text.classList.toggle('hidden', false) // never hide, just active class
+      if (!text || text.dataset.index === '5') return
+      text.classList.remove('active')
+      if (i === index) text.classList.add('active')
     })
   }, [])
 
-  // ── Sync scroll ────────────────────────────────────────────────────────────
-  const syncScroll = useCallback(() => {
-    const frameHeight = frameHeightRef.current
-    const frameGap = frameGapRef.current
-    const totalStep = frameHeight + frameGap
-    const frames = framesRef.current
-    const maxIndex = PROJECTS.length - 1
-
-    // Clamp scrollAmount
-    const minScroll = 0
-    const maxScroll = maxIndex * totalStep
-    scrollAmountRef.current = Math.max(minScroll, Math.min(maxScroll, scrollAmountRef.current))
-
-    const rawIndex = scrollAmountRef.current / totalStep
-    const targetIndex = Math.round(rawIndex)
-    currentIndexRef.current = Math.max(0, Math.min(maxIndex, targetIndex))
-
-    // Animate frames
-    frames.forEach((frame, i) => {
-      if (!frame) return
-      const offset = i - currentIndexRef.current
-      const yTarget = offset * totalStep
-      gsap.to(frame, {
-        y: yTarget,
-        opacity: i === currentIndexRef.current ? 1 : 0.4,
-        duration: 0.6,
-        ease: 'power2.out',
-      })
-    })
-
-    // Animate text track
-    animateTrack(currentIndexRef.current)
-    updateTextVisibility(currentIndexRef.current)
-    typeDescription(PROJECTS[currentIndexRef.current]?.desc ?? '')
-  }, [typeDescription, updateTextVisibility])
-
-  // ── Animate text track ─────────────────────────────────────────────────────
-  const animateTrack = (index: number) => {
-    const track = trackRef.current
-    if (!track) return
-    const textEls = textsRef.current
-    if (!textEls[index]) return
-
-    // Calculate cumulative width up to the active text element
-    let totalOffset = 0
-    for (let i = 0; i < index; i++) {
-      const el = textEls[i]
-      if (el) totalOffset += el.offsetWidth
-    }
-    const activeEl = textEls[index]
-    const activeWidth = activeEl ? activeEl.offsetWidth : 0
-    const centerOffset = window.innerWidth / 2 - totalOffset - activeWidth / 2
-    gsap.to(track, {
-      x: centerOffset,
-      duration: 0.6,
-      ease: 'power2.out',
-    })
-  }
-
-  // ── Wheel handler ──────────────────────────────────────────────────────────
-  useEffect(() => {
-    const handleWheel = (e: WheelEvent) => {
-      e.preventDefault()
-      const frameHeight = frameHeightRef.current
-      const frameGap = frameGapRef.current
-      const totalStep = frameHeight + frameGap
-      const maxScroll = (PROJECTS.length - 1) * totalStep
-
-      scrollAmountRef.current += e.deltaY
-      scrollAmountRef.current = Math.max(0, Math.min(maxScroll, scrollAmountRef.current))
-      syncScroll()
-    }
-
-    window.addEventListener('wheel', handleWheel, { passive: false })
-    return () => window.removeEventListener('wheel', handleWheel)
-  }, [syncScroll])
-
-  // ── Mount/init ─────────────────────────────────────────────────────────────
   useEffect(() => {
     document.body.style.backgroundColor = 'var(--background)'
 
-    frameHeightRef.current = window.innerHeight * 0.7
-    frameGapRef.current = 150
-
-    const frames = framesRef.current
+    const frames = framesRef.current.filter(Boolean) as HTMLDivElement[]
+    const texts = textsRef.current.filter(Boolean) as HTMLDivElement[]
     const track = trackRef.current
+    const container = containerRef.current
+    const desc = descriptionRef.current
 
-    // Set initial positions with gsap
-    frames.forEach(frame => {
-      if (!frame) return
-      gsap.set(frame, { y: 100, opacity: 0 })
-    })
+    if (!track || !container || frames.length === 0) return
 
-    if (track) {
-      gsap.set(track, { x: window.innerWidth })
-    }
+    const frameHeight = window.innerHeight * 0.7
+    const frameGap = 150
 
-    // On window load, animate first frame to center and track to center first text
-    const onLoad = () => {
-      // Animate first frame to y:0, opacity:1
-      if (frames[0]) {
-        gsap.to(frames[0], { y: 0, opacity: 1, duration: 0.8, ease: 'power2.out' })
-      }
-      // Animate remaining frames to stacked positions
-      frames.forEach((frame, i) => {
-        if (!frame || i === 0) return
-        const totalStep = frameHeightRef.current + frameGapRef.current
-        gsap.to(frame, { y: i * totalStep, opacity: 0.4, duration: 0.8, ease: 'power2.out', delay: i * 0.05 })
+    // Set container height (matches original)
+    container.style.height = `${frames.length * (frameHeight + frameGap) + frameHeight * 2}px`
+
+    // Set track width (matches original)
+    const totalTextWidth = texts.reduce((acc, t) => acc + t.offsetWidth, 0)
+    track.style.width = `${totalTextWidth + window.innerWidth / 3}px`
+
+    // Initial GSAP state (matches original)
+    gsap.set(frames, { y: 100, opacity: 0 })
+    gsap.set(track, { x: window.innerWidth })
+
+    // syncScroll — all frames move together with same y (matches original)
+    function syncScroll() {
+      const maxScroll = frames.length * (frameHeight + frameGap) + frameHeight
+      scrollAmountRef.current = Math.max(0, Math.min(scrollAmountRef.current, maxScroll))
+
+      const centerY = (window.innerHeight / 2 - frameHeight / 2) - window.innerHeight * 0.025
+      const index = Math.round(scrollAmountRef.current / (frameHeight + frameGap))
+      const clampedTextIndex = Math.min(index, texts.length - 1)
+      const clampedFrameIndex = Math.min(index, frames.length - 1)
+      const targetText = texts[clampedTextIndex]
+      const targetFrame = frames[clampedFrameIndex]
+
+      // All frames move together as one strip
+      gsap.to(frames, {
+        y: -scrollAmountRef.current + centerY,
+        opacity: 1,
+        duration: 1,
+        ease: 'power2.out',
       })
 
+      // Text track centers on active text using offsetLeft (matches original)
+      if (targetText) {
+        const offset = -targetText.offsetLeft + window.innerWidth / 2 - targetText.offsetWidth / 2
+        gsap.to(track, { x: offset, duration: 1, ease: 'power2.out' })
+      }
+
+      if (targetFrame) typeDescription(targetFrame.dataset.desc ?? '')
+      updateTextVisibility(index)
+
+      // Hide description on other project (matches original)
+      if (desc) {
+        desc.style.display = targetText?.dataset.index === '5' ? 'none' : 'block'
+      }
+    }
+
+    function handleWheel(e: WheelEvent) {
+      scrollAmountRef.current += e.deltaY
+      syncScroll()
+    }
+
+    const onLoad = () => {
+      // Only first frame animates in (matches original)
+      if (frames[0]) {
+        gsap.to(frames[0], {
+          y: (window.innerHeight / 2 - frameHeight / 2) - window.innerHeight * 0.05,
+          opacity: 1,
+          duration: 1,
+          ease: 'power2.out',
+        })
+      }
+
       // Center track on first text
-      animateTrack(0)
+      if (texts[0]) {
+        const offset = -texts[0].offsetLeft + window.innerWidth / 2 - texts[0].offsetWidth / 2
+        gsap.to(track, { x: offset, duration: 1, ease: 'power2.out' })
+      }
+
+      typeDescription(frames[0]?.dataset.desc ?? '')
       updateTextVisibility(0)
-      typeDescription(PROJECTS[0].desc)
+
+      window.addEventListener('wheel', handleWheel)
     }
 
     if (document.readyState === 'complete') {
@@ -242,17 +201,11 @@ export default function ProjectPage() {
     return () => {
       document.body.style.backgroundColor = ''
       if (typeTimerRef.current) clearTimeout(typeTimerRef.current)
+      window.removeEventListener('wheel', handleWheel)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [typeDescription, updateTextVisibility])
 
-  // ── Frame click: navigate ──────────────────────────────────────────────────
-  const handleFrameClick = (index: number) => {
-    const padded = String(index + 1).padStart(2, '0')
-    router.push(`/detail/${padded}`)
-  }
-
-  // ── Render ─────────────────────────────────────────────────────────────────
   return (
     <>
       <Header />
@@ -266,13 +219,10 @@ export default function ProjectPage() {
                 data-index={project.index}
                 data-desc={project.desc}
                 ref={el => { framesRef.current[i] = el }}
-                onClick={() => handleFrameClick(project.index)}
+                onClick={() => router.push(project.detailHref)}
                 style={{ cursor: 'pointer' }}
               >
-                <a
-                  href="#none"
-                  onClick={e => e.preventDefault()}
-                >
+                <a href="#none" onClick={e => e.preventDefault()}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={project.image} alt={project.alt} />
                 </a>
