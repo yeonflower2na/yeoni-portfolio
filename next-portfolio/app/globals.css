@@ -1032,114 +1032,116 @@ body.default-background {
   align-items: center;
   overflow: hidden;
 }
+/* ── Preview Editorial (design page style) ── */
 .preview-section {
   width: 100%;
   height: auto;
 }
-.slide-title {
-  margin-top: 60px;
-  font-size: 2.8rem;
-  text-align: center;
-  position: relative;
-  width: 100%;
-}
-.slide-title::after {
-  content: '';
-  position: absolute;
-  width: 80%;
-  height: 1px;
-  bottom: -30px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #333;
-}
-.preview-container {
-  width: 100vw;
-  height: 600px;
-  position: relative;
-  perspective: 3000px;
-  overflow: hidden;
-}
-.preview-wrapper {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  transform-style: preserve-3d;
-  transform: rotateY(180deg);
-  transition: transform 1.5s ease-in-out;
-  left: 50%;
-  transform-origin: center;
-  translate: -50% 0;
-}
-.preview-card {
-  width: 680px;
-  height: 680px;
-  position: absolute;
-  top: 5%;
-  left: 50%;
-  transform-origin: center;
-  transform-style: preserve-3d;
-  transform: rotateY(calc(var(--i) * 22deg)) translateZ(-2000px) translateX(-50%);
-  background-color: var(--card);
-  border-radius: 20px;
-  transition: opacity 0.5s ease, visibility 0.5s ease;
-}
-.preview-card[data-hide="true"] {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-}
-.preview-card a{
-  width: 100%;
-  height: inherit;
+.preview-editorial {
   display: flex;
-  justify-content: center;
+  gap: 60px;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 80px;
+  margin: 0 auto;
+}
+.preview-editorial-list {
+  flex: 1;
+  min-width: 0;
+}
+.preview-editorial-title {
+  font-size: 2.4rem;
+  margin-bottom: 18px;
+}
+.preview-editorial-divider {
+  width: 100%;
+  height: 1px;
+  background-color: var(--black);
+  margin-bottom: 0;
+}
+.preview-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.preview-list-item a {
+  display: grid;
+  grid-template-columns: 36px 70px 1fr 70px;
   align-items: center;
+  gap: 20px;
+  padding: 17px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  text-decoration: none;
+  color: var(--black);
+  transition: gap 0.3s ease;
+}
+.preview-list-item:hover a {
+  gap: 28px;
+}
+.preview-num {
+  font-family: 'supply', monospace;
+  font-size: 0.8rem;
+  color: rgba(0, 0, 0, 0.35);
+  letter-spacing: 0.02em;
+}
+.preview-type {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: rgba(0, 0, 0, 0.45);
+}
+.preview-name {
+  font-size: 1.15rem;
+  font-weight: 500;
+  transition: transform 0.3s ease;
+}
+.preview-list-item:hover .preview-name {
+  transform: translateX(6px);
+}
+.preview-year {
+  font-size: 0.8rem;
+  color: rgba(0, 0, 0, 0.35);
+  text-align: right;
+  font-family: 'supply', monospace;
+}
+/* Right image panel */
+.preview-image-panel {
+  width: 360px;
+  height: 300px;
+  flex-shrink: 0;
   position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  align-self: center;
 }
-.preview-card a img {
-  width: 70%;
-  height: auto;
-  object-fit: contain;
-  object-position: center;
-  transition: opacity .3s ease-in;
-  opacity: .9;
-}
-.preview-card:nth-child(5) a img{
-  width: 50%;
-}
-.preview-card:hover img {
-  opacity: 0;
-}
-.preview-card:hover a::before {
-  content: "";
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+.preview-image-item {
   position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.preview-image-item.active {
+  opacity: 1;
+}
+.preview-image-item img {
   width: 100%;
   height: 100%;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  object-fit: cover;
 }
-.preview-card:nth-child(1):hover a::before {
-  background-image: url('/assets/images/project1.jpg');
+.preview-image-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--card);
+  border-radius: 12px;
 }
-.preview-card:nth-child(2):hover a::before {
-  background-image: url('/assets/images/project2-2.JPG');
-}
-.preview-card:nth-child(3):hover a::before {
-  background-image: url('/assets/images/project3.jpg');
-}
-.preview-card:nth-child(4):hover a::before {
-  background-image: url('/assets/images/project3-1.png');
-}
-.preview-card:nth-child(5):hover a::before {
-  background-image: url('/assets/images/project6.JPG');
-}
-.preview-card:nth-child(6):hover a::before {
-  background-image: url('/assets/images/design/2024/202403.jpg');
+.preview-image-placeholder span {
+  font-size: 3rem;
+  color: rgba(0, 0, 0, 0.12);
+  letter-spacing: 0.2em;
 }
 
 

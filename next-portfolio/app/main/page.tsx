@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 import Header from '@/components/Header';
 import Contact from '@/components/Contact';
@@ -8,15 +8,24 @@ import Footer from '@/components/Footer';
 
 const ThreeModel = dynamic(() => import('@/components/ThreeModel'), { ssr: false });
 
+const PREVIEW_PROJECTS = [
+  { num: '01', type: 'WEB', name: '한국소비자원 리뉴얼', year: '2024', href: '/project', image: '/assets/images/project1.jpg' },
+  { num: '02', type: 'UX/UI', name: '인터파크티켓 리뉴얼', year: '2024', href: '/project', image: '/assets/images/project2-2.JPG' },
+  { num: '03', type: 'WEB', name: '포트폴리오', year: '2025', href: '/', image: '/assets/images/project3.jpg' },
+  { num: '04', type: 'APP', name: 'Journee', year: '2024', href: '/project', image: '/assets/images/project3-1.png' },
+  { num: '05', type: 'UX/UI', name: '클래스101', year: '2024', href: '/project', image: '/assets/images/project6.JPG' },
+  { num: '06', type: 'DESIGN', name: '디자인 작품', year: '2019-', href: '/design', image: '/assets/images/design/2024/202403.jpg' },
+];
+
 export default function MainPage() {
   const prologueRef = useRef<HTMLElement>(null);
   const footerRef = useRef<HTMLDivElement>(null);
   const slide3LeftRef = useRef<HTMLSpanElement>(null);
   const slide3RightRef = useRef<HTMLSpanElement>(null);
   const slide4Ref = useRef<HTMLDivElement>(null);
-  const previewWrapperRef = useRef<HTMLDivElement>(null);
   const myselfContainerRef = useRef<HTMLDivElement>(null);
   const floatingImageRef = useRef<HTMLImageElement>(null);
+  const [hoverProject, setHoverProject] = useState<number | null>(null);
 
   // Remove fade-out class left by intro page (Next.js preserves body across SPA navigations)
   useEffect(() => {
@@ -119,100 +128,6 @@ export default function MainPage() {
     };
   }, []);
 
-  // Preview carousel drag (matches original)
-  useEffect(() => {
-    const wrapper = previewWrapperRef.current;
-    if (!wrapper) return;
-
-    const previewCards = wrapper.querySelectorAll<HTMLElement>('.preview-card');
-    let currentIndex = 3.63;
-    const totalItems = previewCards.length;
-
-    previewCards.forEach((card, i) => {
-      card.style.setProperty('--i', String(i));
-    });
-
-    wrapper.style.transition = 'none';
-    const angle = 180 + currentIndex * 30;
-    wrapper.style.transform = `rotateY(${angle}deg)`;
-
-    setTimeout(() => {
-      wrapper.style.transition = 'transform 1s ease-in-out';
-    }, 100);
-
-    function updateCarousel() {
-      const deg = 180 + currentIndex * 30;
-      wrapper!.style.transform = `rotateY(${deg}deg)`;
-    }
-    function moveNext() { currentIndex = (currentIndex + 1) % totalItems; updateCarousel(); }
-    function movePrev() { currentIndex = (currentIndex - 1 + totalItems) % totalItems; updateCarousel(); }
-
-    let startX = 0;
-    let isDragging = false;
-
-    const onMouseDown = (e: MouseEvent) => { isDragging = true; startX = e.clientX; };
-    const onMouseMove = (e: MouseEvent) => {
-      if (!isDragging) return;
-      const diff = e.clientX - startX;
-      if (diff > 50) { movePrev(); isDragging = false; }
-      else if (diff < -50) { moveNext(); isDragging = false; }
-    };
-    const onMouseUp = () => { isDragging = false; };
-    const onTouchStart = (e: TouchEvent) => { isDragging = true; startX = e.touches[0].clientX; };
-    const onTouchMove = (e: TouchEvent) => {
-      if (!isDragging) return;
-      const diff = e.touches[0].clientX - startX;
-      if (diff > 150) { movePrev(); isDragging = false; }
-      else if (diff < -150) { moveNext(); isDragging = false; }
-    };
-    const onTouchEnd = () => { isDragging = false; };
-
-    wrapper.addEventListener('mousedown', onMouseDown);
-    document.addEventListener('mousemove', onMouseMove);
-    document.addEventListener('mouseup', onMouseUp);
-    wrapper.addEventListener('touchstart', onTouchStart);
-    document.addEventListener('touchmove', onTouchMove);
-    document.addEventListener('touchend', onTouchEnd);
-
-    return () => {
-      wrapper.removeEventListener('mousedown', onMouseDown);
-      document.removeEventListener('mousemove', onMouseMove);
-      document.removeEventListener('mouseup', onMouseUp);
-      wrapper.removeEventListener('touchstart', onTouchStart);
-      document.removeEventListener('touchmove', onTouchMove);
-      document.removeEventListener('touchend', onTouchEnd);
-    };
-  }, []);
-
-  // Tag follow mouse on preview cards (matches original)
-  useEffect(() => {
-    const slide4 = slide4Ref.current;
-    if (!slide4) return;
-
-    const cards = slide4.querySelectorAll<HTMLElement>('.preview-card');
-
-    cards.forEach((card) => {
-      const tag = card.querySelector<HTMLElement>('.tag');
-      if (!tag) return;
-
-      const onEnter = (e: MouseEvent) => {
-        const rect = card.getBoundingClientRect();
-        tag.style.left = `${e.clientX - rect.left}px`;
-        tag.style.top = `${e.clientY - rect.top}px`;
-        tag.style.opacity = '1';
-      };
-      const onMove = (e: MouseEvent) => {
-        const rect = card.getBoundingClientRect();
-        tag.style.left = `${e.clientX - rect.left}px`;
-        tag.style.top = `${e.clientY - rect.top}px`;
-      };
-      const onLeave = () => { tag.style.opacity = '0'; };
-
-      card.addEventListener('mouseenter', onEnter);
-      card.addEventListener('mousemove', onMove);
-      card.addEventListener('mouseleave', onLeave);
-    });
-  }, []);
 
   // ── Wheel navigation — exactly matches original main.js ────────────────────
   useEffect(() => {
@@ -475,51 +390,46 @@ export default function MainPage() {
           {/* ── SLIDE 4 ── */}
           <div className="slide" id="slide4" ref={slide4Ref}>
             <section className="preview-section">
-              <h2 className="slide-title serif-text">PREVIEW</h2>
-              <div className="preview-container">
-                <div className="preview-wrapper" ref={previewWrapperRef}>
-                  <div className="preview-card">
-                    <a href="/project">
+              <div className="preview-editorial">
+                {/* Left: numbered list */}
+                <div className="preview-editorial-list">
+                  <h2 className="preview-editorial-title serif-text">PREVIEW</h2>
+                  <div className="preview-editorial-divider" />
+                  <ul className="preview-list">
+                    {PREVIEW_PROJECTS.map((p, i) => (
+                      <li
+                        key={p.name}
+                        className={`preview-list-item${hoverProject === i ? ' active' : ''}`}
+                        onMouseEnter={() => setHoverProject(i)}
+                        onMouseLeave={() => setHoverProject(null)}
+                      >
+                        <a href={p.href}>
+                          <span className="preview-num">{p.num}</span>
+                          <span className="preview-type">{p.type}</span>
+                          <span className="preview-name">{p.name}</span>
+                          <span className="preview-year">{p.year}</span>
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Right: hover image panel */}
+                <div className="preview-image-panel">
+                  {PREVIEW_PROJECTS.map((p, i) => (
+                    <div
+                      key={p.name}
+                      className={`preview-image-item${hoverProject === i ? ' active' : ''}`}
+                    >
                       {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src="/assets/images/3d-icon1.png" alt="feather" />
-                    </a>
-                    <span className="tag neodgm-text">#한국소비자원 리뉴얼</span>
-                  </div>
-                  <div className="preview-card">
-                    <a href="/project">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src="/assets/images/3d-icon2.png" alt="clock" />
-                    </a>
-                    <span className="tag neodgm-text">#인터파크티켓 리뉴얼</span>
-                  </div>
-                  <div className="preview-card">
-                    <a href="/">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src="/assets/images/3d-icon3.png" alt="bolt" />
-                    </a>
-                    <span className="tag neodgm-text">#포트폴리오</span>
-                  </div>
-                  <div className="preview-card">
-                    <a href="/project">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src="/assets/images/3d-icon4.png" alt="bolt" />
-                    </a>
-                    <span className="tag neodgm-text">#Journee</span>
-                  </div>
-                  <div className="preview-card">
-                    <a href="/project">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src="/assets/images/3d-icon5.png" alt="bolt" />
-                    </a>
-                    <span className="tag neodgm-text">#클래스101</span>
-                  </div>
-                  <div className="preview-card">
-                    <a href="/design">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src="/assets/images/3d-icon6.png" alt="star" />
-                    </a>
-                    <span className="tag neodgm-text">#디자인 작품</span>
-                  </div>
+                      <img src={p.image} alt={p.name} />
+                    </div>
+                  ))}
+                  {hoverProject === null && (
+                    <div className="preview-image-placeholder">
+                      <span className="serif-text">WORK</span>
+                    </div>
+                  )}
                 </div>
               </div>
             </section>
