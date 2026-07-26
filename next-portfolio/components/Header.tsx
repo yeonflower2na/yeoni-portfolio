@@ -31,7 +31,7 @@ const NAV_ITEMS: NavItem[] = [
     dataRight: 'About',
   },
   {
-    href: '/project',
+    href: '/uiux',
     label: 'UI/UX',
     navLabel: 'UI/UX 디자인',
     dataLeft: 'Create',

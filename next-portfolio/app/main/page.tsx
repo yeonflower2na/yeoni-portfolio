@@ -9,11 +9,11 @@ import Footer from '@/components/Footer';
 const ThreeModel = dynamic(() => import('@/components/ThreeModel'), { ssr: false });
 
 const PREVIEW_PROJECTS = [
-  { num: '01', type: 'WEB', name: '한국소비자원 리뉴얼', year: '2024', href: '/project', image: '/assets/images/project1.jpg' },
-  { num: '02', type: 'UX/UI', name: '인터파크티켓 리뉴얼', year: '2024', href: '/project', image: '/assets/images/project2-2.JPG' },
+  { num: '01', type: 'WEB', name: '한국소비자원 리뉴얼', year: '2024', href: '/uiux', image: '/assets/images/project1.jpg' },
+  { num: '02', type: 'UX/UI', name: '인터파크티켓 리뉴얼', year: '2024', href: '/uiux', image: '/assets/images/project2-2.JPG' },
   { num: '03', type: 'WEB', name: '포트폴리오', year: '2025', href: '/', image: '/assets/images/project3.jpg' },
-  { num: '04', type: 'APP', name: 'Journee', year: '2024', href: '/project', image: '/assets/images/project3-1.png' },
-  { num: '05', type: 'UX/UI', name: '클래스101', year: '2024', href: '/project', image: '/assets/images/project6.JPG' },
+  { num: '04', type: 'APP', name: 'Journee', year: '2024', href: '/uiux', image: '/assets/images/project3-1.png' },
+  { num: '05', type: 'UX/UI', name: '클래스101', year: '2024', href: '/uiux', image: '/assets/images/project6.JPG' },
   { num: '06', type: 'GRAPHIC', name: '디자인 작품', year: '2019-', href: '/design', image: '/assets/images/design/2024/202403.jpg' },
 ];
 
