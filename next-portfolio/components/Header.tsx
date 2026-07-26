@@ -38,7 +38,7 @@ const NAV_ITEMS: NavItem[] = [
     dataRight: 'UI/UX',
   },
   {
-    href: '/design',
+    href: '/graphic',
     label: 'GRAPHIC',
     navLabel: '편집디자인 & 시각디자인',
     dataLeft: 'Inspire',

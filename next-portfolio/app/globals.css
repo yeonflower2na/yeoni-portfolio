@@ -2004,7 +2004,7 @@ body.default-background {
   justify-content: center;
   align-items: center;
   will-change: transform, opacity;
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  transition: opacity 0.3s ease;
 }
 
 .hover-image.visible {
