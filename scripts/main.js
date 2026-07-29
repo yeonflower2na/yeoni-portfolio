@@ -1,6 +1,5 @@
 // main
 let prologue = document.getElementById('prologue');
-let footer = document.getElementById('slide-footer');
 let slides = document.querySelectorAll('.slide');
 let leftText = document.querySelector('.serif-text.left');
 let rightText = document.querySelector('.serif-text.right');
@@ -10,21 +9,20 @@ let body = document.body;
 
 let totalSlides = slides.length;
 let currentLocation = 0;
-let atFooter = false;
 let slide3Progress = 0;
 let slide3Locked = false;
 let slide4Animated = false;
-let footerLock = false;
 let slide3Hold = false;
-
-slide4.style.opacity = '0';
-slide4.style.transition = 'opacity 1s ease';
-footer.style.transform = 'translateY(100vh)';
-footer.style.transition = 'transform 0.8s ease';
+let scrollCounter = 0;
+let isTransitioning = false;
+let hasSlide4Appeared = false;
 
 const textMoveSpeed = 40;
 const textReturnSpeed = 35;
 const maxTextDistance = 500;
+
+slide4.style.opacity = '0';
+slide4.style.transition = 'opacity 1s ease';
 
 // 배경 전환 함수
 function updateBackground() {
@@ -37,100 +35,68 @@ function updateBackground() {
   }
 }
 
-// wheel
-let footerScrollThreshold = 80;  // 푸터 등장 스크롤 임계치
-let footerScrollProgress = 0;    // 현재 푸터 스크롤 진행 상태
-let scrollCounter = 0; // 스크롤 단계를 저장하는 변수
-let isTransitioning = false; // 전환 중인지 확인하는 플래그
-let hasSlide4Appeared = false; // 4페이지가 등장했는지 여부
-
-window.addEventListener('wheel', (e) => {
-  const isScrollingDown = e.deltaY > 0; // true: 아래로 스크롤, false: 위로 스크롤
-
-  if (isTransitioning) return; // 전환 중에는 추가 동작 방지
+function handleScrollDirection(isScrollingDown) {
+  if (isTransitioning) return;
 
   if (isScrollingDown) {
-    // 아래로 스크롤
-    if (!atFooter) {
-      if (currentLocation < 40 && !slide3Locked) {
-        currentLocation++;
-        prologue.style.left = currentLocation * -5 + '%';
-      }
+    if (currentLocation < 40 && !slide3Locked) {
+      currentLocation++;
+      prologue.style.left = currentLocation * -5 + '%';
+    }
 
-      // 3페이지에서 4페이지로 넘어가기
-      if (currentLocation === 40) {
-        slide3Hold = true;
-        slide3Locked = true;
+    // 3페이지에서 4페이지로 넘어가기
+    if (currentLocation === 40) {
+      slide3Hold = true;
+      slide3Locked = true;
 
-        slide3Progress += textMoveSpeed;
-        leftText.style.transform = `translateX(-${80 + slide3Progress}%)`;
-        rightText.style.transform = `translateX(${80 + slide3Progress}%)`;
+      slide3Progress += textMoveSpeed;
+      leftText.style.transform = `translateX(-${80 + slide3Progress}%)`;
+      rightText.style.transform = `translateX(${80 + slide3Progress}%)`;
 
-        if (slide3Progress >= maxTextDistance) {
-          slide3Locked = false;
-          slide3Hold = false;
+      if (slide3Progress >= maxTextDistance) {
+        slide3Locked = false;
+        slide3Hold = false;
 
-          if (!slide4Animated) {
-            slide4.style.opacity = '1';
-            slide4Animated = true;
-            hasSlide4Appeared = true;
+        if (!slide4Animated) {
+          slide4.style.opacity = '1';
+          slide4Animated = true;
+          hasSlide4Appeared = true;
 
-            setTimeout(() => {
-              currentLocation = 60;
-              prologue.style.left = currentLocation * -5 + '%';
-            }, 1000);
-          }
-        }
-      }
-
-      // 4페이지에서 푸터 등장 지연
-      if (currentLocation === 60 && slide4Animated) {
-        footerScrollProgress += 10;
-
-        if (footerScrollProgress >= footerScrollThreshold) {
-          atFooter = true;
-          footer.style.transform = 'translateY(0)';
+          setTimeout(() => {
+            currentLocation = 60;
+            prologue.style.left = currentLocation * -5 + '%';
+          }, 1000);
         }
       }
     }
+    // slide4에서 아래 스크롤은 네이티브 스크롤(footer)로 처리됨
   } else {
     // 위로 스크롤
-    if (atFooter) {
-      // 푸터 -> 4페이지
-      atFooter = false;
-      footer.style.transform = 'translateY(100vh)';
-      currentLocation = 60;
-      prologue.style.left = currentLocation * -5 + '%';
-
-      footerScrollProgress = 0;
-    } else if (currentLocation === 60) {
-      // 4페이지 -> 3페이지로 전환 전에 스크롤 3번 요구
+    if (currentLocation === 60) {
       scrollCounter++;
       if (scrollCounter === 1) {
-        slide4.style.opacity = '0.8'; // 첫 번째 스크롤
+        slide4.style.opacity = '0.8';
       } else if (scrollCounter === 2) {
-        slide4.style.opacity = '0.5'; // 두 번째 스크롤
+        slide4.style.opacity = '0.5';
       } else if (scrollCounter >= 3) {
-        isTransitioning = true; // 전환 중 상태 설정
-        slide4.style.opacity = '0'; // 마지막 전환
+        isTransitioning = true;
+        slide4.style.opacity = '0';
         currentLocation = 40;
 
         setTimeout(() => {
           prologue.style.left = currentLocation * -5 + '%';
-          isTransitioning = false; // 전환 상태 해제
-          hasSlide4Appeared = false; // 4페이지 상태 초기화
-        }, 500); // 전환 대기 시간
+          isTransitioning = false;
+          hasSlide4Appeared = false;
+        }, 500);
 
-        scrollCounter = 0; // 카운터 초기화
+        scrollCounter = 0;
       }
     } else if (currentLocation === 40) {
-      // 3페이지
       if (!hasSlide4Appeared) {
         slide3Progress -= textReturnSpeed;
         leftText.style.transform = `translateX(-${80 + slide3Progress}%)`;
         rightText.style.transform = `translateX(${80 + slide3Progress}%)`;
 
-        // 3페이지 -> 2페이지
         if (slide3Progress <= 0) {
           slide3Progress = 0;
           slide3Locked = false;
@@ -139,30 +105,99 @@ window.addEventListener('wheel', (e) => {
           prologue.style.left = currentLocation * -5 + '%';
         }
       } else {
-        // 4페이지 다시 등장 준비
         slide4.style.opacity = '0';
         hasSlide4Appeared = false;
         slide4Animated = false;
       }
     } else if (currentLocation > 0 && currentLocation < 40 && !slide3Locked) {
-      // 2페이지 -> 1페이지
       currentLocation--;
       prologue.style.left = currentLocation * -5 + '%';
     }
 
     if (currentLocation === 0) {
-      // 1페이지 초기화
       slide3Progress = 0;
       slide3Locked = false;
       slide3Hold = false;
       slide4Animated = false;
-      footerScrollProgress = 0;
-      hasSlide4Appeared = false; // 4페이지 상태 초기화
+      hasSlide4Appeared = false;
     }
   }
 
   updateBackground();
-});
+}
+
+// ── footer 노출 (네이티브 스크롤) ─────────────────────────────────────────────
+// slide4(preview) 이후로는 preventDefault를 풀어 브라우저 기본 스크롤로 footer를 노출
+let footerMode = false;
+
+// ── Wheel ────────────────────────────────────────────────────────────────────
+window.addEventListener('wheel', (e) => {
+  const isScrollingDown = e.deltaY > 0;
+
+  // slide4에서 아래 스크롤 → 네이티브 스크롤 모드로 전환(footer 노출)
+  if (isScrollingDown && currentLocation === 60 && slide4Animated && !footerMode) {
+    footerMode = true;
+    return; // preventDefault 하지 않음 → 기본 스크롤 허용
+  }
+
+  if (footerMode) {
+    // 최상단에서 위로 스크롤하면 슬라이드 nav로 복귀
+    if (!isScrollingDown && window.scrollY <= 0) {
+      footerMode = false;
+      // 아래 슬라이드 nav 로직으로 이어짐
+    } else {
+      return; // 네이티브 스크롤 유지
+    }
+  }
+
+  e.preventDefault();
+  handleScrollDirection(isScrollingDown);
+}, { passive: false });
+
+// ── Touch ────────────────────────────────────────────────────────────────────
+let touchStartY = 0;
+let touchStartX = 0;
+
+window.addEventListener('touchstart', (e) => {
+  touchStartY = e.touches[0].clientY;
+  touchStartX = e.touches[0].clientX;
+}, { passive: true });
+
+window.addEventListener('touchmove', (e) => {
+  if (footerMode) return; // footer 구간은 네이티브 스크롤 처리
+  if (e.cancelable) e.preventDefault();
+}, { passive: false });
+
+window.addEventListener('touchend', (e) => {
+  const diffY = touchStartY - e.changedTouches[0].clientY;
+  const diffX = touchStartX - e.changedTouches[0].clientX;
+
+  if (Math.abs(diffY) < 40) return;
+  if (Math.abs(diffX) > Math.abs(diffY)) return;
+
+  const isDown = diffY > 0;
+
+  // slide4에서 아래로 스와이프 → 네이티브 스크롤 모드(footer 노출)
+  if (isDown && currentLocation === 60 && slide4Animated && !footerMode) {
+    footerMode = true;
+    return;
+  }
+  if (footerMode) {
+    if (!isDown && window.scrollY <= 0) {
+      footerMode = false; // 최상단에서 위로 스와이프 시 슬라이드 nav 복귀
+    } else {
+      return; // 네이티브 스크롤 유지
+    }
+  }
+
+  if (currentLocation === 40) {
+    handleScrollDirection(isDown);
+    handleScrollDirection(isDown);
+    handleScrollDirection(isDown);
+  }
+  handleScrollDirection(isDown);
+}, { passive: true });
+
 
 //slide1
 const slide1From = document.querySelector('.slide-from');
@@ -194,7 +229,6 @@ const slide1Observer = new IntersectionObserver((entries) => {
 }, slide1ObserverOptions);
 
 slide1Observer.observe(prologue);
-slide1Observer.observe(prologue);
 
 slide1ModelContainer.addEventListener('mouseenter', () => {
   slide1DragText.classList.remove('hidden');
@@ -215,8 +249,6 @@ modelContainer.addEventListener('mouseenter', () => {
 modelContainer.addEventListener('mouseleave', () => {
   dragText.classList.add('hidden');
 });
-
-
 
 
 // slide2 마우스 효과
@@ -258,8 +290,6 @@ const observer = new IntersectionObserver((entries) => {
   });
 }, observerOptions);
 observer.observe(slide2);
-
-
 
 
 // slide4

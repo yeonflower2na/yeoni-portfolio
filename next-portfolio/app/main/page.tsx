@@ -29,12 +29,15 @@ export default function MainPage() {
 
   // Remove fade-out class left by intro page (Next.js preserves body across SPA navigations)
   useEffect(() => {
-    document.body.style.transition = 'opacity 0.5s ease';
+    // Include background-color so the inline transition doesn't override the class-based
+    // transition: background-color 1s ease used by .change-background / .default-background
+    document.body.style.transition = 'opacity 0.5s ease, background-color 1s ease';
     document.body.classList.remove('fade-out');
     document.body.style.opacity = '1';
     return () => {
       document.body.style.transition = '';
       document.body.style.opacity = '';
+      document.body.classList.remove('change-background', 'default-background');
     };
   }, []);
 
@@ -141,23 +144,23 @@ export default function MainPage() {
 
     // Non-null refs for use inside closure
     const pEl = prologue;
-    const fEl = footer;
     const s4El = slide4;
 
     // Initial state
     s4El.style.opacity = '0';
     s4El.style.transition = 'opacity 1s ease';
-    fEl.style.transform = 'translateY(100vh)';
-    fEl.style.transition = 'transform 0.8s ease';
+    // 기본은 스크롤 잠금 → slide1~3에서 네이티브 스크롤로 footer가 노출되거나
+    // 스크롤바가 뜨는 것을 방지. slide4 도달 시에만 해제한다.
+    const rootEl = document.documentElement;
+    rootEl.style.overflow = 'hidden';
 
     // Mutable state (closure vars, matching original)
     let currentLocation = 0;
-    let atFooter = false;
+    let footerMode = false; // slide4 이후 네이티브 스크롤로 footer 노출
     let slide3Progress = 0;
     let slide3Locked = false;
     let slide4Animated = false;
     let slide3Hold = false;
-    let footerScrollProgress = 0;
     let scrollCounter = 0;
     let isTransitioning = false;
     let hasSlide4Appeared = false;
@@ -165,7 +168,6 @@ export default function MainPage() {
     const textMoveSpeed = 40;
     const textReturnSpeed = 35;
     const maxTextDistance = 500;
-    const footerScrollThreshold = 80;
 
     function updateBackground() {
       if (currentLocation >= 40) {
@@ -178,59 +180,62 @@ export default function MainPage() {
     }
 
     function onWheel(e: WheelEvent) {
-      e.preventDefault();
       const isScrollingDown = e.deltaY > 0;
+
+      // slide4(preview)에서 아래로 스크롤 → 스크롤 잠금 해제 후 네이티브 스크롤로 footer 노출
+      if (isScrollingDown && currentLocation === 60 && slide4Animated && !footerMode) {
+        footerMode = true;
+        rootEl.style.overflow = ''; // 스크롤 허용
+        return; // preventDefault 하지 않음 → 브라우저 기본 스크롤 허용
+      }
+      if (footerMode) {
+        // 최상단에서 위로 스크롤하면 슬라이드 nav로 복귀하며 다시 스크롤 잠금
+        if (!isScrollingDown && window.scrollY <= 0) {
+          footerMode = false;
+          rootEl.style.overflow = 'hidden';
+          window.scrollTo(0, 0);
+        } else {
+          return; // 네이티브 스크롤 유지
+        }
+      }
+
+      e.preventDefault();
 
       if (isTransitioning) return;
 
       if (isScrollingDown) {
-        if (!atFooter) {
-          if (currentLocation < 40 && !slide3Locked) {
-            currentLocation++;
-            pEl.style.left = currentLocation * -5 + '%';
-          }
+        if (currentLocation < 40 && !slide3Locked) {
+          currentLocation++;
+          pEl.style.left = currentLocation * -5 + '%';
+        }
 
-          if (currentLocation === 40) {
-            slide3Hold = true;
-            slide3Locked = true;
+        if (currentLocation === 40) {
+          slide3Hold = true;
+          slide3Locked = true;
 
-            slide3Progress += textMoveSpeed;
-            if (leftText) leftText.style.transform = `translateX(-${80 + slide3Progress}%)`;
-            if (rightText) rightText.style.transform = `translateX(${80 + slide3Progress}%)`;
+          slide3Progress += textMoveSpeed;
+          if (leftText) leftText.style.transform = `translateX(-${80 + slide3Progress}%)`;
+          if (rightText) rightText.style.transform = `translateX(${80 + slide3Progress}%)`;
 
-            if (slide3Progress >= maxTextDistance) {
-              slide3Locked = false;
-              slide3Hold = false;
+          if (slide3Progress >= maxTextDistance) {
+            slide3Locked = false;
+            slide3Hold = false;
 
-              if (!slide4Animated) {
-                s4El.style.opacity = '1';
-                slide4Animated = true;
-                hasSlide4Appeared = true;
+            if (!slide4Animated) {
+              s4El.style.opacity = '1';
+              slide4Animated = true;
+              hasSlide4Appeared = true;
 
-                setTimeout(() => {
-                  currentLocation = 60;
-                  pEl.style.left = currentLocation * -5 + '%';
-                }, 1000);
-              }
-            }
-          }
-
-          if (currentLocation === 60 && slide4Animated) {
-            footerScrollProgress += 10;
-            if (footerScrollProgress >= footerScrollThreshold) {
-              atFooter = true;
-              fEl.style.transform = 'translateY(0)';
+              setTimeout(() => {
+                currentLocation = 60;
+                pEl.style.left = currentLocation * -5 + '%';
+              }, 1000);
             }
           }
         }
+        // slide4에서 아래 스크롤은 네이티브 스크롤(footer)로 처리됨
       } else {
-        if (atFooter) {
-          atFooter = false;
-          fEl.style.transform = 'translateY(100vh)';
-          currentLocation = 60;
-          pEl.style.left = currentLocation * -5 + '%';
-          footerScrollProgress = 0;
-        } else if (currentLocation === 60) {
+        if (currentLocation === 60) {
           scrollCounter++;
           if (scrollCounter === 1) {
             s4El.style.opacity = '0.8';
@@ -277,7 +282,6 @@ export default function MainPage() {
           slide3Locked = false;
           slide3Hold = false;
           slide4Animated = false;
-          footerScrollProgress = 0;
           hasSlide4Appeared = false;
         }
       }
@@ -286,7 +290,12 @@ export default function MainPage() {
     }
 
     window.addEventListener('wheel', onWheel, { passive: false });
-    return () => window.removeEventListener('wheel', onWheel);
+    return () => {
+      window.removeEventListener('wheel', onWheel);
+      rootEl.style.overflow = ''; // 페이지 이탈 시 스크롤 잠금 해제
+      pEl.style.transform = '';
+      pEl.style.transition = '';
+    };
   }, []);
 
   return (

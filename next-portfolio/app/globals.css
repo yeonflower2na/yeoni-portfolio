@@ -1177,6 +1177,26 @@ body.default-background {
 .footer-include.visible{
   transform: translateY(0);
 }
+/* main 페이지: footer를 preview 아래 일반 흐름에 배치(네이티브 스크롤로 노출).
+   Footer 컴포넌트가 내부에 .footer-include를 한 번 더 렌더하므로 중첩 요소까지 static 처리 */
+#slide-footer,
+#slide-footer .footer-include{
+  position: static;
+  transform: none;
+  width: 100%;
+}
+/* preview(100vh)가 완전히 밀려나 검은 footer가 화면을 가득 채우도록 최소 높이 확보.
+   position: relative로 footer 내부의 absolute 요소(.footer-icon 등)를 footer 안에 가둠
+   → footer가 스크롤로 등장할 때만 보이게 한다. */
+#slide-footer footer{
+  min-height: 100vh;
+  position: relative;
+}
+/* .home-btn은 기본 position:fixed(다른 페이지의 오버레이 footer용)라 main에서는
+   뷰포트에 계속 남는다 → footer 기준 absolute로 바꿔 footer 등장 시에만 보이게 한다. */
+#slide-footer .home-btn{
+  position: absolute;
+}
 
 /* ============================================================
    about.css
