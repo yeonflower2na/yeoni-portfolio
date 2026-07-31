@@ -1047,8 +1047,8 @@ body.default-background {
   gap: 60px;
   align-items: stretch;
   width: 100%;
-  max-width: 1400px;
-  padding: 0 80px;
+  max-width: 1800px;
+  padding: 0 60px;
   margin: 0 auto;
 }
 .preview-editorial-list {
@@ -2073,10 +2073,20 @@ body.default-background {
   margin-bottom: 1.5rem;
   font-weight: 600;
   font-size: .85rem;
+  background: none;
+  border: 0;
+  padding: 0;
+  font-family: inherit;
+  cursor: pointer;
 }
 
 .detail-button i{
   margin-right: .25rem;
+}
+
+.detail-button:hover{
+  text-decoration: underline;
+  text-underline-offset: 4px;
 }
 
 .detail-main {
@@ -2278,5 +2288,414 @@ body.default-background {
     width: 100%;
     height: auto;
     max-height: none;
+  }
+}
+
+/* ============================================================
+   AX — 게시판 (목록 / 상세)
+   ============================================================ */
+
+.ax-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 220px 24px 100px;
+}
+
+.ax-hero h1 {
+  font-size: clamp(4rem, 12vw, 9rem);
+  font-weight: 700;
+  letter-spacing: -4px;
+  line-height: 1;
+  margin-bottom: 32px;
+}
+
+.ax-hero p {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  font-weight: 300;
+  color: var(--dimblack);
+  max-width: 620px;
+  word-break: keep-all;
+}
+
+.ax-board {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px 180px;
+}
+
+.ax-board-top {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-bottom: 14px;
+}
+
+.ax-board-count {
+  font-size: 0.85rem;
+  font-weight: 300;
+  letter-spacing: 0.5px;
+  color: var(--dimblack);
+  opacity: 0.6;
+}
+
+.ax-board-count strong {
+  font-weight: 500;
+  opacity: 1;
+}
+
+.ax-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-top: 2px solid var(--dimblack);
+}
+
+.ax-list-head,
+.ax-list-row > a {
+  display: grid;
+  grid-template-columns: 80px 140px 1fr 130px;
+  align-items: center;
+  gap: 16px;
+}
+
+.ax-list-head {
+  padding: 18px 12px;
+  border-bottom: 1px solid var(--dimblack);
+  font-size: 0.78rem;
+  letter-spacing: 1.5px;
+  font-weight: 400;
+  opacity: 0.55;
+}
+
+.ax-list-row {
+  border-bottom: 1px solid var(--gray);
+  transition: background-color 0.25s ease;
+}
+
+.ax-list-row > a {
+  padding: 28px 12px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.ax-list-row:hover {
+  background-color: rgba(29, 29, 29, 0.04);
+}
+
+.ax-list-row:hover .ax-col-title strong {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.ax-col-no {
+  font-size: 0.9rem;
+  font-weight: 300;
+  opacity: 0.5;
+}
+
+.ax-chip {
+  display: inline-block;
+  border: 1px solid var(--dimblack);
+  border-radius: 100px;
+  padding: 5px 14px;
+  font-size: 0.72rem;
+  letter-spacing: 1px;
+  font-style: normal;
+  white-space: nowrap;
+}
+
+.ax-col-title {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.ax-col-title strong {
+  font-size: 1.02rem;
+  font-weight: 500;
+  line-height: 1.5;
+  word-break: keep-all;
+}
+
+.ax-col-title small {
+  font-size: 0.85rem;
+  font-weight: 300;
+  line-height: 1.6;
+  opacity: 0.55;
+  word-break: keep-all;
+}
+
+.ax-col-date {
+  font-size: 0.85rem;
+  font-weight: 300;
+  opacity: 0.5;
+  text-align: right;
+}
+
+.ax-list-empty {
+  padding: 80px 12px;
+  text-align: center;
+  font-weight: 300;
+  opacity: 0.5;
+  border-bottom: 1px solid var(--gray);
+}
+
+/* ── 상세 ─────────────────────────────────────────────── */
+
+.ax-detail {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 200px 24px 180px;
+}
+
+.ax-detail-state {
+  text-align: center;
+  font-weight: 300;
+  opacity: 0.6;
+  padding: 60px 0;
+}
+
+.ax-detail-head {
+  border-bottom: 2px solid var(--dimblack);
+  padding-bottom: 32px;
+  margin-bottom: 56px;
+}
+
+.ax-detail-head .ax-chip {
+  margin-bottom: 20px;
+}
+
+/* UI/UX 상세(.detail-button)와 동일한 위치·톤의 목록 이동 버튼 */
+.ax-back {
+  display: inline-block;
+  color: #6d7074;
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-decoration: none;
+  margin-bottom: 1.5rem;
+}
+
+.ax-back i {
+  margin-right: 0.25rem;
+}
+
+/* 상단에서는 카테고리 칩과 같은 줄에 붙지 않도록 한 줄 차지 */
+.ax-detail-head .ax-back {
+  display: block;
+  width: fit-content;
+}
+
+.ax-back:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.ax-detail-head h1 {
+  font-size: clamp(1.6rem, 3.4vw, 2.3rem);
+  font-weight: 600;
+  line-height: 1.45;
+  letter-spacing: -0.5px;
+  word-break: keep-all;
+  margin-bottom: 20px;
+}
+
+.ax-detail-meta {
+  display: flex;
+  gap: 20px;
+  font-size: 0.85rem;
+  font-weight: 300;
+  opacity: 0.5;
+}
+
+/* ── 첨부파일 ─────────────────────────────────────────── */
+
+.ax-files {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  margin: -24px 0 56px;
+  padding: 18px 20px;
+  background-color: rgba(29, 29, 29, 0.04);
+  border-radius: 6px;
+}
+
+.ax-files-label {
+  flex-shrink: 0;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  line-height: 1.9;
+  opacity: 0.55;
+}
+
+.ax-files ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+}
+
+.ax-files li + li {
+  margin-top: 6px;
+}
+
+.ax-files a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--dimblack);
+  font-size: 0.9rem;
+  font-weight: 300;
+  line-height: 1.9;
+  text-decoration: none;
+}
+
+.ax-files a:hover .ax-file-name {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.ax-file-name {
+  word-break: break-all;
+}
+
+.ax-file-size {
+  font-size: 0.78rem;
+  opacity: 0.45;
+  white-space: nowrap;
+}
+
+/* ── 마크다운 본문 ─────────────────────────────────────── */
+
+.ax-markdown {
+  font-weight: 400;
+  line-height: 1.95;
+  color: var(--dimblack);
+  word-break: keep-all;
+}
+
+.ax-markdown h1,
+.ax-markdown h2,
+.ax-markdown h3,
+.ax-markdown h4 {
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: -0.3px;
+  margin: 64px 0 20px;
+}
+
+.ax-markdown > *:first-child {
+  margin-top: 0;
+}
+
+.ax-markdown h1 { font-size: 1.6rem; }
+.ax-markdown h2 { font-size: 1.25rem; }
+.ax-markdown h3 { font-size: 1.05rem; }
+.ax-markdown h4 { font-size: 0.98rem; }
+
+.ax-markdown h2 {
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--gray);
+}
+
+.ax-markdown p {
+  margin-bottom: 22px;
+  font-size: 1rem;
+}
+
+.ax-markdown ul,
+.ax-markdown ol {
+  margin: 0 0 26px;
+  padding-left: 22px;
+}
+
+.ax-markdown li {
+  margin-bottom: 10px;
+  font-size: 1rem;
+  line-height: 1.9;
+}
+
+.ax-markdown ul li { list-style: disc; }
+.ax-markdown ol li { list-style: decimal; }
+
+.ax-markdown strong {
+  font-weight: 600;
+}
+
+.ax-markdown blockquote {
+  margin: 0 0 26px;
+  padding: 22px 26px;
+  border-left: 3px solid var(--dimblack);
+  background-color: rgba(29, 29, 29, 0.04);
+  font-size: 0.95rem;
+  line-height: 1.9;
+}
+
+.ax-markdown hr {
+  border: 0;
+  border-top: 1px solid var(--gray);
+  margin: 48px 0;
+}
+
+.ax-markdown code {
+  background-color: rgba(29, 29, 29, 0.07);
+  border-radius: 4px;
+  padding: 2px 7px;
+  font-size: 0.9em;
+}
+
+.ax-markdown pre {
+  background-color: var(--dimblack);
+  color: var(--white);
+  border-radius: 8px;
+  padding: 22px;
+  overflow-x: auto;
+  margin-bottom: 26px;
+}
+
+.ax-markdown pre code {
+  background: none;
+  padding: 0;
+  color: inherit;
+  font-size: 0.88rem;
+  line-height: 1.7;
+}
+
+.ax-markdown a {
+  color: var(--dimblack);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+@media (max-width: 768px) {
+  .ax-hero {
+    padding: 160px 24px 70px;
+  }
+
+  .ax-list-head {
+    display: none;
+  }
+
+  .ax-list-row > a {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 24px 4px;
+  }
+
+  .ax-col-no {
+    display: none;
+  }
+
+  .ax-col-date {
+    text-align: left;
+  }
+
+  .ax-detail {
+    padding: 150px 24px 140px;
   }
 }
