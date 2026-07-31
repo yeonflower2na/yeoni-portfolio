@@ -41,6 +41,23 @@ export default function MainPage() {
     };
   }, []);
 
+  // footer를 보던 상태에서 새로고침/뒤로가기로 돌아오면 브라우저가 스크롤 위치를 복원해
+  // 시작부터 footer가 화면을 덮는다. 슬라이드 내비게이션은 항상 최상단(slide1)에서
+  // 시작해야 하므로 복원을 끄고 최상단으로 되돌린다. (아래 wheel 효과의 스크롤 잠금보다 먼저 실행)
+  useEffect(() => {
+    const prev = 'scrollRestoration' in history ? history.scrollRestoration : undefined;
+    if (prev !== undefined) history.scrollRestoration = 'manual';
+    window.scrollTo(0, 0);
+
+    // 브라우저 복원이 hydration 이후(load 시점)에 일어나는 경우까지 처리
+    const onLoad = () => window.scrollTo(0, 0);
+    window.addEventListener('load', onLoad);
+    return () => {
+      window.removeEventListener('load', onLoad);
+      if (prev !== undefined) history.scrollRestoration = prev;
+    };
+  }, []);
+
   // Entry animation (matches original IntersectionObserver on prologue)
   useEffect(() => {
     const prologue = prologueRef.current;
