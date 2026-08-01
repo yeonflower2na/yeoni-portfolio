@@ -6,11 +6,11 @@
   <img src="https://github.com/user-attachments/assets/c68f349e-2262-44b7-ae8f-9ff4623c6802" width="700"/>
 </div>
 
-안녕하세요, 저는 편집디자이너에서 UXUI 디자이너 & 퍼블리셔로 전환한 **정연희**입니다.  
-제 포트폴리오는 제가 걸어온 여정을 담은 공간으로,  <br/>
+안녕하세요, **UXUI 디자이너 & 퍼블리셔 정연희**입니다.  
+편집디자인에서 출발해 지금은 UXUI 디자인과 퍼블리싱을 함께 다루고 있습니다.  <br/>
 디자이너로서의 창의성과 개발자로서의 기술을 조화롭게 결합하여<br/>
 사용자 경험을 중심으로 한 프로젝트와 작업물들을 담고 있습니다.<br/> 
-**"From Designer to Deblisher"** 라는 주제를 통해 전환의 여정을 시각적이고 상호작용적으로 표현했습니다.  
+**"From Designer to Deblisher"** 라는 주제로, 디자인과 개발이 만나는 지점을 시각적이고 상호작용적으로 표현했습니다.  
 
 <br/><br/>
 
@@ -18,8 +18,26 @@
 
 | 이름                          | 링크                                                                                               |
 |-------------------------------|----------------------------------------------------------------------------------------------------|
+| 포트폴리오 사이트            | [포트폴리오 Link](https://yeonflower2na.github.io/)          |
 | 피그마 디자인 파일             | [피그마 Link](https://www.figma.com/design/52Z1kXW8xBte1H076f8MOL/portfolio?m=auto&t=samqyMTR5XNp228U-6)          |
-| 포트폴리오사이트            | [포트폴리오 Link](https://yeonflower2na.github.io/yeoni-portfolio/)          |
+
+<br/><br/>
+
+## 🛠️ 기술 스택
+
+| 구분 | 사용 기술 |
+|------|-----------|
+| 프레임워크 | Next.js 16 (App Router), React 19, TypeScript |
+| 스타일 | CSS (전역 스타일시트), Tailwind CSS 4 |
+| 애니메이션 | GSAP (ScrollTrigger) |
+| 3D | Three.js (GLTF / DRACO) |
+| 테스트 | Playwright |
+| 배포 | GitHub Pages (GitHub Actions 자동 배포) |
+
+<br/>
+
+사이트는 처음 바닐라 HTML/CSS/JS로 제작한 뒤 **Next.js로 이전**했으며,<br/>
+현재 배포되는 버전은 `next-portfolio/` 입니다. 저장소 루트의 HTML 파일들은 초기 버전 기록으로 남겨두었습니다.
 
 <br/><br/>
 
@@ -27,23 +45,40 @@
 <br/>
 
 ```bash
-yeoni-portfolio/
-├── assets/           # 이미지 및 미디어 파일
-│   ├── img/          # 이미지 파일 (로고, 배경, 섹션별 아이콘 등)
-│   ├── videos/       # 동영상 파일
-├── css/              # 스타일 파일
-│   ├── reset.css     # 기본 스타일 초기화
-│   ├── main.css      # 메인 스타일
-│   ├── responsive.css# 반응형 스타일
-├── js/               # 스크립트 파일
-│   ├── main.js       # 메인 JavaScript
-│   ├── animations.js # 애니메이션 관련 코드
-├── index.html        # 메인 페이지
-├── about.html        # ABOUT 섹션
-├── project.html      # PROJECT 섹션
-├── design.html       # DESIGN 섹션
-└── contact.html      # CONTACT 모달
+yeonflower2na.github.io/
+├── .github/workflows/     # GitHub Pages 자동 배포 워크플로우
+├── next-portfolio/        # 실제 배포되는 Next.js 프로젝트
+│   ├── app/               # App Router 페이지
+│   │   ├── page.tsx       # 인트로
+│   │   ├── main/          # 메인 (3D 알파벳 D, Preview)
+│   │   ├── about/         # 소개, 경력, 스킬
+│   │   ├── uiux/          # UI/UX 프로젝트 목록
+│   │   ├── graphic/       # 편집·그래픽 디자인 아카이브
+│   │   ├── ax/            # AX 게시판 (목록 + 상세)
+│   │   ├── detail/01~06/  # 프로젝트 상세 페이지
+│   │   └── globals.css    # 전역 스타일
+│   ├── components/        # Header, Footer, Contact, Cursor, Markdown, ThreeModel
+│   ├── public/
+│   │   ├── assets/        # 이미지, 폰트, 3D 모델
+│   │   ├── ax/            # AX 게시글 데이터 (posts.json, 본문 md, 이미지, 첨부)
+│   │   └── designData.json # 그래픽 아카이브 데이터
+│   └── tests/             # Playwright 테스트
+├── assets/ scripts/ styles/   # 초기 바닐라 버전 리소스
+└── *.html                     # 초기 바닐라 버전 페이지
 ```
+
+<br/><br/>
+
+## 🚀 로컬 실행
+
+```bash
+cd next-portfolio
+npm install
+npm run dev      # http://localhost:3000
+npm run build    # 정적 사이트 생성 (out/)
+```
+
+`main` 브랜치에 push하면 GitHub Actions가 빌드 후 GitHub Pages로 자동 배포합니다.
 
 <br/><br/>
 
@@ -60,9 +95,10 @@ Header는 화면 상단에 고정되어 있으며, 포트폴리오의 첫인상�
 **내비게이션 구성**
 
 **- Home**: 아이콘 형태로 디자인되어 메인 섹션으로 이동.<br/>
-**- ABOUT**: 저의 배경과 경력을 소개하는 섹션.<br/>
-**- PROJECT**: 작업한 프로젝트를 소개하는 섹션.<br/>
-**- DESIGN**: 디자인 작업물을 소개하는 섹션.<br/><br/>
+**- ABOUT ME**: 저의 배경과 경력을 소개하는 섹션.<br/>
+**- UI/UX**: 웹 기획·디자인·퍼블리싱 프로젝트를 소개하는 섹션.<br/>
+**- GRAPHIC**: 편집디자인 및 시각디자인 작업물을 소개하는 섹션.<br/>
+**- AX**: AI를 업무에 적용한 과정과 결과를 기록하는 섹션.<br/><br/>
 내비게이션 양쪽 끝 텍스트는 고정되고, 중간 텍스트는 동적으로 변경되며, <br/>
 각 섹션 주제를 반영한 단어로 사용자를 안내합니다.
 <br/><br/>
@@ -99,6 +135,12 @@ Contact는 화면 하단 중앙에 고정되어 있어 어디서든 빠르게 �
 닫기 버튼을 통해 모달을 쉽게 종료할 수 있도록 설계.<br/>
 Contact는 직관적인 인터페이스로 사용자 편의를 극대화한 기능입니다.
 
+<br/><br/>
+### Cursor
+마우스를 따라다니는 커스텀 커서를 사용합니다.<br/>
+`mix-blend-mode`를 활용해 밝은 배경에서는 검정으로, 어두운 배경에서는 흰색으로 자동 반전되며,<br/>
+링크·버튼 위에서는 링 형태로 바뀌어 클릭 가능한 요소임을 알려줍니다.
+
 
 
 <br/><br/>
@@ -127,7 +169,7 @@ From: Idea To: Interaction →
 "From Designer to Deblisher" <br/>
 중앙에 배치된 핵심 텍스트는 차례로 등장하며, <br/>
 움직이는 그라데이션 애니메이션 효과를 통해 시각적으로 강조됩니다. <br/>
-이 텍스트는 디자이너에서 개발자로 전환한 저의 여정을 상징적으로 <br/>
+이 텍스트는 디자인과 개발을 함께 다루는 저의 작업 방식을 상징적으로 보여줍니다. <br/>
 <br/>
 
 Three.js와 GSAP를 활용한 **3D 알파벳 D** <br/>
@@ -175,28 +217,25 @@ I craft intuitive and practical experiences with care."<br/>
 스크롤하면 "From Designer"와 "To Deblisher"라는 두 단어가 분리되며 Preview 섹션으로 전환됩니다.
 <br/><br/>
 <div align="left">
-  <img src="https://github.com/user-attachments/assets/a9bb9519-971c-4483-ac40-ca8cbdb57383" width="700"/>
+  <img src="readmeImg/preview.gif" width="700"/>
 </div>
-<br/>
-<div align="left">
-  <img src="https://github.com/yeonflower2na/yeoni-portfolio/blob/main/readmeImg/preview.gif?raw=true" width="700"/>
-</div>
+
 **Preview Section**<br/>
-Preview 섹션은 작업물의 미리보기를 제공하며, 프로젝트와 디자인 섹션으로 이동할 수 있습니다.<br/>
+Preview 섹션은 작업물의 미리보기를 제공하며, UI/UX와 GRAPHIC 섹션으로 이동할 수 있습니다.<br/>
 각 카드에 호버하면 작업물의 대표 이미지가 나타나고, 클릭하면 상세 페이지로 이동합니다.
 <br/><br/><br/>
 
 ## About Page
 About 섹션에서는 저의 성장 과정과 경력을 간략히 정리하고, 추가적으로 상세 정보를 확인할 수 있도록 구성했습니다.
 <div align="left">
-  <img src="https://github.com/yeonflower2na/yeoni-portfolio/blob/main/readmeImg/about.gif?raw=true" width="700"/>
+  <img src="readmeImg/about.gif" width="700"/>
 </div>
 <br/>
 
 **- 구성:** 교육, 경력, 자격증 순서로 나열되어 있으며, 각 항목은 간결하고 명확하게 표현했습니다.<br/>
 **- 'About Me' 모달창:** <br/>
 'About Me' 버튼을 누르면 간단한 자기소개와 성장 배경을 담은 모달창이 나타납니다.<br/>
-이 모달창은 저의 디자이너 경험에서 개발자로 전환하게 된 과정을 한눈에 확인할 수 있도록 설계했습니다.<br/>
+이 모달창은 디자인에서 출발해 퍼블리싱까지 다루게 된 배경을 한눈에 확인할 수 있도록 설계했습니다.<br/>
 추가적으로 프론트엔드 기술을 익히며 진행한 주요 학습 과정도 포함되어 있습니다.
 <br/><br/>
 **skill Section** <br/>
@@ -205,16 +244,28 @@ Skill 섹션에서는 제가 익힌 기술들을 시각적으로 정리해 보�
 퍼센트 바: 각 기술의 숙련도를 퍼센트로 나타내, 한눈에 이해할 수 있도록 설계했습니다.<br/>
 **- 활용 사례:** <br/>
 퍼센트 바 아래에는 각 기술에 대한 활용 숙련도, 설명을 작성했습니다.<br/>
-바닐라 자바스크립트를 활용해 스크롤 시 퍼센트 바가 채워지는 동적 효과를 추가했습니다.
+스크롤 시 퍼센트 바가 채워지는 동적 효과를 추가했습니다.
 <br/><br/><br/>
 
 
-## Project Page
-Project 섹션에서는 제가 진행한 주요 프로젝트를 소개하며, 인터랙티브한 요소를 통해 작업물의 세부 내용을 효과적으로 전달합니다.
+## UI/UX Page
+UI/UX 섹션에서는 제가 진행한 주요 프로젝트를 소개하며, 인터랙티브한 요소를 통해 작업물의 세부 내용을 효과적으로 전달합니다.<br/>
+각 프로젝트의 '자세히보기'를 누르면 기획 의도, 화면 구성, 디자인 방향성을 정리한 상세 페이지로 이동합니다.
 <div align="left">
-  <img src="https://github.com/yeonflower2na/yeoni-portfolio/blob/main/readmeImg/project.gif?raw=true" width="700"/>
+  <img src="readmeImg/project.gif" width="700"/>
 </div>
 <br/>
+
+**사미텍 홈페이지 리뉴얼** <br/>
+[사미텍 홈페이지 바로가기](https://www.samitech.kr/)
+<br/>
+
+**- 목적:** <br/>
+AI 솔루션과 고용정보 시스템을 다루는 기업의 신뢰감을, 이미지가 아닌 **타이포그래피**로 전달하는 데 초점을 맞췄습니다.<br/><br/>
+**- 구성 요소:** <br/>
+회사의 비전 문장을 첫 화면 전체를 쓰는 크기로 배치해 메시지를 가장 먼저 읽히게 했습니다.<br/>
+장식을 줄이고 글자 크기·굵기의 대비와 여백만으로 정보의 위계를 만들었습니다.
+<br/><br/><br/>
 
 **한국소비자원 리뉴얼** <br/>
 [한국소비자원 리뉴얼 페이지 바로가기](https://github.com/yeonflower2na/Korea-Consumer-Agency-Renual) 
@@ -230,7 +281,7 @@ Project 섹션에서는 제가 진행한 주요 프로젝트를 소개하며, �
 데스크톱과 모바일 환경 모두에서 일관된 사용자 경험을 제공하도록 제작했습니다.
 <br/><br/><br/>
 **인터파크 티켓 리뉴얼** <br/>
-[인터파크 티켓 리뉴얼 페이지 바로가기](http://github.com/yeonflower2na) 
+[인터파크 티켓 리뉴얼 페이지 바로가기](https://github.com/yeonflower2na/interpark-ticket-renewal) 
 <br/>
 **- 목적:** <br/>
 사용자가 예매를 더 쉽게 할 수 있도록 레이아웃과 기능을 재구성했습니다.<br/><br/>
@@ -239,16 +290,15 @@ Project 섹션에서는 제가 진행한 주요 프로젝트를 소개하며, �
 공연장 페이지에는 등장 효과와 지도 API를 추가해 공연장 위치를 직관적으로 제공했습니다.<br/>
 대표 공연 리스트는 바닐라 자바스크립트를 활용해 제작했으며, 호버 시 공연 정보를 표시하도록 설계했습니다.<br/><br/>
 **- 클론코딩 프로젝트** <br/>
-베어루트 클론코딩: 리액트를 활용해 브랜드 사이트의 주요 기능을 재현했습니다.<br/>
 클래스101 클론코딩: SCSS를 사용해 디자인 일관성을 유지하며, 주요 레이아웃과 기능을 구현했습니다.<br/>
-**- 기타 프로젝트** <br/>
-Other Project를 클릭하면 제 디자인 작품을 보여주는 Design Page와 연결되도록 설계했습니다.<br/>
+**- 팀 프로젝트** <br/>
+Jurnee: React를 활용해 여행 일정 관리와 여행지 추천 기능을 중심으로 제작한 여행 플랜 사이트입니다.<br/>
 
 <br/><br/>
-## Design Page
-Design 섹션에서는 이전에 작업했던 디자인 결과물을 정리했습니다.<br/>
+## GRAPHIC Page
+GRAPHIC 섹션에서는 이전에 작업했던 편집·시각디자인 결과물을 정리했습니다.<br/>
 <div align="left">
-  <img src="https://github.com/yeonflower2na/yeoni-portfolio/blob/main/readmeImg/design.gif?raw=true" width="700"/>
+  <img src="readmeImg/design.gif" width="700"/>
 </div>
 <br/>
 
@@ -258,8 +308,49 @@ Design 섹션에서는 이전에 작업했던 디자인 결과물을 정리했�
 **- 최신순 정렬:** <br/>
 작업물은 최신순으로 정리해, 사용자가 가장 최근 작업물을 쉽게 확인할 수 있도록 했습니다.<br/>
 **- 호버 효과:** <br/>
-작업물에 호버하면 해당 작업물의 간단한 설명이 나타나며, 사용자가 추가 정보를 확인할 수 있습니다.<br/>
+작업물에 호버하면 해당 작업물의 대표 이미지가 나타나며, 사용자가 추가 정보를 확인할 수 있습니다.<br/>
 **- 탭 구성:** <br/>
-각 탭은 JavaScript로 구현해 클릭 시 해당 카테고리의 작업물만 표시되도록 설계했습니다.<br/>
+각 탭은 클릭 시 해당 카테고리의 작업물만 표시되도록 설계했으며, 데이터는 `designData.json`으로 분리해 관리합니다.<br/>
 <br/><br/><br/>
 
+## AX Page
+AX 섹션은 **AI를 직접 업무에 적용해보며 바꿔온 방식과 결과를 기록**하는 공간입니다.<br/>
+단순한 도구 사용 후기가 아니라, 어떤 문제를 어떤 방식으로 다뤘고 무엇이 달라졌는지를 남깁니다.
+<br/><br/>
+
+**- 게시판 형태:** <br/>
+번호 · 카테고리 · 제목 · 날짜로 구성된 목록에서 글을 선택하면 상세 페이지로 이동합니다.<br/>
+**- 마크다운 본문:** <br/>
+글 내용은 마크다운 파일로 관리하며, 외부 라이브러리 없이 직접 만든 렌더러로 표시합니다.<br/>
+제목 · 목록 · 인용 · 코드블록 · 이미지를 지원합니다.<br/>
+**- 이미지 갤러리:** <br/>
+연속으로 넣은 이미지는 한 줄로 모여 표시되고, 클릭하면 확대해서 볼 수 있습니다.<br/>
+확대 화면에서는 좌우 버튼과 방향키로 이미지를 넘겨볼 수 있습니다.<br/>
+**- 첨부파일:** <br/>
+글마다 파일을 첨부할 수 있으며, 파일명과 용량을 표시하고 클릭하면 바로 내려받습니다.
+<br/><br/>
+
+**글 추가 방법**
+
+1. 본문 마크다운 파일을 `next-portfolio/public/ax/` 에 추가합니다.
+2. 이미지는 `public/ax/images/`, 첨부파일은 `public/ax/files/` 에 넣습니다.
+3. `public/ax/posts.json` 에 항목을 추가합니다.
+
+```json
+{
+  "id": "post-slug",
+  "no": 3,
+  "category": "AGENT",
+  "title": "글 제목",
+  "summary": "목록에 보일 한 줄 요약",
+  "date": "2026.08.01",
+  "file": "/ax/post-slug.md",
+  "attachments": [
+    { "name": "example.md", "file": "/ax/files/example.md", "size": "8.7 KB" }
+  ]
+}
+```
+
+`attachments`는 선택 항목이며, 없으면 첨부 영역이 표시되지 않습니다.<br/>
+상세 페이지 주소는 `id` 를 따라 `/ax/post-slug` 가 됩니다.
+<br/><br/><br/>
