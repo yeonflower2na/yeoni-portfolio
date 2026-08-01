@@ -26,11 +26,12 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
           cache-dependency-path: next-portfolio/package-lock.json
 
-      - run: npm ci
+      # npm ci는 lock 파일이 조금만 어긋나도 설치를 거부하므로 install 사용
+      - run: npm install --no-audit --no-fund
 
       # next.config.ts의 output: 'export' 설정에 따라 out/ 이 생성된다
       - run: npm run build
