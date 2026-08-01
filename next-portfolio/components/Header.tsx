@@ -86,7 +86,7 @@ export default function Header() {
     <header>
       <nav className="nav header-text">
         <div className="nav-left">
-          <Link href="/">
+          <Link href="/" prefetch={false}>
             Jeong Yeon Hui <br /> Portfolio
           </Link>
         </div>
@@ -105,6 +105,7 @@ export default function Header() {
                   className={`nav-item${isActive ? ' active' : ''}`}
                   data-left={item.dataLeft}
                   data-right={item.dataRight}
+                  prefetch={false}
                 >
                   {item.label}
                 </Link>

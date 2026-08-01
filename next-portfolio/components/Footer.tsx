@@ -52,6 +52,7 @@ export default function Footer() {
           <Link
             href="/main"
             className="home-btn serif-text"
+            prefetch={false}
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           >
             HOME

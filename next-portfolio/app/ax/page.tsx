@@ -60,7 +60,7 @@ export default function AxPage() {
 
           {posts.map(post => (
             <li key={post.id} className="ax-list-row">
-              <Link href={`/ax/${post.id}`}>
+              <Link href={`/ax/${post.id}`} prefetch={false}>
                 <span className="ax-col-no">{String(post.no).padStart(2, '0')}</span>
                 <span className="ax-col-cat">
                   <em className="ax-chip">{post.category}</em>
