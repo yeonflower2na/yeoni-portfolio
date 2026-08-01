@@ -9,7 +9,7 @@ export default function Detail01() {
   const router = useRouter();
 
   useEffect(() => {
-    document.body.style.backgroundColor = 'var(--white)';
+    document.body.style.backgroundColor = 'var(--background)';
     return () => {
       document.body.style.backgroundColor = '';
     };
