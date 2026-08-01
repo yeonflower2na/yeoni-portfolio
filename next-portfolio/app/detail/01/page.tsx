@@ -24,7 +24,8 @@ export default function Detail01() {
           {/* LEFT */}
           <div className="detail-left">
             <div className="detail-video">
-              <video src="/assets/videos/kca-demo.mp4" controls />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/assets/images/project1.jpg" alt="한국소비자원 리뉴얼 프로젝트" />
             </div>
           </div>
 

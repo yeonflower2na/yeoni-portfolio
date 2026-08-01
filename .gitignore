@@ -1,0 +1,18 @@
+# 의존성
+node_modules/
+
+# 빌드 산출물
+.next/
+out/
+build/
+
+# 로그
+*.log
+
+# 테스트 산출물
+playwright-report/
+test-results/
+
+# OS
+.DS_Store
+Thumbs.db

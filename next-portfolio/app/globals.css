@@ -277,6 +277,11 @@ header{
   border-radius: 5px;
   box-shadow: 0 0 12px #00000035;
   backdrop-filter: blur(8px);
+  /* 창이 좁아져도 네비가 눌려 홈 아이콘이 밀리지 않도록 */
+  flex-shrink: 0;
+}
+.navigation li{
+  flex-shrink: 0;
 }
 .navigation a{
   display: block;
@@ -284,6 +289,7 @@ header{
   border-radius: 5px;
   font-weight: 500;
   color: var(--black);
+  white-space: nowrap;
 }
 .navigation a.active{
   background-color: var(--black);
@@ -594,29 +600,91 @@ body.fade-out {
   opacity: 0;
   transition: opacity 0.8s ease;
 }
-/* cursor */
-.cursor {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background-color: var(--black);
+/* ── custom cursor ─────────────────────────────────────────
+   바깥 요소는 위치만 담당(트랜지션 없음 → 지연 없음),
+   안쪽 span이 크기 변화를 맡는다.
+   ------------------------------------------------------- */
+.cursor-dot {
   position: fixed;
-  pointer-events: none;
-  mix-blend-mode: difference;
+  top: 0;
+  left: 0;
   z-index: 1000;
-  transform: translate(-50%, -50%);
-  transition: width 0.2s ease, height 0.2s ease;
+  pointer-events: none;
+  will-change: transform;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  /* 블렌드는 컨테이너에 걸어야 페이지 배경과 섞인다.
+     자식에 걸면 이 요소가 만든 스택 컨텍스트 안에서만 합성돼 흰색 그대로 보인다. */
+  mix-blend-mode: difference;
 }
-.cursor-hover {
-  width: 45px;
-  height: 45px;
-  backdrop-filter: invert(1);
-  mix-blend-mode: exclusion;
-  border: 1px solid var(--black);
+
+.cursor-dot.is-visible {
+  opacity: 1;
 }
-.cursor-footer {
-  background-color: var(--white);;
-  mix-blend-mode: normal;
+
+/* 흰 배경에서는 검정, 검은 배경에서는 흰색으로 자동 반전 (블렌드는 .cursor-dot 담당) */
+.cursor-core,
+.cursor-ring {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  border-radius: 50%;
+  transition:
+    transform 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.2s ease;
+}
+
+/* 기본: 작은 점 */
+.cursor-core {
+  width: 12px;
+  height: 12px;
+  margin: -6px 0 0 -6px;
+  background-color: #fff;
+}
+
+/* 클릭 가능한 요소 위에서만 나타나는 링 */
+.cursor-ring {
+  width: 42px;
+  height: 42px;
+  margin: -21px 0 0 -21px;
+  border: 1.5px solid #fff;
+  transform: scale(0.35);
+  opacity: 0;
+}
+
+.cursor-dot.is-interactive .cursor-core {
+  transform: scale(0.45);
+}
+
+.cursor-dot.is-interactive .cursor-ring {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.cursor-dot.is-pressed .cursor-core {
+  transform: scale(0.7);
+}
+
+.cursor-dot.is-interactive.is-pressed .cursor-core {
+  transform: scale(0.45);
+}
+
+.cursor-dot.is-interactive.is-pressed .cursor-ring {
+  transform: scale(0.82);
+}
+
+/* 커스텀 커서가 실제로 동작할 때만 기본 커서를 감춘다 */
+html.has-custom-cursor,
+html.has-custom-cursor * {
+  cursor: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cursor-core,
+  .cursor-ring {
+    transition: none;
+  }
 }
 
 
@@ -1933,7 +2001,7 @@ body.default-background {
   display: flex;
   flex-direction: column;
   margin-top: 100px;
-  background-color: #fff;
+  background-color: var(--background);
 }
 
 .tab-menu {
@@ -2670,6 +2738,184 @@ body.default-background {
   color: var(--dimblack);
   text-decoration: underline;
   text-underline-offset: 3px;
+}
+
+.ax-markdown figure {
+  margin: 36px 0;
+}
+
+/* 연속된 이미지는 한 줄로 모아서 보여준다 */
+.ax-markdown .ax-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  align-items: start;
+  gap: 16px;
+  margin: 0 0 44px;
+}
+
+.ax-markdown .ax-gallery figure {
+  margin: 0;
+  min-width: 0;
+}
+
+/* 비율이 달라도 같은 크기의 박스 안에 맞춰 보여준다 */
+.ax-markdown .ax-gallery img {
+  width: 100%;
+  height: 190px;
+  object-fit: contain;
+  background-color: var(--white);
+  padding: 8px;
+}
+
+.ax-markdown .ax-gallery figcaption {
+  margin-top: 10px;
+  font-size: 0.8rem;
+}
+
+.ax-markdown img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+  border: 1px solid var(--gray);
+}
+
+.ax-markdown figcaption {
+  margin-top: 12px;
+  font-size: 0.85rem;
+  line-height: 1.7;
+  text-align: center;
+  opacity: 0.5;
+}
+
+/* 클릭해서 크게 보기 */
+.ax-markdown .ax-zoom {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: zoom-in;
+}
+
+.ax-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  padding: 70px 28px 40px;
+  background-color: rgba(0, 0, 0, 0.85);
+  cursor: zoom-out;
+  animation: ax-lightbox-in 0.18s ease;
+}
+
+@keyframes ax-lightbox-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.ax-lightbox img {
+  max-width: min(1100px, 92vw);
+  max-height: 80vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 6px;
+  background-color: var(--white);
+  cursor: default;
+}
+
+.ax-lightbox-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.ax-lightbox-caption {
+  margin: 0;
+  color: var(--white);
+  font-size: 0.9rem;
+  font-weight: 300;
+  opacity: 0.75;
+}
+
+.ax-lightbox-count {
+  margin: 0;
+  color: var(--white);
+  font-size: 0.8rem;
+  font-weight: 300;
+  letter-spacing: 1px;
+  opacity: 0.45;
+}
+
+/* 이전 / 다음 */
+.ax-lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 52px;
+  height: 52px;
+  border: 0;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.08);
+  color: var(--white);
+  font-size: 2.2rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.ax-lightbox-nav:hover {
+  background-color: rgba(255, 255, 255, 0.22);
+}
+
+.ax-lightbox-nav.prev {
+  left: 24px;
+}
+
+.ax-lightbox-nav.next {
+  right: 24px;
+}
+
+@media (max-width: 768px) {
+  .ax-lightbox-nav {
+    width: 44px;
+    height: 44px;
+    font-size: 1.8rem;
+  }
+
+  .ax-lightbox-nav.prev {
+    left: 8px;
+  }
+
+  .ax-lightbox-nav.next {
+    right: 8px;
+  }
+}
+
+.ax-lightbox-close {
+  position: absolute;
+  top: 22px;
+  right: 26px;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  color: var(--white);
+  font-size: 2rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.ax-lightbox-close:hover {
+  background-color: rgba(255, 255, 255, 0.15);
 }
 
 @media (max-width: 768px) {

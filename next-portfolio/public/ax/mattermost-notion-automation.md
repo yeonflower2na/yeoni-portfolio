@@ -1,3 +1,7 @@
+![업무 현황 조회](/ax/images/mm-task-status.jpg)
+![이미지 생성](/ax/images/mm-image-generate.jpg)
+![이미지 편집](/ax/images/mm-image-edit.jpg)
+
 ## 실험 주제
 
 노션에 쌓인 팀 업무기록과 회의록을 헤르메스 에이전트가 읽고, Mattermost에서 요청하면 현재 업무를 상태별로 자동 정리하도록 구성했습니다.

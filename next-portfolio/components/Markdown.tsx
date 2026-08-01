@@ -1,15 +1,28 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 /**
  * 의존성 없는 경량 마크다운 렌더러.
  * 지원: #~#### 제목, - / * 목록, 1. 순서 목록, > 인용, --- 구분선,
- *       ``` 코드블록, **굵게**, `인라인 코드`, [링크](url)
+ *       ``` 코드블록, **굵게**, `인라인 코드`, [링크](url), ![캡션](이미지)
  * 문단 내 줄바꿈은 원문 그대로 <br />로 유지한다.
+ * 한 줄 전체가 이미지면 캡션이 붙은 figure로 렌더링하고, 클릭하면 확대해서 볼 수 있다.
  */
 
-const INLINE_PATTERN = /(\*\*[^*]+\*\*|`[^`]+`|\[[^\]]+\]\([^)]+\))/g
+interface ZoomTarget {
+  src: string
+  alt: string
+}
+
+/** 확대 보기 상태 — 같은 묶음의 이미지를 넘겨볼 수 있도록 목록과 현재 위치를 함께 갖는다 */
+interface ZoomState {
+  items: ZoomTarget[]
+  index: number
+}
+
+const INLINE_PATTERN = /(\*\*[^*]+\*\*|`[^`]+`|!?\[[^\]]*\]\([^)]+\))/g
+const IMAGE_LINE = /^!\[([^\]]*)\]\(([^)]+)\)$/
 
 function renderInline(text: string, keyBase: string): React.ReactNode[] {
   const nodes: React.ReactNode[] = []
@@ -27,6 +40,12 @@ function renderInline(text: string, keyBase: string): React.ReactNode[] {
       nodes.push(<strong key={key}>{token.slice(2, -2)}</strong>)
     } else if (token.startsWith('`')) {
       nodes.push(<code key={key}>{token.slice(1, -1)}</code>)
+    } else if (token.startsWith('![')) {
+      const split = token.indexOf('](')
+      nodes.push(
+        // eslint-disable-next-line @next/next/no-img-element
+        <img key={key} src={token.slice(split + 2, -1)} alt={token.slice(2, split)} />
+      )
     } else {
       const split = token.indexOf('](')
       nodes.push(
@@ -57,6 +76,33 @@ function renderMultiline(text: string, keyBase: string): React.ReactNode[] {
 }
 
 export default function Markdown({ source }: { source: string }) {
+  const [zoomed, setZoomed] = useState<ZoomState | null>(null)
+
+  // 확대 보기 중에는 Esc로 닫고, 좌우 방향키로 넘기고, 배경 스크롤을 막는다
+  useEffect(() => {
+    if (!zoomed) return
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setZoomed(null)
+        return
+      }
+      if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return
+      const step = e.key === 'ArrowRight' ? 1 : -1
+      setZoomed((prev) =>
+        prev
+          ? { ...prev, index: (prev.index + step + prev.items.length) % prev.items.length }
+          : prev
+      )
+    }
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    window.addEventListener('keydown', onKeyDown)
+    return () => {
+      window.removeEventListener('keydown', onKeyDown)
+      document.body.style.overflow = previousOverflow
+    }
+  }, [zoomed])
+
   const lines = source.replace(/\r\n/g, '\n').split('\n')
   const blocks: React.ReactNode[] = []
   let paragraph: string[] = []
@@ -95,6 +141,55 @@ export default function Markdown({ source }: { source: string }) {
         <pre key={`code${seq++}`}>
           <code>{code.join('\n')}</code>
         </pre>
+      )
+      continue
+    }
+
+    // 한 줄 전체가 이미지 → figure. 연달아 오면 한 줄 갤러리로 묶는다.
+    if (IMAGE_LINE.test(trimmed)) {
+      flushParagraph()
+      const figures: RegExpMatchArray[] = []
+
+      while (i < lines.length) {
+        const current = lines[i].trim()
+        if (current === '') {
+          // 빈 줄 뒤에도 이미지가 이어지면 같은 묶음으로 본다
+          let next = i + 1
+          while (next < lines.length && lines[next].trim() === '') next++
+          if (next < lines.length && IMAGE_LINE.test(lines[next].trim())) {
+            i = next
+            continue
+          }
+          break
+        }
+        const matched = current.match(IMAGE_LINE)
+        if (!matched) break
+        figures.push(matched)
+        i++
+      }
+
+      const key = `fig${seq++}`
+      // 같은 묶음의 이미지는 확대 상태에서 서로 넘겨볼 수 있다
+      const groupItems: ZoomTarget[] = figures.map((fig) => ({ src: fig[2], alt: fig[1] }))
+      const rendered = figures.map((fig, idx) => (
+        <figure key={`${key}-${idx}`}>
+          <button
+            type="button"
+            className="ax-zoom"
+            onClick={() => setZoomed({ items: groupItems, index: idx })}
+            aria-label={fig[1] ? `${fig[1]} 크게 보기` : '이미지 크게 보기'}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={fig[2]} alt={fig[1]} loading="lazy" />
+          </button>
+          {fig[1] && <figcaption>{fig[1]}</figcaption>}
+        </figure>
+      ))
+
+      blocks.push(
+        figures.length > 1
+          ? <div className="ax-gallery" key={key}>{rendered}</div>
+          : <div key={key}>{rendered}</div>
       )
       continue
     }
@@ -177,5 +272,79 @@ export default function Markdown({ source }: { source: string }) {
 
   flushParagraph()
 
-  return <div className="ax-markdown">{blocks}</div>
+  return (
+    <>
+      <div className="ax-markdown">{blocks}</div>
+
+      {zoomed && (
+        <div
+          className="ax-lightbox"
+          role="dialog"
+          aria-modal="true"
+          onClick={() => setZoomed(null)}
+        >
+          <button
+            type="button"
+            className="ax-lightbox-close"
+            onClick={() => setZoomed(null)}
+            aria-label="닫기"
+          >
+            ×
+          </button>
+
+          {zoomed.items.length > 1 && (
+            <button
+              type="button"
+              className="ax-lightbox-nav prev"
+              onClick={(e) => {
+                e.stopPropagation()
+                setZoomed((prev) =>
+                  prev
+                    ? { ...prev, index: (prev.index - 1 + prev.items.length) % prev.items.length }
+                    : prev
+                )
+              }}
+              aria-label="이전 이미지"
+            >
+              ‹
+            </button>
+          )}
+
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={zoomed.items[zoomed.index].src}
+            alt={zoomed.items[zoomed.index].alt}
+            onClick={(e) => e.stopPropagation()}
+          />
+
+          {zoomed.items.length > 1 && (
+            <button
+              type="button"
+              className="ax-lightbox-nav next"
+              onClick={(e) => {
+                e.stopPropagation()
+                setZoomed((prev) =>
+                  prev ? { ...prev, index: (prev.index + 1) % prev.items.length } : prev
+                )
+              }}
+              aria-label="다음 이미지"
+            >
+              ›
+            </button>
+          )}
+
+          <div className="ax-lightbox-info">
+            {zoomed.items[zoomed.index].alt && (
+              <p className="ax-lightbox-caption">{zoomed.items[zoomed.index].alt}</p>
+            )}
+            {zoomed.items.length > 1 && (
+              <p className="ax-lightbox-count">
+                {zoomed.index + 1} / {zoomed.items.length}
+              </p>
+            )}
+          </div>
+        </div>
+      )}
+    </>
+  )
 }

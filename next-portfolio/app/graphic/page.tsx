@@ -56,7 +56,7 @@ export default function DesignPage() {
 
   // ── Set body background on mount ───────────────────────────────────────────
   useEffect(() => {
-    document.body.style.backgroundColor = 'var(--white)'
+    document.body.style.backgroundColor = 'var(--background)'
     return () => {
       document.body.style.backgroundColor = ''
     }
@@ -165,14 +165,17 @@ export default function DesignPage() {
         className={`hover-image${hoverVisible ? ' visible' : ''}`}
         id="hover-image"
       >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          ref={hoverImgRef}
-          src={hoverImageSrc}
-          alt="hover image"
-          className={imgOrientation}
-          onLoad={handleImgLoad}
-        />
+        {/* src가 빈 문자열이면 브라우저가 현재 페이지를 다시 요청하므로 값이 있을 때만 렌더 */}
+        {hoverImageSrc && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            ref={hoverImgRef}
+            src={hoverImageSrc}
+            alt="hover image"
+            className={imgOrientation}
+            onLoad={handleImgLoad}
+          />
+        )}
       </div>
 
       {/* Footer */}

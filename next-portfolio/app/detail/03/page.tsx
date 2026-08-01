@@ -24,7 +24,8 @@ export default function Detail03() {
           {/* LEFT */}
           <div className="detail-left">
             <div className="detail-video">
-              <video src="/assets/videos/kca-demo.mp4" controls />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/assets/images/project3.jpg" alt="Yeoni&#39;s Portfolio" />
             </div>
           </div>
 

@@ -24,7 +24,8 @@ export default function Detail02() {
           {/* LEFT */}
           <div className="detail-left">
             <div className="detail-video">
-              <video src="/assets/videos/kca-demo.mp4" controls />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/assets/images/project2-2.JPG" alt="인터파크 티켓 리뉴얼" />
             </div>
           </div>
 

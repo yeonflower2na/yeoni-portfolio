@@ -26,7 +26,7 @@ const PROJECTS: ProjectItem[] = [
     textName: 'Samitech',
     siteLabel: '사이트 바로가기',
     siteHref: 'https://www.samitech.kr/',
-    detailHref: 'https://www.samitech.kr/',
+    detailHref: '/detail/06',
   },
   {
     index: 1,
