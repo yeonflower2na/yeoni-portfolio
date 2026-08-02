@@ -8,6 +8,10 @@ build/
 
 # 로그
 *.log
+*.stackdump
+
+# 로컬 작업 설정 (글쓰기 skill 등)
+.claude/
 
 # 테스트 산출물
 playwright-report/
