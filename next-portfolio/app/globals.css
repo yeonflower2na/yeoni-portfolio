@@ -340,8 +340,9 @@ header{
   padding: 10px 10px;
 }
 .navigation li:nth-child(1) a img{
-  width: 17px;
-  height: 17px;
+  /* svg viewBox를 -1 -1 19 19로 넓혀 획 잘림을 없앴고, 그만큼 크기를 보정 */
+  width: 19px;
+  height: 19px;
   object-fit: contain;
 }
 .navigation a:nth-child(1).active img{
