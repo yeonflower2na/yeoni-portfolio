@@ -336,6 +336,9 @@ export default function AboutPage() {
         {/* Horizontal scroll: page3 + footer (fixed, slides in from right) */}
         <section className="horizontal-scroll" id="aboutMe" ref={horizontalScrollRef}>
           <div className="page" id="page3">
+            <button className="back-button" onClick={moveToPage2} aria-label="이전으로">
+              <i className="fa-solid fa-arrow-left"></i> BACK
+            </button>
             <div className="skills-section">
               <h2 className="slide-title serif-text">SKILLS</h2>
               <div className="skills-container">

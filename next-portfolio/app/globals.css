@@ -1640,6 +1640,39 @@ body.default-background {
   width: 100%;
   height: auto;
 }
+
+/* SKILLS 제목 — 정의가 없어 왼쪽으로 붙어 있던 것을 가운데로 */
+.slide-title {
+  text-align: center;
+  padding-top: 100px;
+  margin-bottom: 30px;
+}
+
+/* page3에서 이전 화면으로 돌아가는 버튼 */
+.back-button {
+  position: absolute;
+  top: 120px;
+  left: 60px;
+  z-index: 10;
+  border: 0;
+  background: none;
+  padding: 0;
+  color: #6d7074;
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+}
+
+.back-button i {
+  margin-right: 0.35rem;
+}
+
+.back-button:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
 .skills-container {
   width: 100%;
   height: 700px;
