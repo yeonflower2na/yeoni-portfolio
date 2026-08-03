@@ -40,6 +40,7 @@ export default function DesignPage() {
   const [hoverImageSrc, setHoverImageSrc]     = useState('')
   const [hoverVisible, setHoverVisible]       = useState(false)
   const [imgOrientation, setImgOrientation]   = useState<'landscape' | 'portrait'>('portrait')
+  const [zoomedIndex, setZoomedIndex]         = useState<number | null>(null)
 
   const designSectionRef = useRef<HTMLElement>(null)
   const hoverImgRef      = useRef<HTMLImageElement>(null)
@@ -100,6 +101,28 @@ export default function DesignPage() {
     .slice()
     .sort((a, b) => parseYear(b.year) - parseYear(a.year))
 
+  // ── 확대 보기: Esc로 닫고, 좌우 방향키로 넘기고, 배경 스크롤을 막는다 ────────
+  const itemCount = filteredItems.length
+  useEffect(() => {
+    if (zoomedIndex === null) return
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setZoomedIndex(null)
+        return
+      }
+      if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return
+      const step = e.key === 'ArrowRight' ? 1 : -1
+      setZoomedIndex(prev => (prev === null ? prev : (prev + step + itemCount) % itemCount))
+    }
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    window.addEventListener('keydown', onKeyDown)
+    return () => {
+      window.removeEventListener('keydown', onKeyDown)
+      document.body.style.overflow = previousOverflow
+    }
+  }, [zoomedIndex, itemCount])
+
   // ── Row hover handlers ─────────────────────────────────────────────────────
   const handleRowMouseEnter = useCallback((imagePath: string) => {
     setHoverImageSrc(`/${imagePath}`)
@@ -145,8 +168,17 @@ export default function DesignPage() {
               <div
                 key={`${item.title}-${i}`}
                 className="row"
+                role="button"
+                tabIndex={0}
                 onMouseEnter={() => handleRowMouseEnter(item.image)}
                 onMouseLeave={handleRowMouseLeave}
+                onClick={() => setZoomedIndex(i)}
+                onKeyDown={e => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault()
+                    setZoomedIndex(i)
+                  }
+                }}
               >
                 <span className="num">{String(i + 1).padStart(2, '0')}</span>
                 <span className="category">{item.category}</span>
@@ -177,6 +209,73 @@ export default function DesignPage() {
           />
         )}
       </div>
+
+      {/* 확대 보기 */}
+      {zoomedIndex !== null && filteredItems[zoomedIndex] && (
+        <div
+          className="lightbox"
+          role="dialog"
+          aria-modal="true"
+          onClick={() => setZoomedIndex(null)}
+        >
+          <button
+            type="button"
+            className="lightbox-close"
+            onClick={() => setZoomedIndex(null)}
+            aria-label="닫기"
+          >
+            ×
+          </button>
+
+          {filteredItems.length > 1 && (
+            <button
+              type="button"
+              className="lightbox-nav prev"
+              onClick={e => {
+                e.stopPropagation()
+                setZoomedIndex(prev =>
+                  prev === null ? prev : (prev - 1 + filteredItems.length) % filteredItems.length
+                )
+              }}
+              aria-label="이전 이미지"
+            >
+              ‹
+            </button>
+          )}
+
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={filteredItems[zoomedIndex].image}
+            alt={filteredItems[zoomedIndex].title}
+            onClick={e => e.stopPropagation()}
+          />
+
+          {filteredItems.length > 1 && (
+            <button
+              type="button"
+              className="lightbox-nav next"
+              onClick={e => {
+                e.stopPropagation()
+                setZoomedIndex(prev =>
+                  prev === null ? prev : (prev + 1) % filteredItems.length
+                )
+              }}
+              aria-label="다음 이미지"
+            >
+              ›
+            </button>
+          )}
+
+          <div className="lightbox-info">
+            <p className="lightbox-caption">
+              {filteredItems[zoomedIndex].title} · {filteredItems[zoomedIndex].year}
+            </p>
+            <p className="lightbox-count">
+              {zoomedIndex + 1} / {filteredItems.length}
+            </p>
+          </div>
+        </div>
+      )}
 
       {/* Footer */}
       <div

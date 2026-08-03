@@ -2832,7 +2832,9 @@ body.default-background {
   cursor: zoom-in;
 }
 
-.ax-lightbox {
+/* AX 상세와 graphic 아카이브가 함께 쓰는 확대 보기 */
+.ax-lightbox,
+.lightbox {
   position: fixed;
   inset: 0;
   z-index: 999;
@@ -2852,7 +2854,8 @@ body.default-background {
   to { opacity: 1; }
 }
 
-.ax-lightbox img {
+.ax-lightbox img,
+.lightbox img {
   max-width: min(1100px, 92vw);
   max-height: 80vh;
   width: auto;
@@ -2863,14 +2866,16 @@ body.default-background {
   cursor: default;
 }
 
-.ax-lightbox-info {
+.ax-lightbox-info,
+.lightbox-info {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 8px;
 }
 
-.ax-lightbox-caption {
+.ax-lightbox-caption,
+.lightbox-caption {
   margin: 0;
   color: var(--white);
   font-size: 0.9rem;
@@ -2878,7 +2883,8 @@ body.default-background {
   opacity: 0.75;
 }
 
-.ax-lightbox-count {
+.ax-lightbox-count,
+.lightbox-count {
   margin: 0;
   color: var(--white);
   font-size: 0.8rem;
@@ -2888,7 +2894,8 @@ body.default-background {
 }
 
 /* 이전 / 다음 */
-.ax-lightbox-nav {
+.ax-lightbox-nav,
+.lightbox-nav {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -2904,35 +2911,42 @@ body.default-background {
   transition: background-color 0.2s ease;
 }
 
-.ax-lightbox-nav:hover {
+.ax-lightbox-nav:hover,
+.lightbox-nav:hover {
   background-color: rgba(255, 255, 255, 0.22);
 }
 
-.ax-lightbox-nav.prev {
+.ax-lightbox-nav.prev,
+.lightbox-nav.prev {
   left: 24px;
 }
 
-.ax-lightbox-nav.next {
+.ax-lightbox-nav.next,
+.lightbox-nav.next {
   right: 24px;
 }
 
 @media (max-width: 768px) {
-  .ax-lightbox-nav {
+  .ax-lightbox-nav,
+  .lightbox-nav {
     width: 44px;
     height: 44px;
     font-size: 1.8rem;
   }
 
-  .ax-lightbox-nav.prev {
+  .ax-lightbox-nav.prev,
+  .lightbox-nav.prev {
     left: 8px;
   }
 
-  .ax-lightbox-nav.next {
+  .ax-lightbox-nav.next,
+  .lightbox-nav.next {
     right: 8px;
   }
 }
 
-.ax-lightbox-close {
+.ax-lightbox-close,
+.lightbox-close {
   position: absolute;
   top: 22px;
   right: 26px;
@@ -2948,8 +2962,14 @@ body.default-background {
   transition: background-color 0.2s ease;
 }
 
-.ax-lightbox-close:hover {
+.ax-lightbox-close:hover,
+.lightbox-close:hover {
   background-color: rgba(255, 255, 255, 0.15);
+}
+
+/* 아카이브 목록 행 — 눌러서 크게 볼 수 있음을 알리기 위해 */
+.items-container .row {
+  cursor: pointer;
 }
 
 @media (max-width: 768px) {

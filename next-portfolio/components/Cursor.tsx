@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react';
 
 /** 커서가 커지는 대상 — 실제로 누를 수 있는 요소만 */
 const INTERACTIVE =
-  'a, button, input, textarea, select, label, summary, [role="button"], [onclick], .nav-item, .ax-zoom, .contact';
+  'a, button, input, textarea, select, label, summary, [role="button"], .nav-item, .ax-zoom, .contact';
 
 export default function Cursor() {
   const dotRef = useRef<HTMLDivElement>(null);
