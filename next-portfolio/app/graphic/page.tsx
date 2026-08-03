@@ -125,7 +125,8 @@ export default function DesignPage() {
 
   // ── Row hover handlers ─────────────────────────────────────────────────────
   const handleRowMouseEnter = useCallback((imagePath: string) => {
-    setHoverImageSrc(`/${imagePath}`)
+    // designData.json이 이미 /assets/... 절대경로라 앞에 슬래시를 덧붙이면 //assets/ 가 된다
+    setHoverImageSrc(imagePath)
     setHoverVisible(true)
   }, [])
 
