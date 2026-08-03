@@ -1,5 +1,14 @@
 [
   {
+    "id": "namecard-workflow",
+    "no": 3,
+    "category": "WORKFLOW",
+    "title": "Mattermost 요청으로 노션과 웹사이트까지 연결한 디지털 명함 워크플로우",
+    "summary": "명함 요청 한 번으로 노션 데이터베이스와 명함 웹사이트에 반영되도록 연결하고, 3D 명함과 받은 명함 관리 기능까지 만들어본 기록",
+    "date": "2026.08.02",
+    "file": "/ax/namecard-workflow.md"
+  },
+  {
     "id": "pd-reference-blueprint",
     "no": 1,
     "category": "AGENT",
