@@ -11,6 +11,19 @@
 /* font */
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
 
+/* 영문 기본 서체 — 가변 폰트 한 파일로 200~700 전 굵기 커버.
+   한글 글리프가 없으므로 한글은 자동으로 Pretendard로 폴백된다.
+   unicode-range에서 숫자(U+0030-0039)를 뺐다 → 숫자는 이 폰트를 건너뛰고
+   각 요소의 다음 폰트(기존 서체)로 렌더된다. 영문만 바꾸고 숫자는 유지하기 위함. */
+@font-face {
+  font-family: 'StackSansNotch';
+  src: url('/assets/font/StackSansNotch-VariableFont_wght.ttf') format('truetype');
+  font-weight: 200 700;
+  font-display: swap;
+  unicode-range: U+0020-002F, U+003A-007E, U+00A0-00FF, U+0131, U+0152-0153,
+    U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122,
+    U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
 @font-face {
   font-family: 'Supply-Regular';
   src: url('/assets/font/Supply-Regular.woff') format('woff');
@@ -137,7 +150,8 @@ html {
   scroll-behavior: smooth;
 }
 body {
-  font-family: 'HelveticaNeue', 'Pretendard-Regular', sans-serif;
+  /* 숫자는 StackSansNotch를 건너뛰고 기존 HelveticaNeue로 렌더된다 */
+  font-family: 'StackSansNotch', 'HelveticaNeue', 'Pretendard-Regular', sans-serif;
   color: var(--black);
   /* cursor: none; */
   background-color: var(--background);
@@ -193,10 +207,10 @@ h6 {
   font-weight: 800;
 }
 .header-text{
-  font-family: 'Supply-Regular';
+  font-family: 'StackSansNotch', 'Supply-Regular', 'Pretendard-Regular', sans-serif;
 }
 .serif-text{
-  font-family: 'TesseractDisplay';
+  font-family: 'StackSansNotch', 'TesseractDisplay', serif;
 }
 .motterdam-text{
   font-family: 'Motterdam';
@@ -837,12 +851,14 @@ html.has-custom-cursor * {
 #slide1{
   position: relative;
 }
+/* D 모델이 'to Deblisher'와 안내 문단 위에 겹쳐 글자를 가려서 왼쪽으로 물리고
+   폭을 조금 줄였다. 아래 .slide1-content 계열의 top 값과 한 세트로 맞춰져 있다. */
 #model-container{
   position: absolute;
-  width: 35%;
+  width: 32%;
   height: 100%;
-  left: 13%;
-  top: 50%;
+  left: 5%;
+  top: 53%;
   transform: translateY(-50%);
 }
 #slide1 h1 {
@@ -885,18 +901,18 @@ html.has-custom-cursor * {
   -webkit-text-stroke: 2px var(--white);
   color: transparent;
   position: absolute;
-  top: 22%;
+  top: 26%;
   left: 0;
 }
 #slide1 .slide-to{
   color: var(--white);
   position: absolute;
-  top: 27%;
+  top: 31%;
   left: 7.5%;
 }
 .slide1-content{
   position: absolute;
-  top: 60%;
+  top: 64%;
   left: 54%;
   transform: translate(-50%, -50%);
 }
@@ -917,10 +933,11 @@ html.has-custom-cursor * {
   top: 70%;
   font-weight: 300;
 }
+/* 문단과 캡션 사이가 비어 보여 간격을 좁히고, 모델을 왼쪽으로 옮긴 만큼 같이 따라간다 */
 .slide1-content .drag{
   position: absolute;
-  left: -35%;
-  top: 150%;
+  left: -104%;
+  top: 131%;
   font-family: 'neodgm';
   color: var(--gray);
   font-size: 1.5rem;
@@ -1154,7 +1171,7 @@ body.default-background {
   gap: 28px;
 }
 .preview-num {
-  font-family: 'supply', monospace;
+  font-family: 'StackSansNotch', 'supply', monospace;
   font-size: 0.8rem;
   color: rgba(0, 0, 0, 0.35);
   letter-spacing: 0.02em;
@@ -1177,7 +1194,7 @@ body.default-background {
   font-size: 0.8rem;
   color: rgba(0, 0, 0, 0.35);
   text-align: right;
-  font-family: 'supply', monospace;
+  font-family: 'StackSansNotch', 'supply', monospace;
 }
 /* Right image panel */
 .preview-image-panel {
@@ -1951,7 +1968,7 @@ body.default-background {
 }
 .project_text .num{
   display: inline-block;
-  font-family: 'Supply-Regular';
+  font-family: 'StackSansNotch', 'Supply-Regular', monospace;
   letter-spacing: 0;
   -webkit-text-stroke: 0;
   position: absolute;

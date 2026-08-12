@@ -173,17 +173,8 @@ export default function ThreeModel() {
   }, []);
 
   return (
-    <div
-      id="model-container"
-      ref={containerRef}
-      style={{
-        position: 'absolute',
-        width: '35%',
-        height: '100%',
-        left: '13%',
-        top: '50%',
-        transform: 'translateY(-50%)',
-      }}
-    />
+    // 위치·크기는 globals.css의 #model-container가 담당한다.
+    // 인라인 style로 중복 지정하면 CSS 쪽 수정이 먹지 않는다.
+    <div id="model-container" ref={containerRef} />
   );
 }
